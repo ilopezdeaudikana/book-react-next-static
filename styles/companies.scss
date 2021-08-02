@@ -1,0 +1,55 @@
+@import './variables';
+.companies {
+  width: 90%;
+  margin: 30px auto;
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  .panel {
+    box-shadow: 1px 1px 0 rgb(190, 190, 190);
+    width: 28.5%;
+    max-width: 280px;
+    margin: 1%;
+    padding: 1%;
+    position: relative;
+    background-color: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+    background-clip: padding-box;
+    outline: 0;
+    .panel-heading {
+      margin-top: 0;
+      padding: 0;
+      a {
+        display: block;
+        &:hover {
+          opacity: 0.8;
+        }
+        .img-responsive {
+          margin: 0;
+          width: 100%;
+          vertical-align: top;
+        }
+      }
+    }
+    .panel-body {
+      overflow-y: auto;
+    }
+  }
+}
+
+@media (max-width: 992px) {
+  .companies {
+    .panel {
+      width: 43.5%;
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .companies {
+    .panel {
+      width: 90%;
+    }
+  }
+}

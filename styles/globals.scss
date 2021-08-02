@@ -1,0 +1,20 @@
+@import './variables';
+@import './projects';
+@import './companies';
+
+.panel-heading {
+  &.page-header {
+    margin: 30px auto;
+    width: 90%;
+    &.back-button {
+      margin: 20px;
+    }
+    .panel-title {
+      color: $blue;
+      font-size: 22px;
+      font-weight: 300;
+      line-height: 1.1;
+      margin: 1% 0;
+    }
+  }
+}
