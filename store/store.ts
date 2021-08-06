@@ -1,14 +1,15 @@
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware, Store } from 'redux';
+import { createWrapper, Context } from 'next-redux-wrapper';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import createSagaMiddleware from 'redux-saga';
+import createSagaMiddleware, { Task } from 'redux-saga';
 import { combineReducers } from 'redux';
 import { companiesReducer } from './reducers/companies.reducer';
-import { currentProjectReducer, projectsReducer } from './reducers/projects.reducer';
+import {
+  currentProjectReducer,
+  projectsReducer,
+} from './reducers/projects.reducer';
 import companiesSaga from './sagas/companies.saga';
 import projectsSaga from './sagas/projects.saga';
-
-export const sagaMiddleware = createSagaMiddleware();
-const enhancers = composeWithDevTools(applyMiddleware(sagaMiddleware));
 
 const rootReducer = combineReducers({
   projects: projectsReducer,
@@ -16,12 +17,23 @@ const rootReducer = combineReducers({
   companies: companiesReducer,
 });
 
-export type State = ReturnType<typeof rootReducer>
+export type State = ReturnType<typeof rootReducer>;
 
-export const configureStore = () => {
-  return createStore(rootReducer, enhancers);
+export interface SagaStore extends Store<State> {
+  companiesTask?: Task;
+  projectsTask?: Task;
+}
+
+export const makeStore: any = (context: Context) => {
+
+  const sagaMiddleware = createSagaMiddleware();
+  const enhancers = composeWithDevTools(applyMiddleware(sagaMiddleware));
+  const store = createStore(rootReducer, enhancers);
+
+  (store as SagaStore).companiesTask = sagaMiddleware.run(companiesSaga);
+  (store as SagaStore).projectsTask = sagaMiddleware.run(projectsSaga);
+
+  return store;
 };
 
-export const store = configureStore();
-sagaMiddleware.run(companiesSaga);
-sagaMiddleware.run(projectsSaga);
+export const wrapper = createWrapper<Store<State>>(makeStore, { debug: true });

@@ -4,7 +4,7 @@ import { Menu } from 'antd';
 import { ArrowLeftOutlined } from '@ant-design/icons';
 import Link from 'next/link';
 
-export const MenuComponent = () => {
+export const MenuComponent = (props) => {
   const current = useCurrentPath();
   const router = useRouter();
 

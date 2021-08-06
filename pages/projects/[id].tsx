@@ -1,22 +1,15 @@
-import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useRouter } from 'next/router';
+import { useState } from 'react';
+import { connect } from 'react-redux';
+import { END } from 'redux-saga';
 import Image from 'next/image';
 import { Modal } from 'antd';
 import { fetchProject } from '../../store/actions/actions';
-import { State } from '../../store/store';
-const Project = () => {
+import { wrapper } from '../../store/store';
+import { getProjects } from '../../services/api.service';
+
+const Project = (project) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [modalImage, setModalImage] = useState('');
-  const dispatch = useDispatch();
-  const router = useRouter();
-  const { id } = router.query;
-
-  useEffect(() => {
-    if (id) {
-      dispatch(fetchProject(id as string));
-    }
-  }, [id, dispatch]);
 
   const showModal = (image: string) => {
     setModalImage(image);
@@ -28,7 +21,6 @@ const Project = () => {
     setIsModalVisible(false);
   };
 
-  const project = useSelector((state: State) => state.currentProject);
   return (
     <section className='projects'>
       <div className='project'>
@@ -80,4 +72,30 @@ const Project = () => {
   );
 };
 
-export default Project;
+export const getStaticProps = wrapper.getStaticProps(
+  // @ts-ignore
+  async ({ store, params }) => {
+    store.dispatch(fetchProject(params.id as string));
+    store.dispatch(END);
+    await (store as any).projectsTask.toPromise();
+    const project = (store as any).getState().currentProject;
+    return {
+      props: project,
+    };
+  }
+);
+
+export async function getStaticPaths() {
+  const projects = await getProjects();
+
+  // Get the paths we want to pre-render based on posts
+  const paths = projects.map((project) => ({
+    params: { id: project.id },
+  }));
+
+  // We'll pre-render only these paths at build time.
+  // { fallback: blocking } will server-render pages
+  // on-demand if the path doesn't exist.
+  return { paths, fallback: 'blocking' };
+}
+export default connect((state) => state)(Project);

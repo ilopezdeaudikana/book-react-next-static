@@ -1,22 +1,26 @@
-import { Fragment, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { connect } from 'react-redux';
+import { END } from 'redux-saga';
 import { CompanyList } from '../../components/companies/company-list';
-import { State } from '../../store/store';
 import { fetchCompanies } from '../../store/actions/actions';
-const Companies = () => {
-  const dispatch = useDispatch();
+import { wrapper } from '../../store/store';
 
-  useEffect(() => {
-    dispatch(fetchCompanies());
-  }, [dispatch]);
-
-  const companies = useSelector((state: State) => state.companies);
-
+const Companies = ({companies}) => {
   return (
-    <Fragment>
       <CompanyList companies={companies} />
-    </Fragment>
   );
 };
 
-export default Companies;
+export const getStaticProps = wrapper.getStaticProps(
+  // @ts-ignore
+  async ({ store, req, res, ...etc }) => {
+    store.dispatch(fetchCompanies());
+    store.dispatch(END);
+    await (store as any).companiesTask.toPromise();
+    const companies = (store as any).getState().companies;
+
+    return {
+      props: companies,
+    };
+  }
+);
+export default connect((state) => state)(Companies);
