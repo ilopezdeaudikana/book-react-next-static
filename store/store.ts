@@ -36,4 +36,4 @@ export const makeStore: any = (context: Context) => {
   return store;
 };
 
-export const wrapper = createWrapper<Store<State>>(makeStore, { debug: true });
+export const wrapper = createWrapper<Store<State>>(makeStore, { debug: process.env.NODE_ENV !== 'production' });
