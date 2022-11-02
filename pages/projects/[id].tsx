@@ -89,7 +89,6 @@ export async function getStaticPaths() {
   const projects = await getProjects();
 
   // Get the paths we want to pre-render based on posts
-  console.log(projects)
   const paths = projects ? projects.map((project) => ({
     params: { id: project.id },
   })) : [];
