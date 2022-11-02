@@ -1,0 +1,48 @@
+@import './variables';
+.projects {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  width: 90%;
+  margin: 30px auto;
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+
+.project {
+  margin: 20px;
+  .panel {
+    p {
+      margin-right: 1%;
+      span {
+        font-weight: 500;
+      }
+    }
+    .panel-title {
+      &.teaser {
+        padding-left: 1em;
+        margin: 0;
+      }
+    }
+  }
+  .panel-body {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    .flush {
+      margin: 1em;
+      cursor: pointer;
+      box-shadow: 1px 1px 0 rgb(190, 190, 190);
+      border: 1px solid #f3f3f3;
+      padding: 1%;
+      border-radius: 4px;
+      .thumbnail {
+        max-width: 325px;
+        border-radius: 2px;
+        &:hover {
+          opacity: 0.8;
+        }
+      }
+    }
+  }
+}
