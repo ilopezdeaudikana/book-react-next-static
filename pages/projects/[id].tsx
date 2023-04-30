@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { Modal } from 'antd';
 import { fetchProject } from '../../store/actions/actions';
 import { SagaStore, wrapper } from '../../store/store';
-import { getProjects } from '../../services/api.service';
+import data from '../../data';
 
 const Project = (project) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -84,16 +84,16 @@ export const getStaticProps = wrapper.getStaticProps(
 );
 
 export async function getStaticPaths() {
-  const projects = await getProjects();
+  const projects = data.projects;
 
   // Get the paths we want to pre-render based on posts
   const paths = projects ? projects.map((project) => ({
-    params: { id: project.id },
+    params: { id: project.id.toString() },
   })) : [];
 
   // We'll pre-render only these paths at build time.
   // { fallback: blocking } will server-render pages
   // on-demand if the path doesn't exist.
-  return { paths, fallback: 'blocking' };
+  return { paths, fallback: false };
 }
 export default connect((state) => state)(Project);

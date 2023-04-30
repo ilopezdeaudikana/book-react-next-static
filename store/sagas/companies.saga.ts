@@ -1,7 +1,6 @@
-import { call, put, takeLatest, all } from 'redux-saga/effects';
-import {
-  getCompanies,
-} from '../../services/api.service';
+import { put, takeLatest, all } from 'redux-saga/effects';
+import data from '../../data';
+
 import { Company } from '../models';
 
 export const LOAD_COMPANIES_SUCCESS = 'LOAD_COMPANIES_SUCCESS';
@@ -11,7 +10,7 @@ export const COMPANIES_FETCH_FAILED = 'COMPANIES_FETCH_FAILED';
 
 export function* fetchCompanies() {
   try {
-    const response: Company[] = yield call(getCompanies);
+    const response: Company[] = data.companies;// yield call(getCompanies);
     yield put({ type: LOAD_COMPANIES_SUCCESS, payload: response });
   } catch (e) {
     console.log(e);
