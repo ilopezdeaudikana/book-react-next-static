@@ -38,22 +38,12 @@ class WrappedApp extends App<AppInitialProps> {
 }
 
 if (
-  process.env.NODE_ENV === 'production' &&
-  typeof window !== 'undefined'
+  process.env.NODE_ENV === 'production'
 ) {
-  var console = ((oldCons) => {
-    return {
-      log: (...args) => {},
-      info: (...args) => {},
-      warn: (...args) => {},
-      error: (...args) => {
-        oldCons.error(...args)
-      },
-      ...oldCons
-    }
-  })(window.console)
-
-  window.console = console
+  console.log = (...args) => {};
+  console.info = (...args) => {};
+  console.warn = (...args) => {};
 }
+
 
 export default wrapper.withRedux(WrappedApp)
