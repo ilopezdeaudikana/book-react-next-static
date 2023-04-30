@@ -1,19 +1,11 @@
-import 'antd/dist/antd.css';
+import 'antd/dist/reset.css';
 import '../styles/globals.scss';
 
-import App, { AppInitialProps, AppContext } from 'next/app';
-import { Provider } from 'react-redux';
-import { SagaStore, wrapper } from '../store/store';
-import withReduxSaga from 'next-redux-saga';
+import App, { AppInitialProps } from 'next/app';
+import { wrapper } from '../store/store';
 import { MenuComponent } from '../components/menu/menu';
 import { Fragment } from 'react';
 import { END } from 'redux-saga';
-
-/*declare module 'next/dist/next-server/lib/utils' {
-  export interface NextPageContext {
-      store: any; //Store<State>;
-  }
-}*/
 
 class WrappedApp extends App<AppInitialProps> {
   public static getInitialProps = wrapper.getInitialAppProps(store => async context => {
@@ -26,8 +18,6 @@ class WrappedApp extends App<AppInitialProps> {
     // 2. Stop the saga if on server
     if (context.ctx.req) {
       store.dispatch(END);
-      // await (store as SagaStore).projectsTask.toPromise();
-      // await (store as SagaStore).companiesTask.toPromise();
     }
 
     // 3. Return props

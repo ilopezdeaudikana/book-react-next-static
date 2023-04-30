@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { END } from 'redux-saga';
 import { CompanyList } from '../../components/companies/company-list';
 import { fetchCompanies } from '../../store/actions/actions';
-import { wrapper } from '../../store/store';
+import { SagaStore, wrapper } from '../../store/store';
 
 const Companies = ({companies}) => {
   return (
@@ -11,12 +11,11 @@ const Companies = ({companies}) => {
 };
 
 export const getStaticProps = wrapper.getStaticProps(
-  // @ts-ignore
-  (store => async ({preview})  => {
+  ((store: SagaStore) => async ()  => {
     store.dispatch(fetchCompanies());
     store.dispatch(END);
-    await (store as any).companiesTask.toPromise();
-    const companies = (store as any).getState().companies;
+    await store.companiesTask.toPromise();
+    const companies = store.getState().companies;
 
     return {
       props: companies,

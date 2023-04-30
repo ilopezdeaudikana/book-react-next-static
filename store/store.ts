@@ -1,6 +1,6 @@
 import { createStore, applyMiddleware, Store } from 'redux';
 import { createWrapper, Context } from 'next-redux-wrapper';
-import createSagaMiddleware, { Task, SagaMiddlewareOptions } from 'redux-saga';
+import createSagaMiddleware, { Task } from 'redux-saga';
 import { combineReducers } from 'redux';
 import { companiesReducer } from './reducers/companies.reducer';
 import {
@@ -28,7 +28,6 @@ export const makeStore: any = (context: Context) => {
   const sagaMiddleware = createSagaMiddleware();
   const enhancers = applyMiddleware(sagaMiddleware);
   const store = createStore(rootReducer, enhancers);
-
 
   (store as SagaStore).companiesTask = sagaMiddleware.run(companiesSaga);
   (store as SagaStore).projectsTask = sagaMiddleware.run(projectsSaga);

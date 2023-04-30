@@ -21,19 +21,28 @@
       margin-top: 0;
       padding: 0;
       a {
-        display: block;
+        width: 280px;
+        height: 140px;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        position: relative;
+        border: 1px solid #ccbfbf;
+        border-radius: 4px;
         &:hover {
           opacity: 0.8;
         }
-        .img-responsive {
-          margin: 0;
-          width: 100%;
-          vertical-align: top;
+        .image {
+          width: calc(100% - 6px) !important;
+          height: calc(100% - 6px) !important;
+          left: 3px !important;
+          top: 3px !important;
         }
       }
     }
     .panel-body {
       overflow-y: auto;
+      margin-top: 10px;
     }
   }
 }

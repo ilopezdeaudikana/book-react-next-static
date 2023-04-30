@@ -35,7 +35,7 @@ export const MenuComponent = (props) => {
       {!current && (
         <div className='panel-heading page-header back-button'>
           <Link href='/projects'>
-            <ArrowLeftOutlined /> Back to projects
+            <ArrowLeftOutlined />
           </Link>
         </div>
       )}

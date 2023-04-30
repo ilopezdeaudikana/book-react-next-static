@@ -13,13 +13,18 @@ export const CompanyListRow = ({ company }) => {
   return (
     <div key={id} className='panel panel-default'>
       <header className='panel-heading'>
-        {teaser.map((image: any, index: number) => (
-          <a key={index} href={url[index]} target='_blank' rel='noreferrer'>
+        {teaser.map((image: string, index: number) => (
+          <a 
+            key={index} href={url[index]} target='_blank' rel='noreferrer'
+          > 
             <Image
               alt={title}
+              className={'image'}
               src={'/images/' + image}
-              width='280'
-              height='140'
+              priority
+              fill
+              sizes='100%'
+              style={{objectFit: id === '9' ? 'contain': 'unset'}}
             />
           </a>
         ))}

@@ -1,4 +1,4 @@
-import data from '../../../data';
+import data from '../data';
 const records = data.records;
 
 export default function handler(req, res) {

@@ -4,7 +4,7 @@ import { END } from 'redux-saga';
 import Image from 'next/image';
 import { Modal } from 'antd';
 import { fetchProject } from '../../store/actions/actions';
-import { wrapper } from '../../store/store';
+import { SagaStore, wrapper } from '../../store/store';
 import { getProjects } from '../../services/api.service';
 
 const Project = (project) => {
@@ -51,11 +51,10 @@ const Project = (project) => {
               ))}
               <Modal
                 title={project.title}
-                visible={isModalVisible}
+                open={isModalVisible}
                 onCancel={handleCancel}
                 footer={null}
                 width={600}
-                maskStyle={{ backgroundColor: 'white' }}
               >
                 <Image
                   src={'/images/' + modalImage}
@@ -73,12 +72,11 @@ const Project = (project) => {
 };
 
 export const getStaticProps = wrapper.getStaticProps(
-  // @ts-ignore
-  (store => async ({preview, params}) => {
+  ((store: SagaStore) => async ({ params }) => {
     store.dispatch(fetchProject(params.id as string));
     store.dispatch(END);
-    await (store as any)?.projectsTask.toPromise();
-    const project = (store as any)?.getState().currentProject;
+    await store.projectsTask.toPromise();
+    const project = store.getState().currentProject;
     return {
       props: project,
     };

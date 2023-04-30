@@ -6,7 +6,7 @@ module.exports = {
       images: 'lur2.jpg,lur3.jpg,lur4.jpg,lur5.jpg,lur6.jpg',
       url: 'http://www.lurterapianaturalak.com/gestor/',
       technologies: 'Angular 5, Php (CodeIgniter)',
-      title: 'Lur CMS',
+      title: 'Lur CMS'
     },
     {
       id: '12',
@@ -14,7 +14,7 @@ module.exports = {
       images: 'hp1.jpg,hp2.jpg,hp3.jpg,hp4.jpg,hp5.jpg,hp6.jpg',
       url: '',
       technologies: 'Php and Javascript',
-      title: 'hp mobility event',
+      title: 'hp mobility event'
     },
     {
       id: '11',
@@ -24,7 +24,7 @@ module.exports = {
       url: 'http://setfile.org/login.php',
       technologies:
         'Javascript (Mustache, Json, base64, canvas), CSS, HTML5 and Php. ',
-      title: 'Balclis CMS',
+      title: 'Balclis CMS'
     },
     {
       id: '9',
@@ -33,7 +33,7 @@ module.exports = {
       url: 'http://www.lurterapianaturalak.com/',
       technologies:
         'Php (CodeIgniter), JavaScript, HTML5 and CSS (bootstrap 3).',
-      title: 'Lur web site',
+      title: 'Lur web site'
     },
     {
       id: '10',
@@ -43,7 +43,7 @@ module.exports = {
       url: 'http://www.gafieiramiuda.com/',
       technologies:
         'Javascript (Facebook Api, Youtube API), HTML5 and CSS (bootstrap 3)',
-      title: 'Gafieira Miuda web site',
+      title: 'Gafieira Miuda web site'
     },
     {
       id: '4',
@@ -52,7 +52,7 @@ module.exports = {
         'circulo1.png,circulo2.png,circulo3.png,circulo4.png,circulo5.png,circulo6.png',
       url: '',
       technologies: 'Javascript, Php, Smarty, MySQL and CSS',
-      title: 'C\u00edrculo Creativo web site',
+      title: 'C\u00edrculo Creativo web site'
     },
     {
       id: '5',
@@ -60,7 +60,7 @@ module.exports = {
       images: 'gestor_circulo1.png,gestor_circulo2.png,gestor_circulo3.png',
       url: '',
       technologies: 'Javascript, Php, Smarty, MySQL and CSS',
-      title: 'C\u00edrculo Creativo CMS',
+      title: 'C\u00edrculo Creativo CMS'
     },
     {
       id: '7',
@@ -69,7 +69,7 @@ module.exports = {
         'puertas1.png,puertas2.png,puertas3.png,puertas4.png,puertas5.png',
       url: '',
       technologies: 'Actionscript 3',
-      title: 'Infinity web site',
+      title: 'Infinity web site'
     },
     {
       id: '2',
@@ -77,7 +77,7 @@ module.exports = {
       images: 'santamariapera1.png,santamariapera2.png,santamariapera3.png',
       url: 'http://www.santamariapera.com',
       technologies: 'Javascript (jQuery), Php and MySQL',
-      title: 'Santamaria & Pera web site',
+      title: 'Santamaria & Pera web site'
     },
     {
       id: '1',
@@ -85,7 +85,7 @@ module.exports = {
       images: 'gestor1.png,gestor2.png,gestor3.png,gestor4.png,gestor5.png',
       url: 'http://www.santamariapera.com',
       technologies: 'Javascript (jQuery), Php and MySQL',
-      title: 'Santamaria & Pera CMS',
+      title: 'Santamaria & Pera CMS'
     },
     {
       id: '6',
@@ -93,7 +93,7 @@ module.exports = {
       images: 'lluis_vila4.png,lluis_vila1.png,lluis_vila2.png,lluis_vila3.png',
       url: '',
       technologies: 'Javascript, HTML and CSS',
-      title: 'Lluis Vila web site',
+      title: 'Lluis Vila web site'
     },
     {
       id: '8',
@@ -102,8 +102,8 @@ module.exports = {
         'paulandjoe1.png,paulandjoe2.png,argiluma1.png,argiluma2.png,tango1.png,lur1.png,lur2.png',
       url: '',
       technologies: 'Javascript and Actionscript 3',
-      title: 'Previous projects',
-    },
+      title: 'Previous projects'
+    }
   ],
   companies: [
     {
@@ -116,7 +116,7 @@ module.exports = {
       url: ['http://setfile.net'],
       teaser: ['setfile.png'],
       period: '2012 - 2015',
-      city: 'Barcelona',
+      city: 'Barcelona'
     },
     {
       id: '2',
@@ -128,7 +128,7 @@ module.exports = {
       url: ['https://es.privalia.com/public/'],
       teaser: ['concatel-privalia.jpg'],
       period: 'February 2015 - February 2016',
-      city: 'Barcelona',
+      city: 'Barcelona'
     },
     {
       id: '3',
@@ -140,19 +140,19 @@ module.exports = {
       url: ['http://www.automatic.tv/'],
       teaser: ['altran-mediapro.jpg'],
       period: 'February 2016 - August 2016',
-      city: 'Barcelona',
+      city: 'Barcelona'
     },
     {
       id: '4',
       title: 'Sportdec',
-      job: 'Frontend developer',
+      job: 'Full-stack developer',
       description: '',
       technologies:
         'AngularJS, Ionic, Cordova, Node, Express, Mongo, Mongoose, Gulp, Bower, Karma, Jasmine, Mocha, Sass and Git',
       url: ['https://www.sportdec.com/'],
       teaser: ['sportdec.png'],
       period: 'August 2016 - February 2017',
-      city: 'Dublin',
+      city: 'Dublin'
     },
     {
       id: '5',
@@ -163,7 +163,7 @@ module.exports = {
       url: ['https://www.equifax.com/'],
       teaser: ['equifax.png'],
       period: 'February 2017 - December 2017',
-      city: 'Dublin',
+      city: 'Dublin'
     },
     {
       id: '6',
@@ -175,7 +175,7 @@ module.exports = {
       url: ['https://www.citi.com/'],
       teaser: ['citi.jpg'],
       period: 'December 2017 - September 2018',
-      city: 'Dublin',
+      city: 'Dublin'
     },
     {
       id: '7',
@@ -187,7 +187,7 @@ module.exports = {
       url: ['https://fireproofx.com'],
       teaser: ['fireproof-dugout.png'],
       period: 'September 2018 - January 2019',
-      city: 'Dublin',
+      city: 'Dublin'
     },
     {
       id: '8',
@@ -196,11 +196,33 @@ module.exports = {
       description: '',
       technologies:
         'Angular, Typescript, Es6, Webpack, Karma, Jasmine, Jest, Sass and Git',
-      url: ['https://www.softwareone.com/en-ie/our-offerings/pyracloud'],
-      teaser: ['softwareone-pyracloud.png'],
-      period: 'February 2019 - Now',
-      city: 'Dublin',
+      url: ['https://www.softwareone.com/en'],
+      teaser: ['softwareone.svg'],
+      period: 'February 2019 - October 2021',
+      city: 'Dublin'
     },
+    {
+      id: '9',
+      title: 'Lokker',
+      job: 'Frontend developer',
+      description: '',
+      technologies: 'React, Typescript, Redux, Sagas, Jest, Sass and Git.',
+      url: ['https://lokker.com/'],
+      teaser: ['lokker.png'],
+      period: 'October 2021 - January 2022',
+      city: 'Dublin'
+    },
+    {
+      id: '10',
+      title: 'CalypsoAI',
+      job: 'Frontend developer',
+      description: '',
+      technologies: 'Vue3, Typescript, Redux, Vite, Lerna, Storybook, Jest, Sass and Git.',
+      url: ['https://calypsoai.com/'],
+      teaser: ['calypso.svg'],
+      period: 'January 2022 - Now',
+      city: 'Dublin'
+    }
   ],
   projects: [
     { id: '1', title: 'Other projects', teaser: 'paulandjoe_proyecto.png' },
@@ -208,32 +230,32 @@ module.exports = {
     {
       id: '3',
       title: 'Santamaria & Pera CMS ',
-      teaser: 'santamariapera_gestor.png',
+      teaser: 'santamariapera_gestor.png'
     },
     {
       id: '4',
       title: 'Santamaria & Pera website',
-      teaser: 'santamariapera_proyecto.png',
+      teaser: 'santamariapera_proyecto.png'
     },
     {
       id: '5',
       title: 'Configurador Puertas Infinity',
-      teaser: 'puertas_proyecto.png',
+      teaser: 'puertas_proyecto.png'
     },
     {
       id: '6',
       title: 'C\u00edrculo Creativo CMS ',
-      teaser: 'circulo_gestor.png',
+      teaser: 'circulo_gestor.png'
     },
     {
       id: '7',
       title: 'C\u00edrculo Creativo website',
-      teaser: 'circulo_proyecto.png',
+      teaser: 'circulo_proyecto.png'
     },
     { id: '8', title: 'Gafieira Miuda', teaser: 'gafieira_proyecto.png' },
     { id: '9', title: 'Lur terapia naturalak', teaser: 'lurII_proyecto.png' },
     { id: '10', title: 'Balclis CMS ', teaser: 'balclis_proyecto.png' },
     { id: '11', title: 'hp mobility event', teaser: 'hp_proyecto.jpg' },
-    { id: '12', title: 'Lur CMS', teaser: 'lur1.jpg' },
-  ],
-};
+    { id: '12', title: 'Lur CMS', teaser: 'lur1.jpg' }
+  ]
+}
