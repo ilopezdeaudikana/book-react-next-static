@@ -39,7 +39,6 @@ class WrappedApp extends App<AppInitialProps> {
 
 if (
   process.env.NODE_ENV === 'production' &&
-  window &&
   typeof window !== 'undefined'
 ) {
   var console = ((oldCons) => {
