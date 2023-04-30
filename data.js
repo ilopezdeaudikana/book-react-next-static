@@ -2,7 +2,7 @@ module.exports = {
   records: [
     {
       id: '13',
-      proyectos_id: '12',
+      projectId: '12',
       images: 'lur2.jpg,lur3.jpg,lur4.jpg,lur5.jpg,lur6.jpg',
       url: 'http://www.lurterapianaturalak.com/gestor/',
       technologies: 'Angular 5, Php (CodeIgniter)',
@@ -10,7 +10,7 @@ module.exports = {
     },
     {
       id: '12',
-      proyectos_id: '11',
+      projectId: '11',
       images: 'hp1.jpg,hp2.jpg,hp3.jpg,hp4.jpg,hp5.jpg,hp6.jpg',
       url: '',
       technologies: 'Php and Javascript',
@@ -18,7 +18,7 @@ module.exports = {
     },
     {
       id: '11',
-      proyectos_id: '10',
+      projectId: '10',
       images:
         'balclis2.png,balclis5.png,balclis10.png,balclis8.png,balclis4.png,balclis7.png,balclis11.png',
       url: 'http://setfile.org/login.php',
@@ -28,7 +28,7 @@ module.exports = {
     },
     {
       id: '9',
-      proyectos_id: '9',
+      projectId: '9',
       images: 'lurII1.png,lurII2.png,lurII4.png,lurII3.png',
       url: 'http://www.lurterapianaturalak.com/',
       technologies:
@@ -37,7 +37,7 @@ module.exports = {
     },
     {
       id: '10',
-      proyectos_id: '8',
+      projectId: '8',
       images:
         'gafieira1.png,gafieira2.png,gafieira3.png,gafieira4.png,gafieira5.png,gafieira6.png,gafieira7.png',
       url: 'http://www.gafieiramiuda.com/',
@@ -47,7 +47,7 @@ module.exports = {
     },
     {
       id: '4',
-      proyectos_id: '7',
+      projectId: '7',
       images:
         'circulo1.png,circulo2.png,circulo3.png,circulo4.png,circulo5.png,circulo6.png',
       url: '',
@@ -56,7 +56,7 @@ module.exports = {
     },
     {
       id: '5',
-      proyectos_id: '6',
+      projectId: '6',
       images: 'gestor_circulo1.png,gestor_circulo2.png,gestor_circulo3.png',
       url: '',
       technologies: 'Javascript, Php, Smarty, MySQL and CSS',
@@ -64,7 +64,7 @@ module.exports = {
     },
     {
       id: '7',
-      proyectos_id: '5',
+      projectId: '5',
       images:
         'puertas1.png,puertas2.png,puertas3.png,puertas4.png,puertas5.png',
       url: '',
@@ -73,7 +73,7 @@ module.exports = {
     },
     {
       id: '2',
-      proyectos_id: '4',
+      projectId: '4',
       images: 'santamariapera1.png,santamariapera2.png,santamariapera3.png',
       url: 'http://www.santamariapera.com',
       technologies: 'Javascript (jQuery), Php and MySQL',
@@ -81,7 +81,7 @@ module.exports = {
     },
     {
       id: '1',
-      proyectos_id: '3',
+      projectId: '3',
       images: 'gestor1.png,gestor2.png,gestor3.png,gestor4.png,gestor5.png',
       url: 'http://www.santamariapera.com',
       technologies: 'Javascript (jQuery), Php and MySQL',
@@ -89,7 +89,7 @@ module.exports = {
     },
     {
       id: '6',
-      proyectos_id: '2',
+      projectId: '2',
       images: 'lluis_vila4.png,lluis_vila1.png,lluis_vila2.png,lluis_vila3.png',
       url: '',
       technologies: 'Javascript, HTML and CSS',
@@ -97,7 +97,7 @@ module.exports = {
     },
     {
       id: '8',
-      proyectos_id: '1',
+      projectId: '1',
       images:
         'paulandjoe1.png,paulandjoe2.png,argiluma1.png,argiluma2.png,tango1.png,lur1.png,lur2.png',
       url: '',

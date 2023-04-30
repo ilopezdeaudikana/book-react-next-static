@@ -22,8 +22,7 @@ const Project = (project) => {
   };
 
   return (
-    <section className='projects'>
-      <div className='project'>
+      <section className='project standalone'>
         {!project && <div>Loading projects...</div>}
         {project && (
           <div className='panel panel-default'>
@@ -66,14 +65,13 @@ const Project = (project) => {
             </div>
           </div>
         )}
-      </div>
-    </section>
+      </section>
   );
 };
 
 export const getStaticProps = wrapper.getStaticProps(
   ((store: SagaStore) => async ({ params }) => {
-    store.dispatch(fetchProject(params.id as string));
+    store.dispatch(fetchProject(params.id.toString()));
     store.dispatch(END);
     await store.projectsTask.toPromise();
     const project = store.getState().currentProject;

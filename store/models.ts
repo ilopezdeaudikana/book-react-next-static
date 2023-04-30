@@ -11,11 +11,11 @@ export interface Project {
 
 export interface ProjectDetail {
   id: string;
-  proyectos_id: string;
-  teaser: string;
+  projectId: string;
+  teaser?: string;
   title: string;
   technologies: string;
-  url: string[];
+  url: string | string[];
   images: string;
 }
 

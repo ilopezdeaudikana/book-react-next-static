@@ -11,6 +11,11 @@
 
 .project {
   margin: 20px;
+  &.standalone {
+    display: grid;
+    margin: 20px auto;
+    width: 90%;
+  }
   .panel {
     p {
       margin-right: 1%;

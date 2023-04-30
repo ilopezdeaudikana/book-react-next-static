@@ -1,5 +1,5 @@
 import { call, put, takeLatest, all } from 'redux-saga/effects';
-import { Action, Project } from '../models';
+import { Action, Project, ProjectDetail } from '../models';
 import data from '../../data';
 
 
@@ -21,6 +21,17 @@ export function* fetchProjects() {
   }
 }
 
+export function* fetchProject(action: Action) {
+  try {
+    const response: ProjectDetail = data.records.find(record => record.projectId === action.payload);
+    yield put({ type: PROJECT_FETCH_SUCCEEDED, payload: response });
+  } catch (e) {
+    console.log(e);
+    yield put({ type: PROJECT_FETCH_FAILED, message: e.message });
+  }
+}
+
+
 /*
   Starts fetch* on each dispatched `*_FETCH_REQUESTED` action.
   Allows concurrent fetches.
@@ -28,6 +39,7 @@ export function* fetchProjects() {
 function* projectsSaga() {
   yield all([
     takeLatest(PROJECTS_FETCH_REQUESTED, fetchProjects),
+    takeLatest(PROJECT_FETCH_REQUESTED, fetchProject),
   ]);
 }
 
