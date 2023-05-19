@@ -1,58 +1,65 @@
-import { useState } from 'react';
+import { useState } from 'react'
+import { Button, Form, Input } from 'antd'
 
 const ContactPage = () => {
-  const [email, setEmail] = useState('');
-  const [message, setMessage] = useState('');
-  const [status, setStatus] = useState('');
+  const [status, setStatus] = useState('')
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
+  const handleSubmit = async ({ email, message }) => {
     const response = await fetch('/api/send-email', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ email, message }),
-    });
+      body: JSON.stringify({ email, message })
+    })
 
-    const data = await response.json();
+    const data = await response.json()
 
     if (data.success) {
-      setStatus('Email sent successfully!');
+      setStatus('Email sent successfully!')
     } else {
-      setStatus('Failed to send email. Please try again.');
+      setStatus('Failed to send email. Please try again.')
     }
-  };
+  }
 
   return (
-    <div>
-      <h1>Contact Us</h1>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="email">Email:</label>
-          <input
-            type="email"
-            id="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="message">Message:</label>
-          <textarea
-            id="message"
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
-            required
-          ></textarea>
-        </div>
-        <button type="submit">Send Email</button>
-      </form>
-      {status && <p>{status}</p>}
+    <div className='contact'>
+      <div className='content'>
+        <Form onFinish={handleSubmit}>
+          <div>
+            <Form.Item
+              label='Email'
+              name='email'
+              rules={[
+                {
+                  required: true,
+                  type: 'email',
+                  message: 'This field is mandatory'
+                }
+              ]}
+            >
+              <Input placeholder="acme@whatever.com" />
+            </Form.Item>
+          </div>
+          <div className='row'>
+            <Form.Item
+              label='Message'
+              name='message'
+              rules={[{ required: true, message: 'This field is mandatory' }]}
+            >
+              <Input.TextArea />
+            </Form.Item>
+          </div>
+          <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+            <Button type='primary' htmlType='submit' style={{ backgroundColor: '#428bca' }}>
+              Submit
+            </Button>
+          </Form.Item>
+        </Form>
+        {status && <p>{status}</p>}
+      </div>
     </div>
-  );
-};
+  )
+}
 
-export default ContactPage;
+export default ContactPage

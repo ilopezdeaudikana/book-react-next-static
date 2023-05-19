@@ -9,7 +9,7 @@ export default async function handler(req, res) {
     const msg = {
       to: process.env.SENDGRID_SENDER,
       from: process.env.SENDGRID_SENDER,
-      subject: 'New Message from Contact Form',
+      subject: 'Book Contact Form',
       text: `From: ${email}\n\n${message}`,
     };
 

@@ -20,6 +20,10 @@ export const MenuComponent = (props) => {
       {
           key: 'companies',
           label: 'Companies',
+      },
+      {
+        key: 'contact',
+        label: 'Contact',
       }
     ];
 
