@@ -142,18 +142,18 @@ module.exports = {
       period: 'February 2016 - August 2016',
       city: 'Barcelona'
     },
-    {
-      id: '4',
-      title: 'Sportdec',
-      job: 'Full-stack developer',
-      description: '',
-      technologies:
-        'AngularJS, Ionic, Cordova, Node, Express, Mongo, Mongoose, Gulp, Bower, Karma, Jasmine, Mocha, Sass and Git',
-      url: ['https://www.sportdec.com/'],
-      teaser: ['sportdec.png'],
-      period: 'August 2016 - February 2017',
-      city: 'Dublin'
-    },
+//    {
+//      id: '4',
+//      title: 'Sportdec',
+//      job: 'Full-stack developer',
+//      description: '',
+//      technologies:
+//        'AngularJS, Ionic, Cordova, Node, Express, Mongo, Mongoose, Gulp, Bower, Karma, Jasmine, Mocha, Sass and Git',
+//      url: ['https://www.sportdec.com/'],
+//      teaser: ['sportdec.png'],
+//      period: 'August 2016 - February 2017',
+//      city: 'Dublin'
+//    },
     {
       id: '5',
       title: 'Equifax',
@@ -162,7 +162,7 @@ module.exports = {
       technologies: 'AngularJS, ES6, Gulp, Bower, Karma, Jasmine, Sass and Git',
       url: ['https://www.equifax.com/'],
       teaser: ['equifax.png'],
-      period: 'February 2017 - December 2017',
+      period: 'August 2016 - December 2017',//'February 2017 - December 2017',
       city: 'Dublin'
     },
     {
@@ -177,18 +177,18 @@ module.exports = {
       period: 'December 2017 - September 2018',
       city: 'Dublin'
     },
-    {
-      id: '7',
-      title: 'Alchemy Media',
-      job: 'Frontend developer',
-      description: '',
-      technologies:
-        'Angular, React, Es6, Webpack, Node, Express, Karma, Jasmine, Jest, Serverless, Sass and Git',
-      url: ['https://fireproofx.com'],
-      teaser: ['fireproof-dugout.png'],
-      period: 'September 2018 - January 2019',
-      city: 'Dublin'
-    },
+//    {
+//      id: '7',
+//      title: 'Alchemy Media',
+//      job: 'Frontend developer',
+//      description: '',
+//      technologies:
+//        'Angular, React, Es6, Webpack, Node, Express, Karma, Jasmine, Jest, Serverless, Sass and Git',
+//      url: ['https://fireproofx.com'],
+//      teaser: ['fireproof-dugout.png'],
+//      period: 'September 2018 - January 2019',
+//      city: 'Dublin'
+//    },
     {
       id: '8',
       title: 'SoftwareOne',
@@ -198,20 +198,20 @@ module.exports = {
         'Angular, Typescript, Es6, Webpack, Karma, Jasmine, Jest, Sass and Git',
       url: ['https://www.softwareone.com/en'],
       teaser: ['softwareone.svg'],
-      period: 'February 2019 - October 2021',
+      period: 'September 2018 - October 2021',// 'February 2019 - October 2021',
       city: 'Dublin'
     },
-    {
-      id: '9',
-      title: 'Lokker',
-      job: 'Frontend developer',
-      description: '',
-      technologies: 'React, Typescript, Redux, Sagas, Jest, Sass and Git.',
-      url: ['https://lokker.com/'],
-      teaser: ['lokker.png'],
-      period: 'October 2021 - January 2022',
-      city: 'Dublin'
-    },
+//    {
+//      id: '9',
+//      title: 'Lokker',
+//      job: 'Frontend developer',
+//      description: '',
+//      technologies: 'React, Typescript, Redux, Sagas, Jest, Sass and Git.',
+//      url: ['https://lokker.com/'],
+//      teaser: ['lokker.png'],
+//      period: 'October 2021 - January 2022',
+//      city: 'Dublin'
+//    },
     {
       id: '10',
       title: 'CalypsoAI',
@@ -220,7 +220,7 @@ module.exports = {
       technologies: 'Vue3, Typescript, Redux, Vite, Lerna, Storybook, Jest, Sass and Git.',
       url: ['https://calypsoai.com/'],
       teaser: ['calypso.svg'],
-      period: 'January 2022 - Now',
+      period: 'October 2021 - Now', //'January 2022 - Now',
       city: 'Dublin'
     }
   ],
