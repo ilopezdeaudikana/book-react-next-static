@@ -2,6 +2,7 @@ import 'antd/dist/reset.css'
 import '../styles/globals.scss'
 
 import App, { AppInitialProps } from 'next/app'
+import Script from 'next/script'
 import { wrapper } from '../store/store'
 import { MenuComponent } from '../components/menu/menu'
 import { Fragment } from 'react'
@@ -29,6 +30,21 @@ class WrappedApp extends App<AppInitialProps> {
   public render(): JSX.Element {
     const { Component, pageProps } = this.props
     return (
+      <Script strategy="afterInteractive" src="https://www.googletagmanager.com/gtag/js?id=G-X7V7DGPMQW"/>
+      <Script
+        id='google-analytics'
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{
+          __html: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-X7V7DGPMQW', {
+              page_path: window.location.pathname,
+            });
+          `,
+          }}
+      />
       <Fragment>
         <MenuComponent />
         <Component {...pageProps} />
