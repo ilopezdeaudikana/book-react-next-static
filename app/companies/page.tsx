@@ -10,7 +10,7 @@ export default async function Companies() {
     }
     const { companies } = await res.json()
 
-    return <CompanyList companies={companies} />
+    return <div />
   } catch (error) {
     return <p>{error}</p>
   }
