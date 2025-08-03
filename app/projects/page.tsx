@@ -5,14 +5,14 @@ export default async function Projects() {
     const res = await fetch('/api/projects', { cache: 'no-store' })
 
     if (!res.ok) {
-     throw('Failed to fetch data from API')
+     console.log('Failed to fetch data from API')
     }
     const { projects } = await res.json()
 
     return <ProjectList projects={projects} />
 
   } catch (error) {
-    return <p>{error}</p>
+    return <p>Error fetching data</p>
   }
 }
 
