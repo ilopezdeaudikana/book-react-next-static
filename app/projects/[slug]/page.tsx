@@ -4,7 +4,7 @@ import { Project } from '../../../components/project/project'
 export default async function ProjectPage({ params }) {
   const { slug } = await params
    try {
-   const res = await fetch(`/api/projects/${slug}`)
+   const res = await fetch(`/api/projects/${slug}`, { cache: 'no-store' })
 
     if (!res.ok) {
      throw('Failed to fetch data from API')
