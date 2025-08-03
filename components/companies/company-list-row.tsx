@@ -1,5 +1,6 @@
-import Image from 'next/image';
+import Image from 'next/image'
 export const CompanyListRow = ({ company }) => {
+  if(!company) return (<div>Error</div>)
   const {
     id,
     teaser,
@@ -9,7 +10,8 @@ export const CompanyListRow = ({ company }) => {
     description,
     technologies,
     url,
-  } = company;
+  } = company
+
   return (
     <div key={id} className='panel panel-default'>
       <header className='panel-heading'>
@@ -45,5 +47,5 @@ export const CompanyListRow = ({ company }) => {
         </p>
       </div>
     </div>
-  );
-};
+  )
+}
