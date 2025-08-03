@@ -17,7 +17,7 @@ export const CompanyList = ({ companies }) => {
   }, [dispatch, companies, status])
   return (
     <section className="companies">
-      {companies && companies.reverse().map((company: Company) =>
+      {companies && companies.map((company: Company) =>
         <CompanyListRow key={company.id} company={company} />
       )}
     </section>

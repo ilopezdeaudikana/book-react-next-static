@@ -1,8 +1,9 @@
 import { ProjectList } from '../../components/projects/project-list'
+import { url } from '../url'
 
 export default async function Projects() {
   try {
-    const res = await fetch('/api/projects', { cache: 'no-store' })
+    const res = await fetch(`${url}/api/projects`, { cache: 'no-store' })
 
     if (!res.ok) {
      console.log('Failed to fetch data from API')
