@@ -16,9 +16,9 @@ export async function POST(request: Request): Promise<NextResponse> {
 
   try {
     await sgMail.send(msg)
-    return NextResponse.json({ message: 'message sent successfully' })
+    return NextResponse.json({ success: 'message sent successfully' })
   } catch (error) {
     console.error('Error sending email:', error)
-    return NextResponse.json({ message: 'error sending message' })
+    return NextResponse.json({ failure: 'error sending message' })
   }
 }
