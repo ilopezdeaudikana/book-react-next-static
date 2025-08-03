@@ -11,7 +11,6 @@ export const CompanyList = ({ companies }) => {
   const { value, status } = useAppSelector((state) => state.companies)
 
   useEffect(() => {
-    // If the store is not yet hydrated, dispatch the action to set the value.
     if (status === Status.Idle) {
       dispatch(hydrate(companies))
     }
