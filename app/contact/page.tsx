@@ -1,12 +1,13 @@
 'use client'
 import { useState } from 'react'
 import { Button, Form, Input } from 'antd'
+import { url } from '../url'
 
 const ContactPage = () => {
   const [status, setStatus] = useState('')
 
   const handleSubmit = async ({ email, message }) => {
-    const response = await fetch('/api/send-email', {
+    const response = await fetch(`${url}/api/contact`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

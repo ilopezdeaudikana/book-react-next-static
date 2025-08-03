@@ -1,13 +1,12 @@
- import { configureStore, createListenerMiddleware } from '@reduxjs/toolkit'
-import { projectReducer, projectsReducer, companiesReducer } from './reducers'
+ import { configureStore } from '@reduxjs/toolkit'
+import { projectsReducer, companiesReducer } from './reducers'
 
 
 export const makeStore = () => {
   return configureStore({
     reducer: {
       companies: companiesReducer,
-      projects: projectsReducer,
-      project: projectReducer,
+      projects: projectsReducer
     },
     // Adding the listener middleware to the store
     middleware: (getDefaultMiddleware) =>
