@@ -17,7 +17,7 @@ export const ProjectList = ({ projects }) => {
   }, [dispatch, projects, status])
   return (
     <section className='projects'>
-      {projects.map((project) => (
+      {projects && projects.map((project) => (
         <ProjectListRow key={project.id} project={project} />
       ))}
     </section>
