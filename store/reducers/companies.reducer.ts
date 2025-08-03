@@ -22,4 +22,5 @@ export const companiesSlice = createSlice({
   },
 })
 
+export const { hydrate } = companiesSlice.actions
 export default companiesSlice.reducer
