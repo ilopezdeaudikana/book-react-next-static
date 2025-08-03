@@ -3,7 +3,7 @@ import apiData from '../../../../data'
 import { ProjectDetail, Project } from '../../../types'
 
 interface RouteContext {
-  params: { slug: string };
+  params: { slug: string[] }
 }
 export async function GET(request: Request, context: RouteContext) {
   const { slug  } = context.params
