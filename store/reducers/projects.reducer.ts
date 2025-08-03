@@ -1,39 +1,28 @@
-import { HYDRATE } from 'next-redux-wrapper'
-import { Action, Project, ProjectDetail } from '../models'
-import {
-  PROJECTS_FETCH_SUCCEEDED,
-  PROJECT_FETCH_SUCCEEDED
-} from '../sagas/projects.saga'
+import { createSlice } from '@reduxjs/toolkit'
+import { Project, Status } from '../../app/types'
 
-export const projectsReducer = (
-  state: Project[] = [],
-  action: Action
-): Project[] => {
-  switch (action.type) {
-    case HYDRATE:
-      return action.payload.projects ? [...action.payload.projects] : [...state]
-    case PROJECTS_FETCH_SUCCEEDED:
-      return action.payload && Array.isArray(action.payload)
-        ? [...action.payload]
-        : [...state]
-    default:
-      return [...state]
-  }
+export interface ProjectsState {
+  value: Project[]
+  status: Status
 }
 
-export const currentProjectReducer = (
-  state: ProjectDetail = {} as ProjectDetail,
-  action: Action
-): ProjectDetail => {
-  switch (action.type) {
-    case HYDRATE:
-      return { ...action.payload.currentProject }
-    case PROJECT_FETCH_SUCCEEDED:
-      return {
-        ...state,
-        ...action.payload
-      }
-    default:
-      return { ...state }
-  }
+const initialState: ProjectsState = {
+  value: [],
+  status: Status.Idle,
 }
+
+export const projectsSlice = createSlice({
+  name: 'Projects',
+  initialState,
+
+  reducers: {
+    hydrate: (state, action) => {
+      state.value = action.payload
+      state.status = Status.Succeeded
+    }
+  },
+})
+
+export const { hydrate } = projectsSlice.actions
+
+export default projectsSlice.reducer

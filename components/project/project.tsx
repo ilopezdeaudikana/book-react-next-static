@@ -1,25 +1,23 @@
-import { useState } from 'react';
-import { connect } from 'react-redux';
-import { END } from 'redux-saga';
-import Image from 'next/image';
-import { Modal } from 'antd';
-import { fetchProject } from '../../store/actions/actions';
-import { SagaStore, wrapper } from '../../store/store';
-import data from '../../data';
+'use client'
+import { useState } from 'react'
+import Image from 'next/image'
+import { Modal } from 'antd'
+import { ProjectDetail } from '../../app/types'
 
-const Project = (project) => {
-  const [isModalVisible, setIsModalVisible] = useState(false);
-  const [modalImage, setModalImage] = useState('');
+export const Project = ({ project }) => {
+
+  const [isModalVisible, setIsModalVisible] = useState(false)
+  const [modalImage, setModalImage] = useState('')
 
   const showModal = (image: string) => {
-    setModalImage(image);
-    setIsModalVisible(true);
-  };
+    setModalImage(image)
+    setIsModalVisible(true)
+  }
 
   const handleCancel = () => {
-    setModalImage('');
-    setIsModalVisible(false);
-  };
+    setModalImage('')
+    setIsModalVisible(false)
+  }
 
   return (
       <section className='project standalone'>
@@ -66,32 +64,6 @@ const Project = (project) => {
           </div>
         )}
       </section>
-  );
-};
-
-export const getStaticProps = wrapper.getStaticProps(
-  ((store: SagaStore) => async ({ params }) => {
-    store.dispatch(fetchProject(params.id.toString()));
-    store.dispatch(END);
-    await store.projectsTask.toPromise();
-    const project = store.getState().currentProject;
-    return {
-      props: project,
-    };
-  })
-);
-
-export async function getStaticPaths() {
-  const projects = data.projects;
-
-  // Get the paths we want to pre-render based on posts
-  const paths = projects ? projects.map((project) => ({
-    params: { id: project.id.toString() },
-  })) : [];
-
-  // We'll pre-render only these paths at build time.
-  // { fallback: blocking } will server-render pages
-  // on-demand if the path doesn't exist.
-  return { paths, fallback: false };
+  )
 }
-export default connect((state) => state)(Project);
+

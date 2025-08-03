@@ -1,4 +1,4 @@
-@import './variables';
+@use './variables' as *;
 .companies {
   width: 90%;
   margin: 30px auto;

@@ -1,7 +1,7 @@
-@import './variables';
-@import './projects';
-@import './companies';
-@import './contact';
+@use './variables' as *;
+@use './projects';
+@use './companies';
+@use './contact';
 
 .panel-heading {
   &.page-header {

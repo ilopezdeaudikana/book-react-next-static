@@ -23,5 +23,5 @@ export const ProjectListRow = ({ project }) => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}

@@ -1,11 +1,6 @@
-export interface Action {
-  type: string;
-  payload: any;
-}
-
 export interface Project {
   id: string;
-  teaser: string;
+  teaser?: string;
   title: string;
 }
 
@@ -29,4 +24,11 @@ export interface Company {
   teaser: string[];
   period: string;
   city: string;
+}
+
+export enum Status { 
+  Idle ='idle',
+  Loading = 'loading',
+  Failed = 'failed',
+  Succeeded = 'succeeded'
 }

@@ -1,19 +1,25 @@
-import { HYDRATE } from 'next-redux-wrapper'
-import { LOAD_COMPANIES_SUCCESS } from '../sagas/companies.saga'
-import { Company, Action } from '../models'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { Company, Status } from '../../app/types'
 
-export const companiesReducer = (state: Company[] = [], action: Action) => {
-  if (!action.payload) return state
-
-  switch (action.type) {
-    case HYDRATE:
-      return action.payload.companies ? [...action.payload.companies] : [...state]
-    case LOAD_COMPANIES_SUCCESS:
-      return action.payload && Array.isArray(action.payload)
-        ? [...action.payload]
-        : [...state]
-
-    default:
-      return [...state]
-  }
+export interface CompaniesState {
+  value: Company[]
+  status: Status
 }
+
+const initialState: CompaniesState = {
+  value: [],
+  status: Status.Idle,
+}
+
+export const companiesSlice = createSlice({
+  name: 'Companies',
+  initialState,
+  reducers: {
+    hydrate: (state, action) => {
+      state.value = action.payload
+      state.status = Status.Succeeded
+    }
+  },
+})
+
+export default companiesSlice.reducer

@@ -1,5 +1,5 @@
 
-import { Company } from '../../store/models';
+import { Company } from '../../app/types';
 import {CompanyListRow} from './company-list-row';
 
 export const CompanyList = ({ companies }) => {
@@ -9,5 +9,5 @@ export const CompanyList = ({ companies }) => {
         <CompanyListRow key={company.id} company={company} />
       )}
     </section>
-  );
-};
+  )
+}
