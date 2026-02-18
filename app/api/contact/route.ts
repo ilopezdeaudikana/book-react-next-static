@@ -15,7 +15,8 @@ export async function POST(request: Request): Promise<NextResponse> {
   }
 
   try {
-    await sgMail.send(msg)
+    const response = await sgMail.send(msg)
+    console.log('sendgrind response:', response)
     return NextResponse.json({ success: 'message sent successfully' })
   } catch (error) {
     console.error('Error sending email:', error)
