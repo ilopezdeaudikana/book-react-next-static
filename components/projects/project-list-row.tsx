@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 
-export const ProjectListRow = ({ project }) => {
+export const ProjectListRow = ({ project, index }) => {
   return (
     <div className='project'>
       <div className='panel panel-default'>
@@ -17,6 +17,7 @@ export const ProjectListRow = ({ project }) => {
                 width="320"
                 height="230"
                 className='img-thumbnail'
+                loading={index < 4 ? "eager" : "lazy"}
               />
             </Link>
           </div>
