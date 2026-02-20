@@ -1,16 +1,16 @@
 @use './variables' as *;
 .projects {
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  width: 90%;
+  width: 354px;
   margin: 30px auto;
   display: flex;
   justify-content: flex-start;
   flex-wrap: wrap;
   flex-direction: row;
+  gap: 8px;
 }
 
 .project {
-  margin: 20px;
   &.standalone {
     display: grid;
     margin: 20px auto;
@@ -51,3 +51,24 @@
     }
   }
 }
+
+  /* 2 Columns: (354 * 2) + 8 = 716px */
+  @media (min-width: 716px) {
+    .projects {
+      width: 716px;
+    }
+  }
+
+  /* 3 Columns: (354 * 3) + (8 * 2) + margin = 1078px + 30px */
+  @media (min-width: 1108px) {
+    .projects {
+      width: 1078px;
+    }
+  }
+
+  /* 4 Columns: (354 * 4) + (8 * 3) + margin = 1440px + 30px */
+  @media (min-width: 1470px) {
+    .projects {
+      width: 90%;
+    }
+  }
