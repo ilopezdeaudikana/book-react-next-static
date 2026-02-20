@@ -1,64 +1,67 @@
 @use './variables' as *;
+
 .companies {
-  width: 90%;
-  margin: 30px auto;
   display: flex;
-  justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: flex-start;
+    margin: 30px auto;
+    /* Default: 1 column wide */
+    width: 312px;
+}
+
+.company-card {
+  box-shadow: 1px 1px 0 rgb(190, 190, 190);
+  width: 312px;
+  flex: 0 0 312px;
+  height: 420px;
+  margin: 0;
+}
+
+.company-card-media {
+  display: grid;
+  gap: 8px;
+  width: 100%;
+}
+
+.company-card-media-link {
+  display: block;
+  width: 100%;
+}
+
+.company-card-media-frame {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  min-height: 140px;
+  position: relative;
+  border-radius: 4px;
+  background: #fff;
+}
+
+.company-card-tags {
+  display: flex;
+  gap: 4px;
   flex-wrap: wrap;
-  .panel {
-    box-shadow: 1px 1px 0 rgb(190, 190, 190);
-    width: 28.5%;
-    max-width: 312.25px;
-    margin: 1%;
-    padding: 1%;
-    position: relative;
-    background-color: #fff;
-    border: 1px solid rgba(0, 0, 0, 0.2);
-    border-radius: 4px;
-    background-clip: padding-box;
-    outline: 0;
-    .panel-heading {
-      margin-top: 0;
-      padding: 0;
-      a {
-        width: 280px;
-        height: 140px;
-        display: flex;
-        align-items: center;
-        justify-content: space-around;
-        position: relative;
-        border: 1px solid #ccbfbf;
-        border-radius: 4px;
-        &:hover {
-          opacity: 0.8;
-        }
-        .image {
-          width: calc(100% - 6px) !important;
-          height: calc(100% - 6px) !important;
-          left: 3px !important;
-          top: 3px !important;
-        }
-      }
-    }
-    .panel-body {
-      overflow-y: auto;
-      margin-top: 10px;
-    }
-  }
+  margin-top: 8px;
 }
 
-@media (max-width: 992px) {
-  .companies {
-    .panel {
-      width: 43.5%;
+  /* 2 Columns: (312 * 2) + 8 = 632px */
+  @media (min-width: 632px) {
+    .companies {
+      width: 632px;
     }
   }
-}
 
-@media (max-width: 600px) {
-  .companies {
-    .panel {
+  /* 3 Columns: (312 * 3) + (8 * 2) + margin = 952px + 30px */
+  @media (min-width: 982px) {
+    .companies {
+      width: 952px;
+    }
+  }
+
+  /* 4 Columns: (312 * 4) + (8 * 3) + margin = 1272px + 30px */
+  @media (min-width: 1302px) {
+    .companies {
       width: 90%;
     }
   }
-}

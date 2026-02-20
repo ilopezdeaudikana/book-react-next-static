@@ -1,6 +1,20 @@
+import { Card, Space, Tag, Typography } from 'antd'
 import Image from 'next/image'
-export const CompanyListRow = ({ company }) => {
-  if(!company) return (<div>Error</div>)
+import { Company } from '../../app/types'
+
+interface CompanyListRowProps {
+  company?: Company | null
+}
+
+export const CompanyListRow = ({ company }: CompanyListRowProps) => {
+  if (!company) {
+    return (
+      <Card style={{ width: '100%' }}>
+        <Typography.Text type='danger'>Error loading company</Typography.Text>
+      </Card>
+    )
+  }
+
   const {
     id,
     teaser,
@@ -12,40 +26,57 @@ export const CompanyListRow = ({ company }) => {
     url,
   } = company
 
+  const links = Array.isArray(url) ? url : [url]
+  const techItems = technologies.split(',').map((item) => item.trim()).filter(Boolean)
+
   return (
-    <div key={id} className='panel panel-default'>
-      <header className='panel-heading'>
-        {teaser.map((image: string, index: number) => (
-          <a 
-            key={index} href={url[index]} target='_blank' rel='noreferrer'
-          > 
-            <Image
-              alt={title}
-              className={'image'}
-              src={'/images/' + image}
-              priority
-              fill
-              sizes='100%'
-              style={{objectFit: id === '9' ? 'contain': 'unset'}}
-            />
-          </a>
-        ))}
-      </header>
-      <div className='panel-body'>
-        <p>{period}</p>
-        <p>
-          <span>Job title: </span>
-          {job}
-        </p>
-        <p>
-          <span>Tasks: </span>
-          {description}
-        </p>
-        <p>
-          <span>Stack: </span>
-          {technologies}
-        </p>
+    <Card key={id} title={title} className='company-card'>
+      <div className='company-card-media'>
+        {teaser.map((image: string, index: number) => {
+          const href = links[index] ?? links[0]
+          const media = (
+            <div className='company-card-media-frame'>
+              <Image
+                alt={title}
+                src={'/images/' + image}
+                priority
+                fill
+                sizes='312px'
+                style={{ objectFit: 'contain' }}
+              />
+            </div>
+          )
+
+          return href ? (
+            <a
+              key={image + index}
+              href={href}
+              target='_blank'
+              rel='noreferrer'
+              className='company-card-media-link'
+            >
+              {media}
+            </a>
+          ) : (
+            <div key={image + index}>{media}</div>
+          )
+        })}
       </div>
-    </div>
+
+      <Space vertical size={4} style={{ width: '100%' }}>
+        <Typography.Text strong>{period}</Typography.Text>
+        <Typography.Text>Job title: {job}</Typography.Text>
+        <Typography.Paragraph style={{ marginBottom: 0 }}>
+          Tasks: {description}
+        </Typography.Paragraph>
+        <div className='company-card-tags'>
+          {techItems.map((tech) => (
+            <Tag key={tech} color='blue'>
+              {tech}
+            </Tag>
+          ))}
+        </div>
+      </Space>
+    </Card>
   )
 }
