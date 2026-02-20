@@ -1,6 +1,6 @@
 'use client'
 import { useState } from 'react'
-import { Button, Form, Input } from 'antd'
+import { Button, Form, Input, Card, Space, Flex } from 'antd'
 import { url } from '../url'
 
 const ContactPage = () => {
@@ -24,44 +24,54 @@ const ContactPage = () => {
     }
   }
 
+
+
   return (
-    <div className='contact'>
-      <div className='content'>
-        <Form onFinish={handleSubmit}>
-          <div>
-            <Form.Item
-              label='Email'
-              name='email'
-              rules={[
-                {
-                  required: true,
-                  type: 'email',
-                  message: 'This field is mandatory'
-                }
-              ]}
-            >
-              <Input placeholder="acme@whatever.com" />
-            </Form.Item>
-          </div>
-          <div className='row'>
-            <Form.Item
-              label='Message'
-              name='message'
-              rules={[{ required: true, message: 'This field is mandatory' }]}
-            >
-              <Input.TextArea />
-            </Form.Item>
-          </div>
-          <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-            <Button type='primary' htmlType='submit' style={{ backgroundColor: '#428bca' }}>
-              Submit
-            </Button>
-          </Form.Item>
-        </Form>
-        {status && <p>{status}</p>}
-      </div>
-    </div>
+    <Flex gap="middle" vertical>
+      <Flex justify="center">
+        <Space vertical size={16}>
+          <Card title="Contact me" style={{ width: '100%' }}>
+            <div className='contact'>
+              <div className='content'>
+                <Form 
+                  onFinish={handleSubmit}
+                  labelCol={{ span: 6 }}
+                  labelAlign="left"
+                >
+                  <Form.Item
+                    label='Email'
+                    name='email'
+                    rules={[
+                      {
+                        required: true,
+                        type: 'email',
+                        message: 'This field is mandatory'
+                      }
+                    ]}
+                    >
+                    <Input placeholder="acme@whatever.com" />
+                  </Form.Item>
+                  <Form.Item
+                    label='Message'
+                    name='message'
+                    rules={[{ required: true, message: 'This field is mandatory' }]}
+                  >
+                    <Input.TextArea />
+                  </Form.Item>
+                  <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+                    <Button type='primary' htmlType='submit' style={{ backgroundColor: '#428bca' }}>
+                      Submit
+                    </Button>
+                  </Form.Item>
+                </Form>
+                {status && <p>{status}</p>}
+              </div>
+            </div>
+          </Card>
+        </Space>
+      </Flex>
+    </Flex>
   )
 }
 
-export default ContactPage
+      export default ContactPage
