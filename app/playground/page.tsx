@@ -1,14 +1,13 @@
-
 import { List } from '../../components/common/list'
-
 import { url } from '../url'
 
-export default async function Projects() {
+export default async function Playground() {
   try {
-    const res = await fetch(`${url}/api/projects`)
+
+    const res = await fetch(`${url}/api/playground`)
 
     if (!res.ok) {
-     console.log('Failed to fetch data from API')
+      console.log('Failed to fetch data from API')
     }
     const { projects } = await res.json()
 

@@ -5,7 +5,7 @@ module.exports = {
       projectId: '12',
       images: 'lur2.jpg,lur3.jpg,lur4.jpg,lur5.jpg,lur6.jpg',
       url: 'http://www.lurterapianaturalak.com/gestor/',
-      technologies: 'Angular 5, Php (CodeIgniter)',
+      technologies: 'React, Php (CodeIgniter)',
       title: 'Lur CMS'
     },
     {
@@ -32,7 +32,7 @@ module.exports = {
       images: 'lurII1.png,lurII2.png,lurII4.png,lurII3.png',
       url: 'http://www.lurterapianaturalak.com/',
       technologies:
-        'Php (CodeIgniter), JavaScript, HTML5 and CSS (bootstrap 3).',
+        'Php (CodeIgniter), React, HTML5 and CSS (bootstrap 3).',
       title: 'Lur web site'
     },
     {
@@ -42,7 +42,7 @@ module.exports = {
         'gafieira1.png,gafieira2.png,gafieira3.png,gafieira4.png,gafieira5.png,gafieira6.png,gafieira7.png',
       url: 'http://www.gafieiramiuda.com/',
       technologies:
-        'Javascript (Facebook Api, Youtube API), HTML5 and CSS (bootstrap 3)',
+        'React (Facebook Api, Youtube API), HTML5 and CSS (bootstrap 3)',
       title: 'Gafieira Miuda web site'
     },
     {
@@ -51,7 +51,7 @@ module.exports = {
       images:
         'circulo1.png,circulo2.png,circulo3.png,circulo4.png,circulo5.png,circulo6.png',
       url: '',
-      technologies: 'Javascript, Php, Smarty, MySQL and CSS',
+      technologies: 'React, Php, Smarty, MySQL and CSS',
       title: 'C\u00edrculo Creativo web site'
     },
     {
@@ -59,7 +59,7 @@ module.exports = {
       projectId: '6',
       images: 'gestor_circulo1.png,gestor_circulo2.png,gestor_circulo3.png',
       url: '',
-      technologies: 'Javascript, Php, Smarty, MySQL and CSS',
+      technologies: 'React, Php, Smarty, MySQL and CSS',
       title: 'C\u00edrculo Creativo CMS'
     },
     {
@@ -68,7 +68,7 @@ module.exports = {
       images:
         'puertas1.png,puertas2.png,puertas3.png,puertas4.png,puertas5.png',
       url: '',
-      technologies: 'Actionscript 3',
+      technologies: 'React',
       title: 'Infinity web site'
     },
     {
@@ -76,7 +76,7 @@ module.exports = {
       projectId: '4',
       images: 'santamariapera1.png,santamariapera2.png,santamariapera3.png',
       url: 'http://www.santamariapera.com',
-      technologies: 'Javascript (jQuery), Php and MySQL',
+      technologies: 'React, Php and MySQL',
       title: 'Santamaria & Pera web site'
     },
     {
@@ -84,7 +84,7 @@ module.exports = {
       projectId: '3',
       images: 'gestor1.png,gestor2.png,gestor3.png,gestor4.png,gestor5.png',
       url: 'http://www.santamariapera.com',
-      technologies: 'Javascript (jQuery), Php and MySQL',
+      technologies: 'React, Php and MySQL',
       title: 'Santamaria & Pera CMS'
     },
     {
@@ -92,7 +92,7 @@ module.exports = {
       projectId: '2',
       images: 'lluis_vila4.png,lluis_vila1.png,lluis_vila2.png,lluis_vila3.png',
       url: '',
-      technologies: 'Javascript, HTML and CSS',
+      technologies: 'React, HTML and CSS',
       title: 'Lluis Vila web site'
     },
     {
@@ -142,18 +142,18 @@ module.exports = {
       period: 'February 2016 - August 2016',
       city: 'Barcelona'
     },
-//    {
-//      id: '4',
-//      title: 'Sportdec',
-//      job: 'Full-stack developer',
-//      description: '',
-//      technologies:
-//        'AngularJS, Ionic, Cordova, Node, Express, Mongo, Mongoose, Gulp, Bower, Karma, Jasmine, Mocha, Sass ',
-//      url: ['https://www.sportdec.com/'],
-//      teaser: ['sportdec.png'],
-//      period: 'August 2016 - February 2017',
-//      city: 'Dublin'
-//    },
+    //    {
+    //      id: '4',
+    //      title: 'Sportdec',
+    //      job: 'Full-stack developer',
+    //      description: '',
+    //      technologies:
+    //        'AngularJS, Ionic, Cordova, Node, Express, Mongo, Mongoose, Gulp, Bower, Karma, Jasmine, Mocha, Sass ',
+    //      url: ['https://www.sportdec.com/'],
+    //      teaser: ['sportdec.png'],
+    //      period: 'August 2016 - February 2017',
+    //      city: 'Dublin'
+    //    },
     {
       id: '5',
       title: 'Equifax',
@@ -177,18 +177,18 @@ module.exports = {
       period: 'December 2017 - September 2018',
       city: 'Dublin'
     },
-//    {
-//      id: '7',
-//      title: 'Alchemy Media',
-//      job: 'Frontend developer',
-//      description: '',
-//      technologies:
-//        'Angular, React, Es6, Webpack, Node, Express, Karma, Jasmine, Jest, Serverless, Sass ',
-//      url: ['https://fireproofx.com'],
-//      teaser: ['fireproof-dugout.png'],
-//      period: 'September 2018 - January 2019',
-//      city: 'Dublin'
-//    },
+    //    {
+    //      id: '7',
+    //      title: 'Alchemy Media',
+    //      job: 'Frontend developer',
+    //      description: '',
+    //      technologies:
+    //        'Angular, React, Es6, Webpack, Node, Express, Karma, Jasmine, Jest, Serverless, Sass ',
+    //      url: ['https://fireproofx.com'],
+    //      teaser: ['fireproof-dugout.png'],
+    //      period: 'September 2018 - January 2019',
+    //      city: 'Dublin'
+    //    },
     {
       id: '8',
       title: 'SoftwareOne',
@@ -201,23 +201,23 @@ module.exports = {
       period: 'September 2018 - October 2021',// 'February 2019 - October 2021',
       city: 'Dublin'
     },
-//    {
-//      id: '9',
-//      title: 'Lokker',
-//      job: 'Frontend developer',
-//      description: '',
-//      technologies: 'React, Typescript, Redux, Sagas, Jest, Sass .',
-//      url: ['https://lokker.com/'],
-//      teaser: ['lokker.png'],
-//      period: 'October 2021 - January 2022',
-//      city: 'Dublin'
-//    },
+    //    {
+    //      id: '9',
+    //      title: 'Lokker',
+    //      job: 'Frontend developer',
+    //      description: '',
+    //      technologies: 'React, Typescript, Redux, Sagas, Jest, Sass .',
+    //      url: ['https://lokker.com/'],
+    //      teaser: ['lokker.png'],
+    //      period: 'October 2021 - January 2022',
+    //      city: 'Dublin'
+    //    },
     {
       id: '10',
       title: 'CalypsoAI',
       job: 'Frontend developer',
       description: '',
-      technologies: 'Vue3, Typescript, Redux, Vite, Lerna, Storybook, Jest, Sass',
+      technologies: 'Vue3, React, Typescript, Redux, Vite, Lerna, Storybook, Jest, Sass',
       url: ['https://calypsoai.com/'],
       teaser: ['calypso.svg'],
       period: 'October 2021 - Now', //'January 2022 - Now',
@@ -257,5 +257,17 @@ module.exports = {
     { id: '10', title: 'Balclis CMS ', teaser: 'balclis_proyecto.png' },
     { id: '11', title: 'hp mobility event', teaser: 'hp_proyecto.jpg' },
     { id: '12', title: 'Lur CMS', teaser: 'lur1.jpg' }
+  ],
+  playground: [
+    { id: '1', title: 'Interview prepping agent', teaser: 'prepper.png', url: 'https://prepper-opal.vercel.app/' }
+  ],
+  detail: [
+    {
+      id: '1',
+      playgroundId: '1',
+      images: '',
+      technologies: 'Mastra, React, Typescript',
+      title: 'Task generator for interview prepping'
+    }
   ]
 }

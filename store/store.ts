@@ -6,7 +6,8 @@ export const makeStore = () => {
   return configureStore({
     reducer: {
       companies: companiesReducer,
-      projects: projectsReducer
+      projects: projectsReducer,
+      playground: projectsReducer
     },
     // Adding the listener middleware to the store
     middleware: (getDefaultMiddleware) =>

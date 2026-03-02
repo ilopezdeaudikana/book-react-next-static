@@ -2,11 +2,13 @@ export interface Project {
   id: string;
   teaser?: string;
   title: string;
+  url?: string;
 }
 
 export interface ProjectDetail {
   id: string;
-  projectId: string;
+  projectId?: string;
+  playgroundId?: string;
   teaser?: string;
   title: string;
   technologies: string;

@@ -12,29 +12,33 @@ export const MenuComponent = (props) => {
     router.push(`/${e.key}`)
   }
 
-   const menuItems = [
-      {
-          key: 'projects',
-          label: 'Projects',
-      },
-      {
-          key: 'companies',
-          label: 'Companies',
-      },
-      {
-        key: 'contact',
-        label: 'Contact',
-      }
-    ]
+  const menuItems = [
+    {
+      key: 'projects',
+      label: 'Projects',
+    },
+    {
+      key: 'companies',
+      label: 'Companies',
+    },
+    {
+      key: 'playground',
+      label: 'Playground',
+    },
+    {
+      key: 'contact',
+      label: 'Contact',
+    }
+  ]
 
   return (
     <nav className='panel-heading page-header'>
-      <Menu 
-        onClick={handleClick} 
-        mode='horizontal' 
+      <Menu
+        onClick={handleClick}
+        mode='horizontal'
         items={menuItems}
       />
-        
+
       {!current && (
         <div className='back-button'>
           <Link href='/projects'>
