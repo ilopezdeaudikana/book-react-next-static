@@ -1,36 +1,32 @@
-This is my static portfolio. It was created using `Next` and all the power of `getStaticProps`, `React`, `Typescript`, `React hooks`, `Redux sagas` and `Antd`.
+# `Turborepo` Vite starter
 
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+This is a community-maintained example. If you experience a problem, please submit a pull request with a fix. GitHub Issues will be closed.
 
-## Getting Started
+## Using this example
 
-First, run the development server:
+Run the following command:
 
-```bash
-npm run dev
-# or
-yarn dev
+```sh
+npx create-turbo@latest -e with-vite-react
 ```
 
-Open []() with your browser to see the result.
+## What's inside?
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+This Turborepo includes the following packages and apps:
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [/api/hello](/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+### Apps and Packages
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+- `web`: react [vite](https://vitejs.dev) ts app
+- `@repo/ui`: a stub component library shared by `web` application
+- `@repo/eslint-config`: shared `eslint` configurations
+- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
 
-## Learn More
+Each package and app is 100% [TypeScript](https://www.typescriptlang.org/).
 
-To learn more about Next.js, take a look at the following resources:
+### Utilities
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+This Turborepo has some additional tools already setup for you:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- [TypeScript](https://www.typescriptlang.org/) for static type checking
+- [ESLint](https://eslint.org/) for code linting
+- [Prettier](https://prettier.io) for code formatting

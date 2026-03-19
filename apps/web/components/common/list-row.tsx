@@ -8,7 +8,7 @@ import { Project } from '../../app/types'
 export const ListItem = ({ item, index, href }: { item: Project, index: number, href?: string }) => {
   const { backPath } = useBackPath()
   const dest = href ? href : backPath + '/' + item.id
-  const target = href ? '_blanck' : undefined
+  const target = href ? '_blank' : undefined
   return (
     <div className='project'>
       <div className='panel panel-default'>
