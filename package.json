@@ -7,13 +7,20 @@
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "check-types": "tsc --noEmit"
   },
+  "dependencies": {
+    "zod": "4.3.6"
+  },
   "devDependencies": {
     "@testing-library/user-event": "^14.6.1",
     "@types/redux-mock-store": "^1.5.0",
+    "autoprefixer": "^10.4.27",
     "eslint": "^8.57.0",
+    "postcss": "^8.5.8",
     "prettier": "^3.2.5",
     "sass-embedded": "^1.97.3",
-    "turbo": "^2.8.19"
+    "tailwindcss": "^4.2.2",
+    "turbo": "^2.8.19",
+    "web": "^0.0.2"
   },
   "name": "turbo-all",
   "packageManager": "npm@10.9.3",
