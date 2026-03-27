@@ -1,36 +1,53 @@
-This is my static portfolio. It was created using `Next` and all the power of `getStaticProps`, `React`, `Typescript`, `React hooks`, `Redux sagas` and `Antd`.
+# apps/web
 
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+This app is the portfolio website for the project. Its goal is to present projects, companies, and career history in a clean browsable interface, while also offering a contact form that sends messages through SendGrid.
 
-## Getting Started
+## App goal
 
-First, run the development server:
+The web app is designed to:
+
+- display featured projects and project detail pages
+- show companies and work history
+- provide a contact page for inbound messages
+- serve as the public-facing front end of the repository
+
+## Tech used
+
+The application currently uses:
+
+- Next.js 16
+- React 19
+- TypeScript
+- App Router
+- Ant Design
+- Redux Toolkit
+- React Redux
+- Sass
+- SendGrid
+- Vercel Analytics
+- Vercel Speed Insights
+
+## Main areas
+
+- `app/projects`: project listing and project detail routes
+- `app/companies`: company and experience listing
+- `app/contact`: contact form UI
+- `app/api/contact`: email submission endpoint
+- `components/*`: shared UI components used across routes
+- `data.js`: portfolio and company data source
+
+## Development
+
+From the repository root:
 
 ```bash
 npm run dev
-# or
-yarn dev
 ```
 
-Open []() with your browser to see the result.
+Or from `apps/web` directly:
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+```bash
+npm run dev
+```
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [/api/hello](/api/hello). This endpoint can be edited in `pages/api/hello.js`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+The app runs on `http://localhost:3001`.
