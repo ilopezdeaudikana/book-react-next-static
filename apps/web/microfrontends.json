@@ -2,7 +2,8 @@
   "$schema": "https://openapi.vercel.sh/microfrontends.json",
   "version": "1",
   "applications": {
-    "memory": {
+    "book-react-next-static-memory": {
+      "packageName": "memory",
       "routing": [
         {
           "paths": [
