@@ -3,6 +3,7 @@
 import Image from 'next/image'
 import { useBackPath } from '../../app/back-path.provider'
 import { Project } from '../../app/types'
+import Link from 'next/link'
 
 export const ListItem = ({ item, index, href, isModule, url }: { item: Project, index: number, href?: string, isModule?: boolean, url?: string }) => {
   const { backPath } = useBackPath()
@@ -21,7 +22,7 @@ export const ListItem = ({ item, index, href, isModule, url }: { item: Project, 
         </header>
         <div className='panel-body'>
           <div className='flush'>
-            <a href={dest} target={target}>
+            <Link href={dest} target={target}>
               <Image
                 alt={item.title}
                 src={'/images/' + item.teaser}
@@ -30,7 +31,7 @@ export const ListItem = ({ item, index, href, isModule, url }: { item: Project, 
                 className='img-thumbnail'
                 loading={index < 4 ? "eager" : "lazy"}
               />
-            </a>
+            </Link>
           </div>
         </div>
       </div>
