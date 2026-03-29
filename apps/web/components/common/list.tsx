@@ -12,7 +12,7 @@ export const List = ({ items }: { items: Project[] }) => {
 
   const dispatch = useAppDispatch()
   const { setBackPath } = useBackPath()
-  const { value, status } = useAppSelector((state) => state[path.replace('/', '')])
+  const { _, status } = useAppSelector((state) => state[path.replace('/', '')])
 
   useEffect(() => {
     // If the store is not yet hydrated, dispatch the action to set the value.
@@ -25,7 +25,14 @@ export const List = ({ items }: { items: Project[] }) => {
   return (
     <section className='projects'>
       {items && items.map((project, index) => (
-        <ListItem key={project.id} item={project} index={index} href={path === '/projects' ? undefined : project.url }/>
+        <ListItem 
+          key={project.id} 
+          item={project} 
+          index={index} 
+          href={project.isModule ? undefined : project.url } 
+          isModule={project.isModule}
+          url={project.url}
+        />
       ))}
     </section>
   )

@@ -1,13 +1,17 @@
 'use client'
- 
-import Link from 'next/link'
+
 import Image from 'next/image'
 import { useBackPath } from '../../app/back-path.provider'
 import { Project } from '../../app/types'
 
-export const ListItem = ({ item, index, href }: { item: Project, index: number, href?: string }) => {
+export const ListItem = ({ item, index, href, isModule, url }: { item: Project, index: number, href?: string, isModule?: boolean, url?: string }) => {
   const { backPath } = useBackPath()
-  const dest = href ? href : backPath + '/' + item.id
+  const dest = href ? 
+    href : 
+    isModule && url ? 
+      url : 
+      backPath + '/' + item.id
+  
   const target = href ? '_blank' : undefined
   return (
     <div className='project'>
@@ -17,7 +21,7 @@ export const ListItem = ({ item, index, href }: { item: Project, index: number, 
         </header>
         <div className='panel-body'>
           <div className='flush'>
-            <Link href={dest} target={target}>
+            <a href={dest} target={target}>
               <Image
                 alt={item.title}
                 src={'/images/' + item.teaser}
@@ -26,7 +30,7 @@ export const ListItem = ({ item, index, href }: { item: Project, index: number, 
                 className='img-thumbnail'
                 loading={index < 4 ? "eager" : "lazy"}
               />
-            </Link>
+            </a>
           </div>
         </div>
       </div>

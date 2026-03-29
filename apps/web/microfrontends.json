@@ -1,0 +1,25 @@
+{
+  "$schema": "https://openapi.vercel.sh/microfrontends.json",
+  "version": "1",
+  "applications": {
+    "memory": {
+      "routing": [
+        {
+          "paths": [
+            "/memory", "/memory/:path*"
+          ]
+        }
+      ],
+      "development": {
+        "local": 5173,
+        "fallback": "https://showcase-turborepo-memory.vercel.app"
+      }
+    },
+    "web": {
+      "development": {
+        "local": 3001,
+        "fallback": "https://book-react-next-static.vercel.app"
+      }
+    }
+  }
+}

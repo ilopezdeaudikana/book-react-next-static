@@ -1,0 +1,12 @@
+.user {
+  display: flex;
+  flex-direction: column;
+  height: 130px;
+  .input {
+    margin-top: 5px;
+    padding: 10px;
+  }
+  .submit {
+    margin-top: 20px;
+  }
+}

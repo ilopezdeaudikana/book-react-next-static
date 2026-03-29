@@ -3,6 +3,7 @@ export interface Project {
   teaser?: string;
   title: string;
   url?: string;
+  isModule?: boolean;
 }
 
 export interface ProjectDetail {

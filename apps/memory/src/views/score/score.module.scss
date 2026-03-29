@@ -1,0 +1,12 @@
+.score {
+  display: flex;
+  flex-direction: column;
+  .congratulations {
+    width: 350px;
+  }
+  .value {
+    margin-top: 30px;
+    font-size: large;
+    width: 250px;
+  }
+}
