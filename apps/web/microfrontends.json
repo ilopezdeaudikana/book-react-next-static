@@ -13,7 +13,7 @@
       ],
       "development": {
         "local": 5173,
-        "fallback": "https://showcase-turborepo-memory.vercel.app"
+        "fallback": "https://book-react-next-static-memory.vercel.app/"
       }
     },
     "book-react-next-static": {
