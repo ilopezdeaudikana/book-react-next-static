@@ -192,7 +192,7 @@ module.exports = {
     {
       id: '8',
       title: 'SoftwareOne',
-      job: 'Frontend developer',
+      job: 'Senior Frontend developer',
       description: '',
       technologies:
         'Angular, Typescript, Es6, Webpack, Karma, Jasmine, Jest, Sass',
@@ -215,7 +215,7 @@ module.exports = {
     {
       id: '10',
       title: 'CalypsoAI',
-      job: 'Frontend developer',
+      job: 'Senior Frontend developer',
       description: '',
       technologies: 'Vue3, React, Typescript, Redux, Vite, Lerna, Storybook, Jest, Sass',
       url: ['https://calypsoai.com/'],
@@ -259,8 +259,8 @@ module.exports = {
     { id: '12', title: 'Lur CMS', teaser: 'lur1.jpg' }
   ],
   playground: [
+    { id: '2', title: 'Memory game', teaser: 'memory.png', url: '/memory/', isModule: true },
     { id: '1', title: 'Interview prepping agent', teaser: 'prepper.png', url: 'https://prepper-opal.vercel.app/' },
-    { id: '2', title: 'Memory game', teaser: 'prepper.png', url: '/memory/', isModule: true }
   ],
   detail: [
     {
