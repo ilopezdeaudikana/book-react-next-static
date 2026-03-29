@@ -1,0 +1,7 @@
+{
+  "rewrites": [
+    { "source": "/memory/assets/:path*", "destination": "/assets/:path*" },
+    { "source": "/memory", "destination": "/index.html" },
+    { "source": "/memory/:path*", "destination": "/:path*" }
+  ]
+}
