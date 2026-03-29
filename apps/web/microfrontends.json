@@ -7,7 +7,7 @@
       "routing": [
         {
           "paths": [
-            "/memory", "/memory/:path*", "/memory-assets/:path*"
+            "/memory/:path*"
           ]
         }
       ],
