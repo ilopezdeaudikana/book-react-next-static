@@ -15,7 +15,8 @@
         "fallback": "https://showcase-turborepo-memory.vercel.app"
       }
     },
-    "web": {
+    "book-react-next-static": {
+      "packageName": "web",
       "development": {
         "local": 3001,
         "fallback": "https://book-react-next-static.vercel.app"
