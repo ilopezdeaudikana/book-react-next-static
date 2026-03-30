@@ -1,6 +1,5 @@
 
 import { List } from '../../components/common/list'
-
 import { url } from '../url'
 
 export default async function Projects() {

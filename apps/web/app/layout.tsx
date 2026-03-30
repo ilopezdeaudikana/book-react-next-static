@@ -1,4 +1,4 @@
-import { MenuComponent } from '../components/menu/menu'
+import { Menu } from '../components/menu/menu'
 import StoreProvider from './store.provider'
 import { BackPathProvider } from './back-path.provider'
 import { Analytics } from '@vercel/analytics/next'
@@ -14,7 +14,7 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body>
-        <MenuComponent />
+        <Menu />
         <BackPathProvider>
           <StoreProvider>{children}</StoreProvider>
         </BackPathProvider>
