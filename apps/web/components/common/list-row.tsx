@@ -22,7 +22,7 @@ export const ListItem = ({ item, index, href, isModule, url }: { item: Project, 
         </header>
         <div className='panel-body'>
           <div className='flush'>
-            <Link href={dest} target={target}>
+            {isModule && url ? (<a href={dest} target={target}>
               <Image
                 alt={item.title}
                 src={'/images/' + item.teaser}
@@ -31,7 +31,17 @@ export const ListItem = ({ item, index, href, isModule, url }: { item: Project, 
                 className='img-thumbnail'
                 loading={index < 4 ? "eager" : "lazy"}
               />
-            </Link>
+            </a>)
+            : (<Link href={dest} target={target}>
+              <Image
+                alt={item.title}
+                src={'/images/' + item.teaser}
+                width="320"
+                height="230"
+                className='img-thumbnail'
+                loading={index < 4 ? "eager" : "lazy"}
+              />
+            </Link>)}
           </div>
         </div>
       </div>

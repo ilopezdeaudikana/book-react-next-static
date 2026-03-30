@@ -2,13 +2,12 @@
 import { useEffect } from 'react'
 import { useRouter, usePathname } from 'next/navigation'
 import { NAV_EVENT } from '@repo/ui'
-
+// Not really necessary since Next and react apps don't live in the same zone
 export const NavListener = () => {
   const router = useRouter()
   const path = usePathname()
   useEffect(() => {
     const handleNav = (event: CustomEvent) => {
-      console.log('EVER')
       const targetPath = event.detail.path
       // Prevent redundant navigation
       if (path !== targetPath) {

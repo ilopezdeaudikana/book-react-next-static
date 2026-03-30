@@ -1,8 +1,6 @@
 
 
 import { Menu } from 'antd'
-// import { ArrowLeftOutlined } from '@ant-design/icons'
-
 
 interface HeaderProps {
   onNavigate: (path: string) => void
@@ -36,14 +34,6 @@ export const Header = ({ onNavigate }: HeaderProps) => {
         mode='horizontal'
         items={menuItems}
       />
-
-      {/* {!current && (
-        <div className='back-button'>
-          <Link href='/projects'>
-            <ArrowLeftOutlined />
-          </Link>
-        </div>
-      )} */}
     </nav>
   )
 }

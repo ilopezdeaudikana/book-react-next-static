@@ -2,7 +2,8 @@
 import { useState } from 'react'
 import Image from 'next/image'
 import { Modal } from 'antd'
-import { ProjectDetail } from '../../app/types'
+import { ArrowLeftOutlined } from '@ant-design/icons'
+import Link from 'next/link'
 
 export const Project = ({ project }) => {
 
@@ -20,50 +21,57 @@ export const Project = ({ project }) => {
   }
 
   return (
-      <section className='project standalone'>
-        {!project && <div>Loading projects...</div>}
-        {project && (
-          <div className='panel panel-default'>
-            <header className='panel-heading'>
+    <section className='project standalone'>
+      {!project && <div>Loading projects...</div>}
+      {project && (
+        <div className='panel panel-default'>
+          <header className='panel-heading'>
+            <div className='back-button'>
+              <Link href='/projects'>
+                <ArrowLeftOutlined />
+              </Link>
+            </div>
+            <div>
               <h1 className='panel-title'>{project.title}</h1>
               <p>
                 <span>Stack</span>: {project.technologies}
               </p>
-            </header>
+            </div>
+          </header>
 
-            <div className='panel-body'>
-              {project.images?.split(',').map((image, index) => (
-                <div
-                  key={index}
-                  className='flush'
-                  onClick={() => showModal(image)}
-                >
-                  <Image
-                    src={'/images/mini/' + image}
-                    alt={project.title}
-                    width='320'
-                    height='230'
-                  />
-                </div>
-              ))}
-              <Modal
-                title={project.title}
-                open={isModalVisible}
-                onCancel={handleCancel}
-                footer={null}
-                width={600}
+          <div className='panel-body'>
+            {project.images?.split(',').map((image, index) => (
+              <div
+                key={index}
+                className='flush'
+                onClick={() => showModal(image)}
               >
                 <Image
-                  src={'/images/' + modalImage}
+                  src={'/images/mini/' + image}
                   alt={project.title}
-                  width='552'
-                  height='368'
+                  width='320'
+                  height='230'
                 />
-              </Modal>
-            </div>
+              </div>
+            ))}
+            <Modal
+              title={project.title}
+              open={isModalVisible}
+              onCancel={handleCancel}
+              footer={null}
+              width={600}
+            >
+              <Image
+                src={'/images/' + modalImage}
+                alt={project.title}
+                width='552'
+                height='368'
+              />
+            </Modal>
           </div>
-        )}
-      </section>
+        </div>
+      )}
+    </section>
   )
 }
 
