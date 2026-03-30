@@ -14,6 +14,9 @@ export const ListItem = ({ item, index, href, isModule, url }: { item: Project, 
       backPath + '/' + item.id
   
   const target = href ? '_blank' : undefined
+
+  const isDev = process.env.NODE_ENV === 'development'
+
   return (
     <div className='project'>
       <div className='panel panel-default'>
@@ -22,7 +25,7 @@ export const ListItem = ({ item, index, href, isModule, url }: { item: Project, 
         </header>
         <div className='panel-body'>
           <div className='flush'>
-            {isModule && url ? (<a href={dest} target={target}>
+            {isModule && url && isDev ? (<a href={dest} target={target}>
               <Image
                 alt={item.title}
                 src={'/images/' + item.teaser}
