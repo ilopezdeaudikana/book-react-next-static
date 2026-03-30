@@ -1,6 +1,8 @@
 .score {
   display: flex;
   flex-direction: column;
+  padding-top: 16px;
+
   .congratulations {
     width: 350px;
   }

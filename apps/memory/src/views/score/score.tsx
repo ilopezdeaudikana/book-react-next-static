@@ -1,24 +1,24 @@
-import { useSelector } from 'react-redux';
-import { State } from '../../types/models';
-import { useNavigate } from 'react-router-dom';
-import styles from './score.module.scss';
+import { useSelector } from 'react-redux'
+import { State } from '../../types/models'
+import { useNavigate } from 'react-router-dom'
+import styles from './score.module.scss'
 
 export const Score = () => {
 
-  const navigate = useNavigate();
-  const { name } = useSelector((state: State) => state.user);
-  const { value } = useSelector((state: State) => state.score);
+  const navigate = useNavigate()
+  const { name } = useSelector((state: State) => state.user)
+  const { value } = useSelector((state: State) => state.score)
 
   if (!name) {
-    navigate('/');
+    navigate('/')
   }
 
   return (
-    <div>
+    <div className='page' style={{ paddingTop: '1rem' }}>
       <button
         className='btn'
         onClick={() => {
-          navigate('/game');
+          navigate('/game')
         }}
       >
         New Game
@@ -35,5 +35,5 @@ export const Score = () => {
         </section>
       </div>
     </div>
-  );
-};
+  )
+}

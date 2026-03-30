@@ -4,7 +4,6 @@ import { User } from '../../types/models'
 import { useNavigate } from 'react-router-dom'
 import styles from './home.module.scss'
 import { setUser } from '../../store/slices/user-slice'
-import { Header, navigateTo } from '@repo/ui'
 
 export const Home = () => {
   const navigate = useNavigate()
@@ -25,7 +24,6 @@ export const Home = () => {
   }
   return (
     <>
-      <Header onNavigate={(path: string) => navigateTo(path)}/>
       <form
         onSubmit={handleSubmit}
         className={styles.user}

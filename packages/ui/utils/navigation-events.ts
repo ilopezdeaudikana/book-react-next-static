@@ -4,8 +4,11 @@ export interface NavEvent {
   path: string
 }
 
-export const navigateTo = (path: string) => {
-  const event = new CustomEvent<NavEvent>(NAV_EVENT, { detail: { path } })
-  console.log('dispatched')
-  window.dispatchEvent(event)
+export const navigateTo = (path: string, isReactZone?: boolean) => {
+  if (isReactZone) {
+    window.location.href = `/${path}`
+  } else {
+    const event = new CustomEvent<NavEvent>(NAV_EVENT, { detail: { path } })
+    window.dispatchEvent(event)
+  }
 }

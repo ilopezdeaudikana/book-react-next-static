@@ -33,9 +33,9 @@ export const Game = () => {
   };
 
   return (
-    <>
+    <div  className='page' style={{ paddingTop: '16px'}}>
       <button className='btn' onClick={restart}>New Game</button>
       {list.length === 0 ? <div>...Loading</div> : <Grid list={list} />}
-    </>
+    </div>
   );
 };

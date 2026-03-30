@@ -28,7 +28,7 @@ const ContactPage = () => {
 
   return (
     <Flex gap="middle" vertical>
-      <Flex justify="center">
+      <Flex justify="center" style={{ paddingTop: '1rem' }}>
         <Space vertical size={16}>
           <Card title="Contact me" style={{ width: '100%' }}>
             <div className='contact'>

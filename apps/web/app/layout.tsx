@@ -3,6 +3,7 @@ import StoreProvider from './store.provider'
 import { BackPathProvider } from './back-path.provider'
 import { Analytics } from '@vercel/analytics/next'
 import { SpeedInsights } from '@vercel/speed-insights/next'
+import { AntdRegistry } from '@ant-design/nextjs-registry'
 import 'antd/dist/reset.css'
 import '../styles/globals.scss'
 
@@ -14,12 +15,14 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body>
-        <Menu />
-        <BackPathProvider>
-          <StoreProvider>{children}</StoreProvider>
-        </BackPathProvider>
-        <Analytics />
-        <SpeedInsights />
+        <AntdRegistry>
+          <Menu />
+          <BackPathProvider>
+            <StoreProvider>{children}</StoreProvider>
+          </BackPathProvider>
+          <Analytics />
+          <SpeedInsights />
+        </AntdRegistry>
       </body>
     </html>
   )
