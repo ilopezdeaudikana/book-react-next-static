@@ -34,9 +34,9 @@ export default function Layout({
             </Content>
           </Flex>
           <InfoPanel title="Github repository fetcher">
-            <p>Stack: React, Typescript, React hooks, Redux, Jest and Scss modules</p>
+            <p>Stack: Next, Typescript, Antd Github graphql API</p>
             <a
-              href="https://github.com/ilopezdeaudikana/book-react-next-static/tree/184aaf5351fce2bedbb02c88c64814fe8c67c3b1/apps/memory"
+              href="https://github.com/ilopezdeaudikana/book-react-next-static/tree/618b4e20b043b65dcf53add13899dca6e712e107/apps/github-repos"
               target="_blank"
               rel="noopener noreferrer"
             >
