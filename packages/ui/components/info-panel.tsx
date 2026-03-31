@@ -1,5 +1,4 @@
-
-
+'use client'
 import { notification, type NotificationArgsProps } from 'antd'
 import { ReactNode, useEffect, useRef } from 'react'
 

@@ -259,6 +259,7 @@ module.exports = {
     { id: '12', title: 'Lur CMS', teaser: 'lur1.jpg' }
   ],
   playground: [
+    { id: '3', title: 'Github repository fetcher', teaser: 'memory.png', url: '/github-repos/', isModule: true },
     { id: '2', title: 'Memory game', teaser: 'memory.png', url: '/memory/', isModule: true },
     { id: '1', title: 'Interview prepping agent', teaser: 'prepper.png', url: 'https://prepper-opal.vercel.app/' },
   ],

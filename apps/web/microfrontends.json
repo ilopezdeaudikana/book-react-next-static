@@ -16,6 +16,20 @@
         "fallback": "https://book-react-next-static-memory.vercel.app/"
       }
     },
+    "github-repos": {
+      "packageName": "github-repos",
+      "routing": [
+        {
+          "paths": [
+            "/github-repos/:path*"
+          ]
+        }
+      ],
+      "development": {
+        "local": 3002,
+        "fallback": "https://book-react-next-static.vercel.app"
+      }
+    },
     "book-react-next-static": {
       "packageName": "web",
       "development": {
