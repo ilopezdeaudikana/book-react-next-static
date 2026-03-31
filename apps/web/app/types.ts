@@ -4,6 +4,7 @@ export interface Project {
   title: string;
   url?: string;
   isModule?: boolean;
+  modulePath?: string
 }
 
 export interface ProjectDetail {

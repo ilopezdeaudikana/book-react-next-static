@@ -6,6 +6,7 @@ import { hydrate } from '../../store/reducers/projects.reducer'
 import { Project, Status } from '../../app/types'
 import { useBackPath } from '../../app/back-path.provider'
 import { usePathname } from 'next/navigation'
+import { isDev } from '../../app/is-dev'
 
 export const List = ({ items }: { items: Project[] }) => {
   const path = usePathname()
@@ -29,9 +30,9 @@ export const List = ({ items }: { items: Project[] }) => {
           key={project.id} 
           item={project} 
           index={index} 
-          href={project.isModule ? undefined : project.url } 
+          href={project.isModule && isDev ? undefined : project.url } 
           isModule={project.isModule}
-          url={project.url}
+          modulePath={project.modulePath}
         />
       ))}
     </section>

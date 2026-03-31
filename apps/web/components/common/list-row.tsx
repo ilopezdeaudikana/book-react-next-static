@@ -4,18 +4,17 @@ import Image from 'next/image'
 import { useBackPath } from '../../app/back-path.provider'
 import { Project } from '../../app/types'
 import Link from 'next/link'
+import { isDev } from '../../app/is-dev'
 
-export const ListItem = ({ item, index, href, isModule, url }: { item: Project, index: number, href?: string, isModule?: boolean, url?: string }) => {
+export const ListItem = ({ item, index, href, isModule, modulePath }: { item: Project, index: number, href?: string, isModule?: boolean, modulePath?: string }) => {
   const { backPath } = useBackPath()
   const dest = href ? 
     href : 
-    isModule && url ? 
-      url : 
+    isModule && modulePath ? 
+      modulePath : 
       backPath + '/' + item.id
   
   const target = href ? '_blank' : undefined
-
-  const isDev = process.env.NODE_ENV === 'development'
 
   return (
     <div className='project'>
@@ -25,7 +24,7 @@ export const ListItem = ({ item, index, href, isModule, url }: { item: Project, 
         </header>
         <div className='panel-body'>
           <div className='flush'>
-            {isModule && url && isDev ? (<a href={dest} target={target}>
+            {isModule && modulePath && isDev ? (<a href={dest} target={target}>
               <Image
                 alt={item.title}
                 src={'/images/' + item.teaser}
