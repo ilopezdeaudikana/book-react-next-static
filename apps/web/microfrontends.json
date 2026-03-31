@@ -13,7 +13,7 @@
       ],
       "development": {
         "local": 5173,
-        "fallback": "https://book-react-next-static-memory.vercel.app/"
+        "fallback": "https://book-react-next-static-memory.vercel.app"
       }
     },
     "github-repos": {
@@ -27,7 +27,7 @@
       ],
       "development": {
         "local": 3002,
-        "fallback": "https://book-react-next-static.vercel.app"
+        "fallback": "https://book-react-next-static-github-repos.vercel.app"
       }
     },
     "book-react-next-static": {
