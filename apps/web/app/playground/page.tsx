@@ -1,5 +1,5 @@
 import { List } from '../../components/common/list'
-import { url } from '../url'
+import { url } from '@repo/ui'
 
 export default async function Playground() {
   try {

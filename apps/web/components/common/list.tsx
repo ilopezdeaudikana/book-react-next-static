@@ -1,7 +1,7 @@
 'use client'
 import { useEffect } from 'react'
 import { useAppDispatch, useAppSelector } from '../../store/hooks'
-import { ListItem } from './list-row'
+import { ListItem } from './list-item'
 import { hydrate } from '../../store/reducers/projects.reducer'
 import { Project, Status } from '../../app/types'
 import { useBackPath } from '../../app/back-path.provider'

@@ -1,5 +1,5 @@
 import { CompanyList } from '../../components/companies/company-list'
-import { url } from '../url'
+import { url } from '@repo/ui'
 
 export default async function Companies() {
   try {

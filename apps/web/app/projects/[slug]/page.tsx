@@ -1,5 +1,5 @@
 import { Project } from '../../../components/project/project'
-import { url } from '../../url'
+import { url } from '@repo/ui'
 
 export default async function ProjectPage({ params }) {
   try {
