@@ -1,6 +1,6 @@
 'use client'
 import { notification, type NotificationArgsProps } from 'antd'
-import { ReactNode, useEffect, useRef } from 'react'
+import { type ReactNode, useEffect, useRef } from 'react'
 
 interface InfoPanelProps {
   children: ReactNode,
