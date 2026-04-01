@@ -7,7 +7,7 @@ export interface NavEvent {
 }
 
 export const navigateTo = (path: string, isReactZone?: boolean) => {
-  console.log('navigateTo', path, isReactZone)
+  console.log('navigateTo', url, path, isReactZone)
   if (isReactZone) {
     console.log(url)
     window.location.href = `${url}/${path}`
