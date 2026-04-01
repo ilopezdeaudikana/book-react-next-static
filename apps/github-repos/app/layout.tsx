@@ -36,7 +36,7 @@ export default function Layout({
           <InfoPanel title="Github repository fetcher">
             <p>Stack: Next, Typescript, Antd Github graphql API</p>
             <a
-              href="https://github.com/ilopezdeaudikana/book-react-next-static/tree/618b4e20b043b65dcf53add13899dca6e712e107/apps/github-repos"
+              href="https://github.com/ilopezdeaudikana/book-react-next-static/tree/main/apps/github-repos"
               target="_blank"
               rel="noopener noreferrer"
             >
