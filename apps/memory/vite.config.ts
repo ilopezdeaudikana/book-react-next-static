@@ -22,7 +22,7 @@ export default defineConfig(({ mode }) => {
     ),
     tailwindcss()
     ],
-    base: '/memory/',
+    base: '/memory',
     server: {
       // Ensure the port matches what turbo get-mfe-port provides
       port: process.env.PORT ? parseInt(process.env.PORT) : 5173,

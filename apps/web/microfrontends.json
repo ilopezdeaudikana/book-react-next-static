@@ -12,7 +12,7 @@
         }
       ],
       "development": {
-        "local": 5173,
+        "local": 5174,
         "fallback": "https://book-react-next-static-memory.vercel.app"
       }
     },
@@ -27,7 +27,21 @@
       ],
       "development": {
         "local": 3002,
-        "fallback": "https://book-react-next-static-github-repos.vercel.app"
+        "fallback": ""
+      }
+    },
+    "ethycunts": {
+      "packageName": "ethycunts",
+      "routing": [
+        {
+          "paths": [
+            "/ethycunts/:path*"
+          ]
+        }
+      ],
+      "development": {
+        "local": 5173,
+        "fallback": ""
       }
     },
     "book-react-next-static": {

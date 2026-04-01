@@ -1,13 +1,10 @@
 import {
   Button,
-  FormControl,
-  InputLabel,
-  MenuItem,
   Select,
-  ToggleButton,
-  ToggleButtonGroup,
-} from '@mui/material'
-import { useEffect, useState } from 'react'
+  Radio,
+  type RadioChangeEvent,
+} from 'antd'
+import { useEffect } from 'react'
 import styles from './FilterControls.module.css'
 import { DataStatus, LayoutMode } from '../../types/types'
 import { titleCase } from '../../utils/strings'
@@ -16,8 +13,7 @@ import { useFiltersStore } from '../../store/useFiltersStore'
 import { useMapStore } from '../../store/useMapStore'
 
 export const FilterControls = () => {
-  const [useOpen, setUseOpen] = useState(false)
-  const [categoryOpen, setCategoryOpen] = useState(false)
+
   const { allUses, allCategories, status } = useSystemsData()
   const layoutMode = useFiltersStore((state) => state.layoutMode)
   const setLayoutMode = useFiltersStore((state) => state.setLayoutMode)
@@ -29,103 +25,79 @@ export const FilterControls = () => {
   const resetFilters = useFiltersStore((state) => state.resetFilters)
   const clearSelection = useMapStore((state) => state.clearSelection)
 
-  useEffect(() => setHasFilters(),[])
+  const layoutItems = [{
+    value: LayoutMode.SystemType,
+    label: 'System type'
+  }, {
+    value: LayoutMode.DataUse,
+    label: 'Data use'
+  }]
+
+  const handleChangeLayout = (e: RadioChangeEvent) => {
+    setLayoutMode(e.target.value as LayoutMode)
+  }
+
+  const dataUseOptions = allUses.map((use) => ({
+    label: titleCase(use), value: use
+  }))
+
+  const categoryOptions = allCategories.map((cat) => ({
+    label: titleCase(cat), value: cat
+  }))
+
+  useEffect(() => setHasFilters(), [])
 
   return (
     <>
       <div className={styles.topBarSection}>
         <h2>Layout</h2>
-        <ToggleButtonGroup
-          exclusive
-          size="small"
-          value={layoutMode}
-          className={styles.layoutToggle}
+        <Radio.Group 
+          block 
+          onChange={handleChangeLayout} 
+          options={layoutItems} 
+          defaultValue={layoutMode} 
+          optionType="button" 
           disabled={status === DataStatus.Error}
-          onChange={(_, value) => {
-            if (value) setLayoutMode(value)
+        />
+      </div>
+      <div className={styles.topBarSection}>
+        <h2 id="data-use-label">Data use</h2>
+        <Select
+          mode="multiple"
+          allowClear
+          className={styles.selectControl}
+          value={selectedUses}
+          disabled={status === DataStatus.Error}
+          onChange={(event) => {
+            clearSelection()
+            setSelectedUses(typeof event === 'string' ? [] : event)
+            setHasFilters()
           }}
-        >
-          <ToggleButton value={LayoutMode.SystemType}>
-            <span className={styles.toggleLabel}>System type</span>
-          </ToggleButton>
-          <ToggleButton value={LayoutMode.DataUse}>
-            <span className={styles.toggleLabel}>Data use</span>
-          </ToggleButton>
-        </ToggleButtonGroup>
+          options={dataUseOptions}
+        />
       </div>
 
       <div className={styles.topBarSection}>
-        <div className={styles.controlHeader}>
-          <h2>Filter by data use</h2>
-        </div>
-        <FormControl size="small" fullWidth className={styles.selectControl}>
-          <InputLabel id="data-use-label">Data use</InputLabel>
-          <Select
-            labelId="data-use-label"
-            multiple
-            value={selectedUses}
-            label="Data use"
-            disabled={status === DataStatus.Error}
-            onChange={(event) => {
-              clearSelection()
-              setSelectedUses(typeof event.target.value === 'string' ? [] : event.target.value)
-              setHasFilters()
-            }}
-            open={useOpen}
-            onOpen={() => setUseOpen(true)}
-            onClose={() => setUseOpen(false)}
-            onChangeCapture={() => setUseOpen(false)}
-            renderValue={(selected) =>
-              selected.length === 0 ? 'All' : selected.map((value) => titleCase(value)).join(', ')
-            }
-          >
-            {allUses.map((use) => (
-              <MenuItem key={use} value={use}>
-                {titleCase(use)}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-      </div>
+        <h2 id="data-category-label">Data category</h2>
+        <Select
+          mode="multiple"
+          value={selectedCategories}
+          className={styles.selectControl}
+          disabled={status === DataStatus.Error}
+          onChange={(event) => {
+            clearSelection()
+            setSelectedCategories(
+              typeof event === 'string' ? [] : event,
+            )
+            setHasFilters()
+          }}
+          options={categoryOptions}
+        />
 
-      <div className={styles.topBarSection}>
-        <h2>Filter by data categories</h2>
-        <FormControl size="small" fullWidth className={styles.selectControl}>
-          <InputLabel id="data-category-label">Data category</InputLabel>
-          <Select
-            labelId="data-category-label"
-            multiple
-            value={selectedCategories}
-            label="Data category"
-            disabled={status === DataStatus.Error}
-            onChange={(event) => {
-              clearSelection()
-              setSelectedCategories(
-                typeof event.target.value === 'string' ? [] : event.target.value,
-              )
-              setHasFilters()
-            }}
-            open={categoryOpen}
-            onOpen={() => setCategoryOpen(true)}
-            onClose={() => setCategoryOpen(false)}
-            onChangeCapture={() => setCategoryOpen(false)}
-            renderValue={(selected) =>
-              selected.length === 0
-                ? 'All'
-                : selected.map((value) => titleCase(value)).join(', ')
-            }
-          >
-            {allCategories.map((category) => (
-              <MenuItem key={category} value={category}>
-                {titleCase(category)}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
       </div>
 
       <div className={styles.resetSection}>
-        <Button variant="outlined" size="small" sx={{ textTransform: 'none' }} disabled={status === DataStatus.Error} onClick={() => {
+        <Button variant="outlined" size="small" disabled={status === DataStatus.Error} onClick={() => {
           resetFilters()
           setHasFilters()
         }}>

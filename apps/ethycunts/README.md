@@ -1,12 +1,12 @@
-# Ethycunts Systems Map
+# Systems Map
 
 A prototype that renders an interactive systems map from a JSON dataset, with filters, selection, and dependency navigation.
 
 **Requirements**
 
 - Convert `sample_data.json` into a format suitable for rendering. 
-- Categorize systems by **System Type**.
-- Display **System Name** and **Data Categories**.
+- Categorize systems by `System Type`.
+- Display `System Name` and `Data Categories`.
 - Only render the most nested subcategory (e.g., show "location" instead of "user.derived.identifiable.location").
 - Implement buttons to filter the map by:
     - Data Use
@@ -21,7 +21,7 @@ A prototype that renders an interactive systems map from a JSON dataset, with fi
 - Filters are multi-select and the layout grouping stays stable.
 - Selecting a system highlights its direct dependencies.
 - Dependency panel provides scroll-to navigation.
-- UI uses React + TypeScript + Vite, CSS Modules, and MUI controls.
+- UI uses React + TypeScript + Vite, CSS Modules, and Antd components.
 - On smaller screens the top bar collapses into toggle buttons.
 - Hello world like `e2e` tests
 - Added some unit tests
@@ -40,7 +40,7 @@ A prototype that renders an interactive systems map from a JSON dataset, with fi
 - Vite
 - Zustand
 - Zod
-- Material UI
+- Antd
 - CSS Modules
 - Vitest + Testing Library
 - Playwright

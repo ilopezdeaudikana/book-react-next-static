@@ -1,6 +1,6 @@
 .filters {
   display: flex;
-  gap: 3rem;
+  gap: 2rem;
 }
 
 .filtersOpen {
@@ -14,8 +14,8 @@
 .topBarSection {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
-  min-width: 0;
+  gap: 0.5rem;
+  min-width: 14rem;
   height: 4.5rem;
   justify-content: space-between;
 }
@@ -27,6 +27,7 @@
 }
 
 .layoutToggle {
+  background: transparent;
   max-height: 2.5rem;
   align-items: stretch;
 }
@@ -46,6 +47,7 @@
 
 .resetSection {
   align-self: end;
+  justify-items: flex-end;
 }
 
 @media (max-width: 65rem) {

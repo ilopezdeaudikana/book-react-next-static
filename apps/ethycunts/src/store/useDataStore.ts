@@ -24,7 +24,7 @@ export const useDataStore = create<DataState>((set, get) => ({
     if (status === DataStatus.Loading || status === DataStatus.Ready) return
     set({ status: DataStatus.Loading })
     try {
-      const response = await fetch('/sample_data.json')
+      const response = await fetch('./sample_data.json')
 
       if (!response.ok) {
         set({ status: DataStatus.Error })
