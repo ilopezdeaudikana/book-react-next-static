@@ -1,0 +1,76 @@
+.filters {
+  display: flex;
+  gap: 3rem;
+}
+
+.filtersOpen {
+  display: flex;
+}
+
+.filtersClosed {
+  display: none;
+}
+
+.topBarSection {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  min-width: 0;
+  height: 4.5rem;
+  justify-content: space-between;
+}
+
+.topBarSection h2 {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.layoutToggle {
+  max-height: 2.5rem;
+  align-items: stretch;
+}
+
+.toggleLabel {
+  max-width: 6.5rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: inline-block;
+  text-transform: none;
+}
+
+.selectControl {
+  max-width: 16rem;
+}
+
+.resetSection {
+  align-self: end;
+}
+
+@media (max-width: 65rem) {
+  .filters {
+    width: 100%;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .topBarSection {
+    width: 100%;
+    height: auto;
+  }
+
+  .selectControl {
+    max-width: 100%;
+  }
+
+  .filtersClosed {
+    display: none;
+  }
+}
+
+@media (min-width: 65rem) {
+  .filtersClosed {
+    display: flex;
+  }
+}

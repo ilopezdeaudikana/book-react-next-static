@@ -1,0 +1,78 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+:root {
+  --bg: #f4f1ec;
+  --surface: #fcfbf9;
+  --text: #4b4640;
+  --text-strong: #1c1a18;
+  --text-muted: #7a7269;
+  --border: rgba(63, 58, 53, 0.12);
+  --border-strong: rgba(63, 58, 53, 0.2);
+  --accent: #1a7f6f;
+  --accent-soft: rgba(26, 127, 111, 0.12);
+  --accent-strong: #0f5146;
+  --accent-glow: rgba(26, 127, 111, 0.2);
+  --highlight: #f08a24;
+  --highlight-soft: rgba(240, 138, 36, 0.25);
+  --filter: #2f6db3;
+  --filter-soft: rgba(47, 109, 179, 0.18);
+  --tag-bg: rgba(250, 227, 204, 0.8);
+  --surface-solid: #fff;
+  --shadow-hover: 0 1.75rem 3rem -2.4rem rgba(29, 24, 19, 0.5);
+  --shadow-soft: 0 1.125rem 2.5rem -1.875rem rgba(29, 24, 19, 0.35);
+  --shadow-strong: 0 1.5625rem 3.75rem -1.875rem rgba(29, 24, 19, 0.45);
+
+  font-family: 'Space Grotesk', sans-serif;
+  color: var(--text);
+  background: var(--bg);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100svh;
+  background:
+    radial-gradient(circle at top left, rgba(26, 127, 111, 0.08), transparent 45%),
+    radial-gradient(circle at 20% 80%, rgba(230, 160, 120, 0.18), transparent 48%),
+    linear-gradient(180deg, #f9f7f3 0%, #f2eee8 40%, #ede7df 100%);
+}
+
+#root {
+  width: 100%;
+}
+
+h1,
+h2,
+h3 {
+  font-family: 'Space Grotesk', sans-serif;
+  color: var(--text-strong);
+  margin: 0;
+}
+
+h1 {
+  font-size: 2.25rem;
+  line-height: 1.1;
+}
+
+h2 {
+  font-size: 1rem;
+}
+
+p {
+  margin: 0;
+}
+
+button {
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+code {
+  font-family: 'IBM Plex Mono', monospace;
+}

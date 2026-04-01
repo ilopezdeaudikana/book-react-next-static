@@ -1,0 +1,11 @@
+.mobileToggles {
+  display: none;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+@media (max-width: 65rem) {
+  .mobileToggles {
+    display: flex;
+  }
+}
