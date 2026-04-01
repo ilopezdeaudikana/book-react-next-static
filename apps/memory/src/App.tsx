@@ -7,9 +7,9 @@ import './App.scss'
 
 function App() {
   const handleNavigation = (path: string) => {
-    console.log('HANDLER', path,)
     navigateTo(path, true)
   }
+  
   return (
     <Provider store={store}>
       <div data-testid='App' className='page'>
