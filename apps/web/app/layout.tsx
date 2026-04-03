@@ -1,5 +1,4 @@
 import { Menu } from '../components/menu/menu'
-import StoreProvider from './store.provider'
 import { BackPathProvider } from './back-path.provider'
 import { Analytics } from '@vercel/analytics/next'
 import { SpeedInsights } from '@vercel/speed-insights/next'
@@ -18,7 +17,7 @@ export default function RootLayout({
         <AntdRegistry>
           <Menu />
           <BackPathProvider>
-            <StoreProvider>{children}</StoreProvider>
+            {children}
           </BackPathProvider>
           <Analytics />
           <SpeedInsights />

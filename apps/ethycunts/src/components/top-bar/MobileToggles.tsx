@@ -1,4 +1,4 @@
-import { Button } from 'antd'
+import { Button } from '@repo/ui'
 import { LinkOutlined, MenuOutlined } from '@ant-design/icons'
 import styles from './MobileToggles.module.css'
 
@@ -16,18 +16,17 @@ export const MobileToggles = ({
   onClearSelection,
 }: MobileTogglesProps) => (
   <div className={styles.mobileToggles}>
-    <Button aria-label="Toggle filters" size="small" onClick={onToggleFilters}>
+    <Button aria-label="Toggle filters" onClick={onToggleFilters}>
       <MenuOutlined />
     </Button>
     <Button
       aria-label="Toggle dependency navigation"
-      size="small"
       onClick={onToggleDependencies}
       disabled={dependenciesDisabled}
     >
       <LinkOutlined />
     </Button>
-    <Button aria-label="Clear selection" variant="outlined" size="small" onClick={onClearSelection}>
+    <Button aria-label="Clear selection" onClick={onClearSelection}>
       Reset filters
     </Button>
   </div>

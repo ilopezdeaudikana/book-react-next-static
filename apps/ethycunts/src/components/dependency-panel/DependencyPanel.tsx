@@ -1,7 +1,7 @@
 import type { SystemWithMeta } from '../../types/types'
 import styles from './DependencyPanel.module.css'
 import { DownOutlined } from '@ant-design/icons'
-import { Dropdown, Space } from 'antd'
+import { Dropdown, Space } from '@repo/ui'
 
 type DependencyPanelProps = {
   onDependencyClick: (key: string) => void
@@ -23,9 +23,9 @@ export const DependencyPanel = ({
   }))
 
   return (
-    <nav className={styles.panel}>
+    <nav className={styles.panel}>s
       <div className={styles.panelList}>
-        <Dropdown menu={{ items }} trigger={['click']}>
+        <Dropdown items={items}>
           <a onClick={(e) => e.preventDefault()}>
             <Space>
               {dependencies.length > 0

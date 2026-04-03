@@ -1,5 +1,5 @@
 'use client'
-import { Table as AntTable } from 'antd'
+import { Table } from '@repo/ui'
 import { Column, Repo } from '../../types'
 import { ForkOutlined, StarOutlined } from '@ant-design/icons'
 
@@ -40,10 +40,10 @@ const columns: Column[] = [
 ]
 
 
-export const ReposTable = ({ data }) => {
+export const ReposTable = ({ data }: { data: Repo['node'][]}) => {
   return (
     <>
-      <AntTable data-testid='repos' columns={columns} dataSource={data} />
+      <Table testId='repos' columns={columns} data={data} />
     </>
   )
 }

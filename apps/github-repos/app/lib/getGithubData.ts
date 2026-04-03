@@ -50,6 +50,7 @@ export const getGithubData = async (query: string): Promise<RepoApiData> => {
     }
 
   } catch (error) {
+    console.log('Unexpected error fetching repos')
     return {
       repos: [],
       error: 'Failed to connect to GitHub.'

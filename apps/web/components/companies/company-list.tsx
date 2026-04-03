@@ -1,21 +1,9 @@
 
-'use client'
-import { Company } from '../../app/types';
-import { useAppDispatch, useAppSelector } from '../../store/hooks'
-import { CompanyListRow } from './company-list-row';
-import { hydrate } from '../../store/reducers/companies.reducer'
-import { Status } from '../../app/types'
-import { useEffect } from 'react'
+import { Company } from '../../app/types'
+import { CompanyListRow } from './company-list-row'
 
 export const CompanyList = ({ companies }) => {
-  const dispatch = useAppDispatch()
-  const { value, status } = useAppSelector((state) => state.companies)
 
-  useEffect(() => {
-    if (status === Status.Idle) {
-      dispatch(hydrate(companies))
-    }
-  }, [dispatch, companies, status])
   return (
     <div
       className='companies'

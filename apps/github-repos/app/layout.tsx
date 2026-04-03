@@ -1,7 +1,6 @@
 import Head from 'next/head'
 import { AntdRegistry } from '@ant-design/nextjs-registry'
-import { Content } from 'antd/es/layout/layout'
-import { Flex } from 'antd'
+import { Flex } from '@repo/ui'
 import { Menu } from './components/menu'
 import { InfoPanel } from '@repo/ui'
 
@@ -29,9 +28,9 @@ export default function Layout({
         <AntdRegistry>
           <Menu />
           <Flex justify="center" wrap>
-            <Content style={contentStyle}>
+            <div style={contentStyle}>
               {children}
-            </Content>
+            </div>
           </Flex>
           <InfoPanel title="Github repository fetcher">
             <p>Stack: Next, Typescript, Antd Github graphql API</p>

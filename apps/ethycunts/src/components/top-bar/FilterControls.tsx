@@ -1,9 +1,8 @@
 import {
   Button,
-  Select,
-  Radio,
-  type RadioChangeEvent,
-} from 'antd'
+  Select, 
+  Radio
+} from '@repo/ui'
 import { useEffect } from 'react'
 import styles from './FilterControls.module.css'
 import { DataStatus, LayoutMode } from '../../types/types'
@@ -33,10 +32,6 @@ export const FilterControls = () => {
     label: 'Data use'
   }]
 
-  const handleChangeLayout = (e: RadioChangeEvent) => {
-    setLayoutMode(e.target.value as LayoutMode)
-  }
-
   const dataUseOptions = allUses.map((use) => ({
     label: titleCase(use), value: use
   }))
@@ -51,20 +46,16 @@ export const FilterControls = () => {
     <>
       <div className={styles.topBarSection}>
         <h2>Layout</h2>
-        <Radio.Group 
-          block 
-          onChange={handleChangeLayout} 
-          options={layoutItems} 
-          defaultValue={layoutMode} 
-          optionType="button" 
+        <Radio
+          onChange={(e) => setLayoutMode(e.target.value as LayoutMode)}
+          options={layoutItems}
+          value={layoutMode}
           disabled={status === DataStatus.Error}
         />
       </div>
       <div className={styles.topBarSection}>
         <h2 id="data-use-label">Data use</h2>
         <Select
-          mode="multiple"
-          allowClear
           className={styles.selectControl}
           value={selectedUses}
           disabled={status === DataStatus.Error}
@@ -80,7 +71,6 @@ export const FilterControls = () => {
       <div className={styles.topBarSection}>
         <h2 id="data-category-label">Data category</h2>
         <Select
-          mode="multiple"
           value={selectedCategories}
           className={styles.selectControl}
           disabled={status === DataStatus.Error}
@@ -97,7 +87,7 @@ export const FilterControls = () => {
       </div>
 
       <div className={styles.resetSection}>
-        <Button variant="outlined" size="small" disabled={status === DataStatus.Error} onClick={() => {
+        <Button disabled={status === DataStatus.Error} onClick={() => {
           resetFilters()
           setHasFilters()
         }}>

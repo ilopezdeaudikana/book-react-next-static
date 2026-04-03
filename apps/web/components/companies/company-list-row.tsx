@@ -1,4 +1,6 @@
-import { Card, Space, Tag, Typography } from 'antd'
+'use client'
+import { Card, Tag, Typography } from 'antd'
+import { Space } from '@repo/ui'
 import Image from 'next/image'
 import { Company } from '../../app/types'
 
@@ -63,8 +65,8 @@ export const CompanyListRow = ({ company }: CompanyListRowProps) => {
         })}
       </div>
 
-      <Space vertical size={4} style={{ width: '100%' }}>
-        <Typography.Text strong>{period}</Typography.Text>
+      <Space vertical size={4}>
+        <Typography.Text>{period ?? ''}</Typography.Text>
         <Typography.Text>Job title: {job}</Typography.Text>
         <Typography.Paragraph style={{ marginBottom: 0 }}>
           Tasks: {description}

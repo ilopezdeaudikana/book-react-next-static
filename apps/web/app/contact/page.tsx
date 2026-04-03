@@ -1,7 +1,7 @@
 'use client'
 import { useState } from 'react'
-import { Button, Form, Input, Card, Space, Flex } from 'antd'
-import { url } from '@repo/ui'
+import { Form, Card } from 'antd'
+import { url, Button, Space, Flex, Input } from '@repo/ui'
 
 const ContactPage = () => {
   const [status, setStatus] = useState('')
@@ -23,8 +23,6 @@ const ContactPage = () => {
       setStatus('Failed to send email. Please try again.')
     }
   }
-
-
 
   return (
     <Flex gap="middle" vertical>
@@ -59,7 +57,7 @@ const ContactPage = () => {
                     <Input.TextArea />
                   </Form.Item>
                   <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-                    <Button type='primary' htmlType='submit' style={{ backgroundColor: '#428bca' }}>
+                    <Button type="submit">
                       Submit
                     </Button>
                   </Form.Item>

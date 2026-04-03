@@ -1,9 +1,7 @@
 'use client'
-import {  Input } from 'antd'
+import {  Input } from '@repo/ui'
 import { useRouter } from 'next/navigation'
 import { usePathname, useSearchParams } from 'next/navigation'
-
-const { Search } = Input
 
 export const SearchInput = () => {
   const { replace } = useRouter()
@@ -23,10 +21,10 @@ export const SearchInput = () => {
 
   return (
     <>
-      <Search
+      <Input
+        type='search'
         placeholder='input search text'
         onSearch={onSearch}
-        enterButton
       />
     </>
   )

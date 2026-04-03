@@ -2,7 +2,7 @@ import { ReposTable } from './components/repos-table'
 import { SearchInput } from './components/search-input'
 import { getGithubData } from './lib/getGithubData'
 import { RepoApiData } from '../types'
-import { Flex } from 'antd'
+import { Flex } from '@repo/ui'
 
 export default async function Repos({
   searchParams,

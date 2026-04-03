@@ -1,1 +1,9 @@
-export const url = process.env.NODE_ENV === 'production' ? 'https://book-react-next-static.vercel.app' : 'http://localhost:3001'
+type ProcessLike = {
+  env?: {
+    NODE_ENV?: string
+  }
+}
+
+const nodeEnv = (globalThis as typeof globalThis & { process?: ProcessLike }).process?.env?.NODE_ENV
+
+export const url = nodeEnv === 'production' ? 'https://book-react-next-static.vercel.app' : 'http://localhost:3001'
