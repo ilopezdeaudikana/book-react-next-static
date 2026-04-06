@@ -14,6 +14,10 @@
       "dependsOn": ["^build"],
       "outputs": [".next/**", "!.next/cache/**"]
     },
+    "mastra-app#build": {
+      "dependsOn": ["^build"],
+      "outputs": [".mastra/.build"]
+    },
     "check-types": {
       "dependsOn": ["^check-types"]
     },
