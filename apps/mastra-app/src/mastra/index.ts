@@ -12,7 +12,7 @@ export const mastra = new Mastra({
     level: 'debug'
   }),
   storage: new LibSQLStore({
-    id: 'in-memory',
+    id: 'in-memory-id',
     // This tells LibSQL to run entirely in RAM
     url: ':memory:',
   }),
