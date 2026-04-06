@@ -1,6 +1,8 @@
 'use client'
 
-import { Header, navigateTo } from '@repo/ui'
+import { Header } from '@repo/ui'
+import { navigateTo } from '@repo/utils'
+
 import { NavListener } from './nav-listener'
 
 export const Menu = () => {

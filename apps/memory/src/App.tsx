@@ -2,7 +2,9 @@ import { Provider } from 'react-redux'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { Game, Score, Home } from './views'
 import { store } from './store/store'
-import { Header, InfoPanel, navigateTo } from '@repo/ui'
+import { Header, InfoPanel } from '@repo/ui'
+import { navigateTo } from '@repo/utils'
+
 import './App.scss'
 
 function App() {

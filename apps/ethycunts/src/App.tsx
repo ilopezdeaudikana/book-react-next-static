@@ -3,7 +3,8 @@ import styles from './App.module.css'
 import { MapSection } from './components/map-section/MapSection'
 import { TopBar } from './components/top-bar/TopBar'
 import { ErrorBoundary } from 'react-error-boundary'
-import { Header, InfoPanel, navigateTo } from '@repo/ui'
+import { Header, InfoPanel } from '@repo/ui'
+import { navigateTo } from '@repo/utils'
 
 function App() {
   const containerRef = useRef<HTMLDivElement | null>(null)

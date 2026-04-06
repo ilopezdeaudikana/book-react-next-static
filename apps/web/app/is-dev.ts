@@ -1,9 +1,3 @@
-type ProcessLike = {
-  env?: {
-    NODE_ENV?: string
-  }
-}
-
-const nodeEnv = (globalThis as typeof globalThis & { process?: ProcessLike }).process?.env?.NODE_ENV
+import { nodeEnv } from '@repo/utils'
 
 export const isDev = nodeEnv === 'development'

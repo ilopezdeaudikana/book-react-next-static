@@ -1,6 +1,7 @@
 'use client'
 
-import { Header, navigateTo } from '@repo/ui'
+import { Header } from '@repo/ui'
+import { navigateTo } from '@repo/utils'
 
 export const Menu = () => {
 

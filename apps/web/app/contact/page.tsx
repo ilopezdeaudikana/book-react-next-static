@@ -1,7 +1,8 @@
 'use client'
 import { useState } from 'react'
 import { Form, Card } from 'antd'
-import { url, Button, Space, Flex, Input } from '@repo/ui'
+import { Button, Space, Flex, Input } from '@repo/ui'
+import { url } from '@repo/utils'
 
 const ContactPage = () => {
   const [status, setStatus] = useState('')

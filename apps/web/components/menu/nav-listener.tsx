@@ -1,7 +1,7 @@
 'use client'
 import { useEffect } from 'react'
 import { useRouter, usePathname } from 'next/navigation'
-import { NAV_EVENT } from '@repo/ui'
+import { NAV_EVENT } from '@repo/utils'
 // Not really necessary since Next and react apps don't live in the same zone
 export const NavListener = () => {
   const router = useRouter()

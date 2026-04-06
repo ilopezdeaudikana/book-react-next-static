@@ -1,6 +1,8 @@
+import { buildGitHubBody } from '@repo/utils'
 import { Repo, RepoApiData } from '../../types'
 
-export const getGithubData = async (query: string): Promise<RepoApiData> => {
+
+export const getGithubRestData = async (query: string): Promise<RepoApiData> => {
   try {
     const res = await fetch('https://api.github.com/graphql', {
       method: 'POST',
@@ -8,33 +10,7 @@ export const getGithubData = async (query: string): Promise<RepoApiData> => {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${process.env.NEXT_TOKEN}`,
       },
-      body: JSON.stringify({
-        query: `
-      query SearchRepos($query: String!) {
-        search(first: 50, query: $query, type: REPOSITORY) {
-          repositoryCount
-          pageInfo {
-            hasNextPage
-            hasPreviousPage
-          }
-          edges {
-            node {
-              ... on Repository {
-                id
-                name
-                url
-                forkCount
-                stargazerCount
-              }
-            }
-          }
-        }
-      }
-    `,
-        variables: {
-          query: query
-        },
-      }),
+      body: JSON.stringify({...buildGitHubBody(query)}),
     })
 
     const result = await res.json()
@@ -49,6 +25,26 @@ export const getGithubData = async (query: string): Promise<RepoApiData> => {
       error: null
     }
 
+  } catch (error) {
+    console.log('Unexpected error fetching repos')
+    return {
+      repos: [],
+      error: 'Failed to connect to GitHub.'
+    }
+  }
+}
+
+export const getGithubAgentData = async (query: string): Promise<any> => {
+  try {
+    const response = await fetch('http://localhost:4111/summarize', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ topic: query }),
+    })
+
+    const { result } = await response.json()
+    console.log(`Crawl result for ${query}:`, result)
+    return result
   } catch (error) {
     console.log('Unexpected error fetching repos')
     return {

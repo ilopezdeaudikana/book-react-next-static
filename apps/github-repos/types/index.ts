@@ -15,6 +15,12 @@ export interface Repo {
   }
 }
 
+export interface AgentRepo {
+  fullName: string,
+  description: string,
+  stargazersCount: number,
+  htmlUrl: string
+}
 export interface Column {
   title: string
   dataIndex: string

@@ -1,8 +1,7 @@
 import Head from 'next/head'
 import { AntdRegistry } from '@ant-design/nextjs-registry'
-import { Flex } from '@repo/ui'
 import { Menu } from './components/menu'
-import { InfoPanel } from '@repo/ui'
+import { InfoPanel, Flex } from '@repo/ui'
 
 const contentStyle = {
   borderRadius: 8,
