@@ -16,7 +16,7 @@
     },
     "mastra-app#build": {
       "dependsOn": ["^build"],
-      "outputs": [".mastra/.build"]
+      "outputs": [".mastra/output"]
     },
     "check-types": {
       "dependsOn": ["^check-types"]
