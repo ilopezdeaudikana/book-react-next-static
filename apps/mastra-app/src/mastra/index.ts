@@ -47,8 +47,6 @@ export const mastra = new Mastra({
                 500
               )
             }
-
-            // logger.debug(JSON.stringify(result))
             
             return c.json(result)
 

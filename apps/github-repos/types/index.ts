@@ -1,26 +1,12 @@
+import { Repo } from '@repo/utils'
 import { JSX } from 'react'
 
 export interface RepoApiData {
-  repos: Repo['node'][],
-  error: string | null
+  error: string | null,
+  repos: Repo[],
+  selected?: string
 }
 
-export interface Repo {
-  node: {
-    id: string
-    name: string
-    url: string
-    forkCount: number
-    stargazerCount: number
-  }
-}
-
-export interface AgentRepo {
-  fullName: string,
-  description: string,
-  stargazersCount: number,
-  htmlUrl: string
-}
 export interface Column {
   title: string
   dataIndex: string

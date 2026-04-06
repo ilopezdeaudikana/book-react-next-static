@@ -1,18 +1,13 @@
 import { createWorkflow, createStep } from '@mastra/core/workflows'
 import { z } from 'zod'
-import { buildGitHubBody } from '@repo/utils'
+import { buildGitHubBody, RepoObject } from '@repo/utils'
 
 // Define Step 1
 const fetchStep = createStep({
   id: 'fetch-list',
   inputSchema: z.object({ topic: z.string() }),
   outputSchema: z.object({
-    repos: z.array(z.object({
-      full_name: z.string(),
-      description: z.string().nullable(),
-      stargazers_count: z.number(),
-      html_url: z.string()
-    }))
+    repos: z.array(RepoObject)
   }),
   execute: async ({ inputData }) => {
     const response = await fetch(
@@ -40,7 +35,6 @@ const fetchStep = createStep({
       return { repos: [], error: 'GitHub query failed.' }
     }
 
-    // as Repo[]
     return {
       repos: (result.data.search.edges).map((item: any, index: number) => ({ ...item.node, key: index })),
       error: null
@@ -51,7 +45,7 @@ const fetchStep = createStep({
 // Define Step 2
 const selectionStep = createStep({
   id: 'pick-repo',
-  inputSchema: z.object({ repos: z.array(z.any()) }),
+  inputSchema: z.object({ repos: z.array(z.lazy(() => RepoObject)) }),
   outputSchema: z.object({ selected: z.string() }),
   execute: async ({ inputData, mastra }) => {
     const agent = mastra.getAgent('githubAgent')
@@ -74,7 +68,7 @@ export const githubWorkflow = createWorkflow({
   id: 'github-crawler-flow',
   inputSchema: z.object({ topic: z.string() }),
   outputSchema: z.object({
-    allRepos: z.array(z.any()),
+    allRepos: z.array(z.object(RepoObject)),
     winner: z.string()
   }),
 })
