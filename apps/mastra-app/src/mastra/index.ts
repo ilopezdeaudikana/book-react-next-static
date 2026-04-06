@@ -4,6 +4,7 @@ import { githubWorkflow } from './workflows/github-workflow'
 import { PinoLogger } from '@mastra/loggers'
 import { LibSQLStore } from '@mastra/libsql'
 import { registerApiRoute } from '@mastra/core/server'
+import { VercelDeployer } from '@mastra/deployer-vercel'
 
 export const mastra = new Mastra({
   logger: new PinoLogger({
@@ -57,5 +58,6 @@ export const mastra = new Mastra({
         },
       }),
     ]
-  }
+  },
+  deployer: new VercelDeployer()
 })
