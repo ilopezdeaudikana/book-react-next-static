@@ -2,13 +2,12 @@ import Head from 'next/head'
 import { AntdRegistry } from '@ant-design/nextjs-registry'
 import { Menu } from './components/menu'
 import { InfoPanel, Flex } from '@repo/ui'
+import '../styles/globals.css'
 
 const contentStyle = {
-  borderRadius: 8,
-  overflow: 'hidden',
-  maxWidth: '80%',
-  height: '100vh',
-  padding: '2rem'
+  overflow: 'auto',
+  maxWidth: '100%',
+  height: 'calc(100vh - 46px)',
 }
 
 export default function Layout({
@@ -26,13 +25,11 @@ export default function Layout({
         </Head>
         <AntdRegistry>
           <Menu />
-          <Flex justify="center" wrap>
-            <div style={contentStyle}>
-              {children}
-            </div>
+          <Flex justify="center" wrap style={contentStyle}>
+            {children}
           </Flex>
-          <InfoPanel title="Github repository fetcher">
-            <p>Stack: Next, Typescript, Antd Github graphql API</p>
+          <InfoPanel title="Github repository fetcher agent">
+            <p>Stack: Next, Typescript, Antd, Mastra, Github graphql API</p>
             <a
               href="https://github.com/ilopezdeaudikana/book-react-next-static/tree/main/apps/github-repos"
               target="_blank"

@@ -5,6 +5,11 @@ export interface RepoApiData {
   error: string | null,
   repos: Repo[],
   selected?: string
+  readme?: {
+    found: boolean,
+    content: string,
+    path: string
+  }
 }
 
 export interface Column {
@@ -13,4 +18,3 @@ export interface Column {
   key: string
   render?: (a: string, record: any) => string | JSX.Element
 }
-

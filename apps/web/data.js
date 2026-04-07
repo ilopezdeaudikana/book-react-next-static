@@ -260,7 +260,7 @@ module.exports = {
   ],
   playground: [
     { id: '4', title: 'Systems data map', teaser: 'ethycunts.jpg', url: 'https://book-react-next-static-ethycunts.vercel.app/ethycunts', isModule: true, modulePath: '/ethycunts/' },
-    { id: '3', title: 'Github repository fetcher', teaser: 'github.png', url: 'https://book-react-next-static-github-repos.vercel.app/github-repos', isModule: true, modulePath: '/github-repos' },
+    { id: '3', title: 'Github repository fetcher agent', teaser: 'github.png', url: 'https://book-react-next-static-github-repos.vercel.app/github-repos', isModule: true, modulePath: '/github-repos' },
     { id: '2', title: 'Memory game', teaser: 'memory.png', url: 'https://book-react-next-static-memory.vercel.app/memory', isModule: true,  modulePath: '/memory/'},
     { id: '1', title: 'Interview prepping agent', teaser: 'prepper.png', url: 'https://prepper-opal.vercel.app/' },
   ],
