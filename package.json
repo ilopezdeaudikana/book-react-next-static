@@ -28,7 +28,7 @@
     "apps/*",
     "packages/*"
   ],
-  "npm": {
+  "pnpm": {
     "overrides": {
       "jsdom": "25.0.1",
       "jsdom>parse5": "7.3.0"
