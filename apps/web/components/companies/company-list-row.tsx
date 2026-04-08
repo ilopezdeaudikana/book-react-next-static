@@ -68,9 +68,9 @@ export const CompanyListRow = ({ company }: CompanyListRowProps) => {
       <Space vertical size={4}>
         <Typography.Text>{period ?? ''}</Typography.Text>
         <Typography.Text>Job title: {job}</Typography.Text>
-        <Typography.Paragraph style={{ marginBottom: 0 }}>
+        {description && <Typography.Paragraph style={{ marginBottom: 0 }}>
           Tasks: {description}
-        </Typography.Paragraph>
+        </Typography.Paragraph>}
         <div className='company-card-tags'>
           {techItems.map((tech) => (
             <Tag key={tech} color='blue'>

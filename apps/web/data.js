@@ -122,7 +122,7 @@ module.exports = {
       id: '2',
       title: 'Concatel / Privalia',
       job: 'Frontend developer',
-      description: 'Working in house at Privalia',
+      description: '',
       technologies:
         'Zend, Smarty, CodeIgniter, MySql, Prototype.js, Mustache, jQuery mobile, SVN',
       url: ['https://es.privalia.com/public/'],
@@ -134,7 +134,7 @@ module.exports = {
       id: '3',
       title: 'Altran / Imagina',
       job: 'Frontend developer',
-      description: 'Working in house at Mediapro, Automatic TV project',
+      description: '',
       technologies:
         'AngularJS, Grunt, Bower, Karma, Jasmine, Sass, Bootstrap',
       url: ['http://www.automatic.tv/'],
