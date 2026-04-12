@@ -1,7 +1,7 @@
 'use client'
 import { Typography as AntTypography } from 'antd'
-import { BaseType } from 'antd/es/typography/Base'
-import { ReactNode } from 'react'
+import type { BaseType } from 'antd/es/typography/Base'
+import type { ReactNode } from 'react'
 
 export interface TypographyProps {
   href?: string
