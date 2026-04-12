@@ -2,7 +2,7 @@ import { Provider } from 'react-redux'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { Game, Score, Home } from './views'
 import { store } from './store/store'
-import { Header, InfoPanel } from '@repo/ui'
+import { Header, InfoPanel, Typography } from '@repo/ui'
 import { navigateTo } from '@repo/utils'
 
 import './App.scss'
@@ -27,14 +27,13 @@ function App() {
 
       </div>
       <InfoPanel title="Memory game">
-        <p>Stack: React, Typescript, React hooks, Redux, Jest and Scss modules</p>
-        <a
+        <Typography variant="text">Stack: React, Typescript, React hooks, Redux, Jest and Scss modules</Typography>
+        <Typography variant="link"
           href="https://github.com/ilopezdeaudikana/book-react-next-static/tree/main/apps/memory"
           target="_blank"
-          rel="noopener noreferrer"
         >
           See on Github
-        </a>
+        </Typography>
       </InfoPanel>
     </Provider>
   )

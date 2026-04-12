@@ -1,4 +1,5 @@
 
+import { Typography } from '@repo/ui'
 import { List } from '../../components/common/list'
 import { url } from '@repo/utils'
 
@@ -14,7 +15,7 @@ export default async function Projects() {
     return <List items={projects} />
 
   } catch (error) {
-    return <p>Error fetching data</p>
+    return <Typography variant="text">Error fetching data</Typography>
   }
 }
 

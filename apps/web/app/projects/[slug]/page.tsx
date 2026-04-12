@@ -1,3 +1,4 @@
+import { Typography } from '@repo/ui'
 import { Project } from '../../../components/project/project'
 import { url } from '@repo/utils'
 
@@ -15,7 +16,7 @@ export default async function ProjectPage({ params }) {
     return <Project project={project} />
 
   } catch (error) {
-    return <p>Error fetching data</p>
+    return <Typography variant="text">Error fetching data</Typography>
   }
 }
 

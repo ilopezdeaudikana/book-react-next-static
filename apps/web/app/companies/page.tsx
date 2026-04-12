@@ -1,3 +1,4 @@
+import { Typography } from '@repo/ui'
 import { CompanyList } from '../../components/companies/company-list'
 import { url } from '@repo/utils'
 
@@ -12,7 +13,7 @@ export default async function Companies() {
 
     return <CompanyList companies={companies.reverse()} />
   } catch (error) {
-    return <p>Error fetching data</p>
+    return <Typography variant="text">Error fetching data</Typography>
   }
 }
 

@@ -1,7 +1,7 @@
 'use client'
 import { useState } from 'react'
 import { Form, Card } from 'antd'
-import { Button, Space, Flex, Input } from '@repo/ui'
+import { Button, Space, Flex, Input, Typography } from '@repo/ui'
 import { url } from '@repo/utils'
 
 const ContactPage = () => {
@@ -63,7 +63,7 @@ const ContactPage = () => {
                     </Button>
                   </Form.Item>
                 </Form>
-                {status && <p>{status}</p>}
+                {status && <Typography variant="text">{status}</Typography>}
               </div>
             </div>
           </Card>

@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import { AntdRegistry } from '@ant-design/nextjs-registry'
 import { Menu } from './components/menu'
-import { InfoPanel, Flex } from '@repo/ui'
+import { InfoPanel, Flex, Typography } from '@repo/ui'
 import '../styles/globals.css'
 
 const contentStyle = {
@@ -29,14 +29,13 @@ export default function Layout({
             {children}
           </Flex>
           <InfoPanel title="Github repository fetcher agent">
-            <p>Stack: Next, Typescript, Antd, Mastra, Github graphql API</p>
-            <a
+            <Typography variant="text">Stack: Next, Typescript, Antd, Mastra, Github graphql API</Typography>
+            <Typography variant="link"
               href="https://github.com/ilopezdeaudikana/book-react-next-static/tree/main/apps/github-repos"
               target="_blank"
-              rel="noopener noreferrer"
             >
               See on Github
-            </a>
+            </Typography>
           </InfoPanel>
         </AntdRegistry>
       </body>

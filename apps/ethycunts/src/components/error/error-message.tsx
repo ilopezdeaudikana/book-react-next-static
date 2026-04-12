@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react'
 import styles from './Error-message.module.css'
+import { Typography } from '@repo/ui'
 
 interface ErrorMessageProps {
   message?: string
@@ -8,7 +9,7 @@ interface ErrorMessageProps {
 export const ErrorMessage = ({ message, children }: ErrorMessageProps) => {
   return (
     <div className={styles.root}>
-      <p>{ message ? message : 'Data could not be loaded or parsed'}</p>
+     <Typography variant="text">{ message ? message : 'Data could not be loaded or parsed'}</Typography>
       <>
         {children}
       </>

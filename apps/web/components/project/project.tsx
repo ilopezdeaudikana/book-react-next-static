@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { Modal } from 'antd'
 import { ArrowLeftOutlined } from '@ant-design/icons'
 import Link from 'next/link'
+import { Typography } from '@repo/ui'
 
 export const Project = ({ project }) => {
 
@@ -33,9 +34,9 @@ export const Project = ({ project }) => {
             </div>
             <div>
               <h1 className='panel-title'>{project.title}</h1>
-              <p>
+              <Typography variant="text">
                 <span>Stack</span>: {project.technologies}
-              </p>
+              </Typography>
             </div>
           </header>
 
