@@ -6,17 +6,22 @@ import type { ReactNode } from 'react'
 export interface TypographyProps {
   href?: string
   target?: string
-  variant: 'text' | 'link'
+  variant: 'text' | 'link' | 'span'
   children: ReactNode
   type?: BaseType
 }
 
-const { Text, Link } = AntTypography
+const { Text, Link, Paragraph } = AntTypography
 
 export const Typography = ({ href, target, variant, type, children }: TypographyProps) => {
   return(<>
     {variant === 'link' && <Link href={href} target={target}>{children}</Link>}
-    {variant === 'text' && <Text
+    {variant === 'text' && <Paragraph
+      type={type}
+    >
+      {children}
+    </Paragraph>}
+    {variant === 'span' && <Text
       type={type}
     >
       {children}
