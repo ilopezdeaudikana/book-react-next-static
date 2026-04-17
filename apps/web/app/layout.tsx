@@ -24,6 +24,7 @@ export default function RootLayout({
           <SpeedInsights />
           <InfoPanel title="Personal portfolio">
             <Flex vertical gap="18">
+              <Typography variant='text'>Selected projects, prototypes, and professional history.</Typography>
               <Typography variant="text">Stack: Next, TypeScript and Antd</Typography>
               <Typography variant="link"
                 href="https://github.com/ilopezdeaudikana/book-react-next-static"
