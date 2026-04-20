@@ -41,7 +41,7 @@ export const Header = ({ onNavigate }: HeaderProps) => {
 
   useEffect(() => {
 
-    const path = pathName.replace('/', '')
+    const path = pathName?.replace('/', '')
     if (mainPaths.find((item) => item === path) && path !== 'playground') {
       setCurrent(path)
     }
