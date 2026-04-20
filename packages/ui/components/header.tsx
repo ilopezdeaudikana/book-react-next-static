@@ -1,5 +1,5 @@
 'use client'
-import { Menu, MenuProps } from 'antd'
+import { Menu, type MenuProps } from 'antd'
 import { useEffect, useState } from 'react'
 import { usePathname } from 'next/navigation'
 
