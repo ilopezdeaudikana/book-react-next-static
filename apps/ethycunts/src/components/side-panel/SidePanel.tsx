@@ -21,7 +21,7 @@ export function SidePanel({
   selectedNodeId,
   onSelectNode,
 }: SidePanelProps) {
-  const [search, setSearch] = useState('')
+  const [search, _] = useState('')
   const itemRefs = useRef<Map<string, HTMLDivElement>>(new Map())
 
   const selectedSystem = useMemo(
