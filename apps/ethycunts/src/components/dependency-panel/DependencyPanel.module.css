@@ -1,5 +1,5 @@
 .panel {
-  background: var(--surface);
+  background: var(--color-orange-100);
   display: flex;
   flex-direction: column;
   justify-content: space-between;

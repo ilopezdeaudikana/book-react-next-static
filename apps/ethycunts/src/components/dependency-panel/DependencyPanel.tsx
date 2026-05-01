@@ -23,7 +23,7 @@ export const DependencyPanel = ({
   }))
 
   return (
-    <nav className={styles.panel}>s
+    <nav className={styles.panel}>
       <div className={styles.panelList}>
         <Dropdown items={items}>
           <a onClick={(e) => e.preventDefault()}>

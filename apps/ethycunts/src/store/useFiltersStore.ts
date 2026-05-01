@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import { LayoutMode } from '../types/types'
+import { LayoutMode, MapMode } from '../types/types'
 
 type FilterSlice = {
   selectedUses: string[]
@@ -16,13 +16,21 @@ type LayoutSlice = {
   setLayoutMode: (mode: LayoutMode) => void
 }
 
-export const useFiltersStore = create<FilterSlice & LayoutSlice>((set) => ({
+type MapModeSlice = {
+  mapMode: MapMode
+  setMapMode: (mode: MapMode) => void
+}
+
+export const useFiltersStore = create<FilterSlice & LayoutSlice & MapModeSlice>((set) => ({
   hasFilters: false,
   layoutMode: LayoutMode.SystemType,
   setHasFilters: () => set(state => {
     return { hasFilters: state.selectedUses.length > 0 || state.selectedCategories.length > 0 }
   }),
   setLayoutMode: (mode) => set({ layoutMode: mode }),
+  mapMode: MapMode.ColourCode,
+
+  setMapMode: (mode) => set({ mapMode: mode }),
   selectedUses: [],
   selectedCategories: [],
   setSelectedUses: (values) => set({ selectedUses: values }),

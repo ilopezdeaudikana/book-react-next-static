@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import { MobileToggles } from './MobileToggles'
 import styles from './TopBar.module.css'
-import filterStyles from './FilterControls.module.css'
 import { FilterControls } from './FilterControls'
 import { DependencyPanel } from '../dependency-panel/DependencyPanel'
 import { useMapStore } from '../../store/useMapStore'
@@ -50,8 +49,8 @@ export const TopBar = () => {
       />
 
       <div
-        className={`${styles.filtersSlot} ${filterStyles.filters} ${
-          (!isMobile || filtersOpen) ? filterStyles.filtersOpen : filterStyles.filtersClosed
+        className={`${
+          (!isMobile || filtersOpen) ? styles.filtersOpen : styles.filtersClosed
         }`}
       >
         <FilterControls />

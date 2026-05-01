@@ -56,6 +56,13 @@ export const LayoutMode = {
 
 export type LayoutMode = (typeof LayoutMode)[keyof typeof LayoutMode]
 
+export const MapMode = {
+  ColourCode: 'colour_code',
+  D3: 'd3',
+} as const
+
+export type MapMode = (typeof MapMode)[keyof typeof MapMode]
+
 export const DataStatus = {
   Idle: 'idle',
   Loading: 'loading',

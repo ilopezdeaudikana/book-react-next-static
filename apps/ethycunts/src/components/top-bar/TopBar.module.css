@@ -8,9 +8,17 @@
   grid-template-columns: 70% 30%;
   gap: 1rem;
   align-items: start;
-  background: var(--surface);
-  border-bottom: 0.0625rem solid var(--border);
-  box-shadow: var(--shadow-soft);
+  background: var(--color-stone-50);
+  border-bottom: 0.0625rem solid var(--color-stone-200);
+  box-shadow: var(--shadow-md);
+}
+
+.filtersOpen {
+  display: flex;
+}
+
+.filtersClosed {
+  display: none;
 }
 
 .depsOpen {

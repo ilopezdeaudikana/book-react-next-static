@@ -1,30 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap');
+@import "tailwindcss";
 
 :root {
-  --bg: #f4f1ec;
-  --surface: #fcfbf9;
-  --text: #4b4640;
-  --text-strong: #1c1a18;
-  --text-muted: #7a7269;
-  --border: rgba(63, 58, 53, 0.12);
-  --border-strong: rgba(63, 58, 53, 0.2);
-  --accent: #1a7f6f;
-  --accent-soft: rgba(26, 127, 111, 0.12);
-  --accent-strong: #0f5146;
-  --accent-glow: rgba(26, 127, 111, 0.2);
-  --highlight: #f08a24;
-  --highlight-soft: rgba(240, 138, 36, 0.25);
-  --filter: #2f6db3;
-  --filter-soft: rgba(47, 109, 179, 0.18);
-  --tag-bg: rgba(250, 227, 204, 0.8);
-  --surface-solid: #fff;
-  --shadow-hover: 0 1.75rem 3rem -2.4rem rgba(29, 24, 19, 0.5);
-  --shadow-soft: 0 1.125rem 2.5rem -1.875rem rgba(29, 24, 19, 0.35);
-  --shadow-strong: 0 1.5625rem 3.75rem -1.875rem rgba(29, 24, 19, 0.45);
 
-  font-family: 'Space Grotesk', sans-serif;
-  color: var(--text);
-  background: var(--bg);
+  color: var(--color-stone-600);
+  background: var(--color-stone-100);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -51,8 +30,7 @@ body {
 h1,
 h2,
 h3 {
-  font-family: 'Space Grotesk', sans-serif;
-  color: var(--text-strong);
+  color: var(--color-stone-950);
   margin: 0;
 }
 
@@ -69,10 +47,3 @@ p {
   margin: 0;
 }
 
-button {
-  font-family: 'Space Grotesk', sans-serif;
-}
-
-code {
-  font-family: 'IBM Plex Mono', monospace;
-}
