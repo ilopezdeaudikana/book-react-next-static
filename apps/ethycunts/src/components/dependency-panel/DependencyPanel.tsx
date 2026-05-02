@@ -23,7 +23,7 @@ export const DependencyPanel = ({
   }))
 
   return (
-    <nav className={styles.panel}>
+    <nav>
       <div className={styles.panelList}>
         <Dropdown items={items}>
           <a onClick={(e) => e.preventDefault()}>
@@ -31,7 +31,7 @@ export const DependencyPanel = ({
               {dependencies.length > 0
                 ? `System Dependencies (${dependencies.length})`
                 : 'No dependencies'}
-              <DownOutlined />
+              {dependencies.length > 0 && <DownOutlined />}
             </Space>
           </a>
         </Dropdown>

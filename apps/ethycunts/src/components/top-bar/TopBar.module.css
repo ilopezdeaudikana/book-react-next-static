@@ -4,9 +4,7 @@
   z-index: 3;
   width: 100%;
   padding: 1rem;
-  display: grid;
-  grid-template-columns: 70% 30%;
-  gap: 1rem;
+  display: flex;
   align-items: start;
   background: var(--color-stone-50);
   border-bottom: 0.0625rem solid var(--color-stone-200);
@@ -15,17 +13,10 @@
 
 .filtersOpen {
   display: flex;
+  flex: 1;
 }
 
 .filtersClosed {
-  display: none;
-}
-
-.depsOpen {
-  display: block;
-}
-
-.depsClosed {
   display: none;
 }
 
@@ -34,11 +25,5 @@
     position: static;
     grid-template-columns: 1fr;
     align-items: stretch;
-  }
-}
-
-@media (min-width: 65rem) {
-  .depsClosed {
-    display: block;
   }
 }
