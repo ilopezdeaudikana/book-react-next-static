@@ -74,7 +74,7 @@ export const MapSection = ({
       {status === DataStatus.Loading && <div>Loading...</div>}
       {status === DataStatus.Error && <ErrorMessage />}
       {status !== DataStatus.Error && status !== DataStatus.Loading &&
-        <section className={styles.map} ref={containerRef}>
+        <section className={styles.mapSection} ref={containerRef}>
           {groupOrder.map((groupKey) => {
             return <GroupColumn key={groupKey} groupKey={groupKey} systems={groupedSystems[groupKey]} />
           })}

@@ -25,7 +25,7 @@ export function SidePanel({
   const itemRefs = useRef<Map<string, HTMLDivElement>>(new Map())
 
   const selectedSystem = useMemo(
-    () => systems.find((s) => s.fidesKey === selectedNodeId) ?? null,
+    () => systems.find((s) => selectedNodeId?.includes(s.fidesKey)) ?? null,
     [systems, selectedNodeId],
   )
 
@@ -57,7 +57,7 @@ export function SidePanel({
   }, [selectedNodeId])
 
   return (
-    <div className="flex flex-col h-full w-full">
+    <div className="flex flex-col h-full w-full overflow-auto">
         <div className="p-4 flex flex-col gap-6">
           {/* Detail panel */}
           {selectedSystem && (

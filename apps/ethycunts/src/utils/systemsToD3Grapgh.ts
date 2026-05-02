@@ -24,6 +24,41 @@ export function systemsToGraph(systems: SystemDefinition[]): InternalGraphData {
       edges.push({ source: s.fidesKey, target: dep, weight: 1 })
     }
   }
+  return { nodes, edges }
+}
 
+export function systemsByUseToGraph(systems: SystemDefinition[]): InternalGraphData {
+  const keySet = new Set(systems.map((s) => s.fidesKey))
+
+  const nodes = systems.reduce<(InternalNode & { node: SystemDefinition })[]>((result, s) => {
+    s.privacyDeclarations.forEach(pd => {
+      result.push({
+        id: `${s.fidesKey}_${pd.dataUse}`,
+        label: s.name,
+        group: pd.dataUse,
+        size: 10,
+        node: s
+      })
+    })
+    return result
+  }, [])
+
+  const edges: InternalEdge[] = []
+  const seen = new Set<string>()
+
+  for (const s of nodes) {
+    for (const dep of s.node.systemDependencies) {
+      if (!keySet.has(dep)) continue
+      const edgeKey = [s.id, dep].sort().join("--")
+      if (seen.has(edgeKey)) continue
+      seen.add(edgeKey)
+      const target = nodes.find(n => {
+        return n.id.includes(dep)
+      })?.id
+
+      if (target) edges.push({ source: s.id, target, weight: 1 })
+    }
+  }
+  console.log(nodes)
   return { nodes, edges }
 }

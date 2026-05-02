@@ -85,7 +85,7 @@ export const D3Map = ({
 
     const nodes: D3Node[] = graphData.nodes.map((n) => ({ ...n }))
     const links: D3Link[] = graphData.edges.map((e) => ({ ...e }))
-
+    
     const simulation = d3
       .forceSimulation<D3Node>(nodes)
       .force(

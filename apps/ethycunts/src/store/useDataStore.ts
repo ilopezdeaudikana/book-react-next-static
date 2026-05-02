@@ -46,7 +46,7 @@ export const useDataStore = create<DataState>((set, get) => ({
         allUses,
         allCategories } = addCategoriesAndUses(systems)
       const systemsMap = new Map(systemsWithMeta.map((system) => [system.fidesKey, system]))
-
+      
       set({ systems, systemsMap, allCategories, allUses, status: DataStatus.Ready })
     } catch (e) {
       set({ status: DataStatus.Error })

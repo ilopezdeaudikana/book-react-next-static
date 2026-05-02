@@ -82,6 +82,7 @@ export const FilterControls = () => {
             disabled={status === DataStatus.Error}
           />
         </div>
+        {mapMode === MapMode.ColourCode && <>
         <div className={styles.topBarSection}>
           <h2 id="data-use-label">Data use</h2>
           <Select
@@ -123,6 +124,7 @@ export const FilterControls = () => {
             Reset filters
           </Button>
         </div>
+        </>}
       </Flex>
     </Flex>
   )

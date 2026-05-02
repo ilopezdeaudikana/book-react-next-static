@@ -7,10 +7,10 @@ import { useMapStore } from '../../store/useMapStore'
 import { useFiltersStore } from '../../store/useFiltersStore'
 import { MapMode } from '../../types/types'
 
-export const TopBar = () => {
+export const TopBar = ({ isMobile }: { isMobile: boolean }) => {
   const [filtersOpen, setFiltersOpen] = useState(true)
   const [depsOpen, setDepsOpen] = useState(false)
-  const [isMobile, setIsMobile] = useState(false)
+
   const activeSystem = useMapStore((state) => state.activeSystem)
   const dependencies = useMapStore((state) => state.dependencies)
   const clearSelection = useMapStore((state) => state.clearSelection)
@@ -26,14 +26,6 @@ export const TopBar = () => {
       inline: 'center',
     })
   }
-
-  useEffect(() => {
-    const media = window.matchMedia('(max-width: 65rem)')
-    const apply = () => setIsMobile(media.matches)
-    apply()
-    media.addEventListener('change', apply)
-    return () => media.removeEventListener('change', apply)
-  }, [])
 
   useEffect(() => {
     if (!isMobile) {

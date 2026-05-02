@@ -49,7 +49,7 @@ export const useFilters = (
     layoutMode === LayoutMode.SystemType
       ? Array.from(groups.keys()).sort((a, b) => a.localeCompare(b))
       : allUses.filter((use) => groups.has(use))
-
+  
   return {
     filteredFidesKeys,
     groups,
