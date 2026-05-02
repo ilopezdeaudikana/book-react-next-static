@@ -57,15 +57,15 @@ export function SidePanel({
   }, [selectedNodeId])
 
   return (
-    <div className="flex flex-col h-full bg-card">
+    <div className="flex flex-col h-full w-full">
         <div className="p-4 flex flex-col gap-6">
           {/* Detail panel */}
           {selectedSystem && (
-            <div className="bg-secondary/20 border border-border/50 rounded-xl p-5 animate-in fade-in slide-in-from-top-4 duration-300">
+            <div className="bg-gray-200/50 rounded-xl p-5">
               <div className="flex items-start justify-between mb-3">
                 <div className="flex-1 min-w-0 pr-2">
                   <span
-                    className="mb-2 uppercase tracking-wider text-[10px] font-semibold border-transparent capitalize"
+                    className="uppercase text-[10px] font-semibold"
                     style={{
                       backgroundColor: `${colorForGroup(selectedSystem.systemType)}20`,
                       color: colorForGroup(selectedSystem.systemType),
@@ -73,7 +73,7 @@ export function SidePanel({
                   >
                     {selectedSystem.systemType.replace(/_/g, ' ')}
                   </span>
-                  <h2 className="text-lg font-bold tracking-tight leading-snug">
+                  <h2 className="mt-2 text-lg font-bold">
                     {selectedSystem.name}
                   </h2>
                   <p className="text-xs font-mono text-muted-foreground mt-0.5">
@@ -102,9 +102,9 @@ export function SidePanel({
                     {selectedSystem.privacyDeclarations.map((decl, i) => (
                       <div
                         key={i}
-                        className="bg-background/50 border border-border/50 rounded-lg p-3 space-y-2"
+                        className="bg-gray-100/70 rounded-lg p-3 space-y-2 overflow-hidden"
                       >
-                        <p className="text-xs font-semibold text-foreground">
+                        <p className="pb-2 text-xs font-semibold text-foreground">
                           {decl.name}
                         </p>
                         <div className="grid grid-cols-[auto_1fr] gap-x-3 gap-y-1.5 text-xs">
@@ -118,11 +118,11 @@ export function SidePanel({
                           <span className="text-muted-foreground font-medium">
                             Categories
                           </span>
-                          <div className="flex flex-wrap gap-1">
+                          <div className="flex flex-wrap gap-1 min-w-0">
                             {decl.dataCategories.map((cat) => (
                               <span
                                 key={cat}
-                                className="bg-secondary/60 text-foreground/80 px-1.5 py-0.5 rounded text-[10px] font-mono"
+                                className="bg-secondary/60 text-foreground/80 px-1.5 py-0.5 rounded text-[10px] font-mono truncate"
                               >
                                 {cat}
                               </span>
@@ -165,7 +165,7 @@ export function SidePanel({
                         <button
                           key={depKey}
                           onClick={() => onSelectNode(depKey)}
-                          className="text-xs bg-background hover:bg-secondary border border-border transition-colors px-2.5 py-1 rounded-full flex items-center gap-1.5"
+                          className="text-xs bg-gray-50 hover:bg-secondary transition-colors px-2.5 py-1 rounded-full flex items-center gap-1.5"
                         >
                           <div
                             className="w-1.5 h-1.5 rounded-full flex-shrink-0"
@@ -185,14 +185,14 @@ export function SidePanel({
 
           {/* Full scrollable list */}
           {!selectedSystem && (<div>
-            <h3 className="text-sm font-semibold mb-4 text-foreground/80 flex items-center justify-between">
+            <h3 className="text-sm font-semibold text-foreground/80 flex items-center justify-between">
               <span>{selectedNodeId ? 'All Systems' : 'System Inventory'}</span>
               <span className="text-[10px]">
                 {filteredNodes.length}
               </span>
             </h3>
 
-            <div className="space-y-6">
+            <div className="space-y-6 mt-4">
               {Object.entries(groupedNodes).map(([group, nodes]) => (
                 <div key={group}>
                   <h4 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground flex items-center gap-2 mb-2 py-1">
@@ -221,7 +221,7 @@ export function SidePanel({
                         `}
                       >
                         <div className="flex items-center justify-between">
-                          <span className="font-medium text-sm text-foreground/90 group-hover:text-foreground transition-colors">
+                          <span className="ml-2 font-medium text-sm text-foreground/90 group-hover:opacity-80 transition-colors">
                             {node.label}
                           </span>
                           <span className="text-[10px] font-mono text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity">

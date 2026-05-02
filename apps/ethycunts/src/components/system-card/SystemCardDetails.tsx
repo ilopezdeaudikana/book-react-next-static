@@ -14,12 +14,15 @@ export const SystemCardDetails = ({ uses, categories, systemDependencies }: Syst
   const { systemsMap } = useMapStore()
 
   return (<>
-    <div className={styles.uses}>
-      {uses.map((use) => (
-        <span key={use} className={styles.tag}>
-          {titleCase(use)}
-        </span>
-      ))}
+    <div>
+      <p className={styles.label}>Uses</p>
+      <p>
+        {uses.map((use) => (
+          <span key={use} className={styles.tag}>
+            {titleCase(use)}
+          </span>
+        ))}
+      </p>
     </div>
     <div>
       <p className={styles.label}>Data categories</p>

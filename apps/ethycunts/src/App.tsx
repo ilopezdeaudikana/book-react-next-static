@@ -44,8 +44,8 @@ function App() {
             <MapSection containerRef={containerRef} />
           )}
           {mapMode === MapMode.D3 && (
-            <div className='flex h-screen w-full overflow-hidden bg-background text-foreground'>
-              <div className="w-[65%] h-full border-r border-border relative bg-black/20">
+            <div className='flex h-[calc(100vh_-_15rem)] w-full overflow-hidden bg-background text-foreground'>
+              <div className="w-[65%] relative bg-gray-200">
                 <D3Map
                   graphData={graphData}
                   selectedNodeId={selectedNodeId}
@@ -53,7 +53,7 @@ function App() {
                 />
               </div>
 
-              <div className="w-[35%] h-full bg-card overflow-hidden flex flex-col">
+              <div className="w-[35%] overflow-hidden flex flex-col bg-gray-300">
                 <SidePanel
                   systems={systems}
                   graphData={graphData}

@@ -1,14 +1,8 @@
-.uses {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-}
-
 .tag {
   font-size: 0.6875rem;
   letter-spacing: 0.06em;
   padding: 0.25rem 0.5rem;
-  background: var(--color-orange-100/80);
+  background: var(--color-orange-100);
   color: var(--color-stone-950);
   border-radius: 62.4375rem;
 }
@@ -32,7 +26,7 @@
   padding: 0.3125rem 0.625rem;
   border-radius: 62.4375rem;
   border: 0.0625rem solid var(--color-stone-300);
-  background: var(--color-white);
+  background: var(--color-gray-100);
 }
 
 .dependencyList {

@@ -277,7 +277,7 @@
   {
     "description": "Privacy platform to automate the collection and processing of data subject requests for GDPR, CCPA, etc.",
     "fides_key": "privacy_app",
-    "name": "ethycunts",
+    "name": "acme",
     "privacy_declarations": [
       {
         "data_categories": [

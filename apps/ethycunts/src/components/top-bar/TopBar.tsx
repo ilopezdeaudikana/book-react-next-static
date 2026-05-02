@@ -4,6 +4,8 @@ import styles from './TopBar.module.css'
 import { FilterControls } from './FilterControls'
 import { DependencyPanel } from '../dependency-panel/DependencyPanel'
 import { useMapStore } from '../../store/useMapStore'
+import { useFiltersStore } from '../../store/useFiltersStore'
+import { MapMode } from '../../types/types'
 
 export const TopBar = () => {
   const [filtersOpen, setFiltersOpen] = useState(true)
@@ -12,15 +14,19 @@ export const TopBar = () => {
   const activeSystem = useMapStore((state) => state.activeSystem)
   const dependencies = useMapStore((state) => state.dependencies)
   const clearSelection = useMapStore((state) => state.clearSelection)
-  const cardRefs = useMapStore(state => state.cardRefs)
+  const cardRefs = useMapStore((state) => state.cardRefs)
+  const mapMode = useFiltersStore((state) => state.mapMode)
 
   const handleDependencyClick = (key: string) => {
     const node = cardRefs.get(key)
     if (!node) return
-    node.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' })
+    node.scrollIntoView({
+      behavior: 'smooth',
+      block: 'center',
+      inline: 'center',
+    })
   }
 
-  
   useEffect(() => {
     const media = window.matchMedia('(max-width: 65rem)')
     const apply = () => setIsMobile(media.matches)
@@ -50,17 +56,20 @@ export const TopBar = () => {
 
       <div
         className={`${
-          (!isMobile || filtersOpen) ? styles.filtersOpen : styles.filtersClosed
+          !isMobile || filtersOpen ? styles.filtersOpen : styles.filtersClosed
         }`}
       >
         <FilterControls />
       </div>
 
-      {activeSystem && (
+      {activeSystem && mapMode === MapMode.ColourCode && (
         <div
           className={`${styles.depsPanel} ${!isMobile || depsOpen ? styles.depsOpen : styles.depsClosed}`}
         >
-          <DependencyPanel dependencies={dependencies} onDependencyClick={handleDependencyClick} />
+          <DependencyPanel
+            dependencies={dependencies}
+            onDependencyClick={handleDependencyClick}
+          />
         </div>
       )}
     </header>

@@ -93,7 +93,7 @@ export const D3Map = ({
         d3
           .forceLink<D3Node, D3Link>(links)
           .id((d) => d.id)
-          .distance(120),
+          .distance(160),
       )
       .force('charge', d3.forceManyBody().strength(-350))
       .force('center', d3.forceCenter(width / 2, height / 2))
@@ -180,16 +180,6 @@ export const D3Map = ({
       .attr('stroke', '#0f172a')
       .attr('stroke-width', 1.5)
 
-    nodeGroup
-      .append('text')
-      .attr('dy', (d) => Math.sqrt(d.size) * 3 + 14)
-      .attr('text-anchor', 'middle')
-      .text((d) => d.label)
-      .attr('fill', '#e2e8f0')
-      .style('font-size', '10px')
-      .style('pointer-events', 'none')
-      .style('text-shadow', '0px 1px 3px rgba(0,0,0,0.8)')
-
     simulation.on('tick', () => {
       link
         .attr('x1', (d) => (d.source as D3Node).x!)
@@ -257,7 +247,7 @@ export const D3Map = ({
 
       {tooltip.visible && (
         <div
-          className="fixed z-50 pointer-events-none bg-popover/90 text-popover-foreground px-2 py-1 rounded text-xs font-medium border border-border backdrop-blur-sm"
+          className="fixed z-50 pointer-events-none bg-gray-800/40 text-white px-2 py-1 rounded text-xs font-medium border border-border backdrop-blur-sm"
           style={{ left: tooltip.x + 15, top: tooltip.y + 15 }}
         >
           {tooltip.text}
@@ -272,7 +262,7 @@ export const D3Map = ({
         </Button>
       </div>
 
-      <div className="absolute top-4 left-4 bg-background/80 backdrop-blur-sm p-3 rounded-lg border border-border">
+      <div className="absolute top-4 left-4 bg-gray-100/30 backdrop-blur-sm p-3 rounded-lg border border-border">
         <h4 className="text-xs font-semibold mb-2 uppercase tracking-wider text-muted-foreground">
           System Types
         </h4>
@@ -283,7 +273,7 @@ export const D3Map = ({
                 className="w-2.5 h-2.5 rounded-full flex-shrink-0"
                 style={{ backgroundColor: colorForGroup(group) }}
               />
-              <span className="text-foreground capitalize">
+              <span className="text-gray-800 capitalize">
                 {group.replace(/_/g, ' ')}
               </span>
             </div>

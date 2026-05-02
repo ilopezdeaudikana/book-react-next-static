@@ -51,7 +51,7 @@ export const SystemCard = ({ system}: SystemCardProps) => {
     if (isConnected) classes.push(styles.connected)
     if (isActive) classes.push(styles.active)
 
-    return classes.filter(Boolean).join(' ')
+    return classes.filter(Boolean).join(' ').trim()
   }, [expanded, dimmed, isFiltered, isConnected, isActive])
 
   return (
