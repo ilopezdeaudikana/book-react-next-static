@@ -1,4 +1,4 @@
-import { Button, Select, Radio, Flex } from '@repo/ui'
+import { Select, Radio, Flex } from '@repo/ui'
 import { useEffect } from 'react'
 import styles from './FilterControls.module.css'
 import { DataStatus, LayoutMode, MapMode } from '../../types/types'
