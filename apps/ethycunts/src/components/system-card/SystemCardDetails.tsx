@@ -16,13 +16,14 @@ export const SystemCardDetails = ({ uses, categories, systemDependencies }: Syst
   return (<>
     <div>
       <p className={styles.label}>Uses</p>
-      <p>
+      {uses.length > 0 && <div className={styles.tags}>
         {uses.map((use) => (
           <span key={use} className={styles.tag}>
             {titleCase(use)}
           </span>
         ))}
-      </p>
+      </div>}
+      {uses.length == 0 && <p className={styles.empty}>No uses found</p>}
     </div>
     <div>
       <p className={styles.label}>Data categories</p>

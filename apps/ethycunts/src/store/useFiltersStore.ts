@@ -28,7 +28,7 @@ export const useFiltersStore = create<FilterSlice & LayoutSlice & MapModeSlice>(
     return { hasFilters: state.selectedUses.length > 0 || state.selectedCategories.length > 0 }
   }),
   setLayoutMode: (mode) => set({ layoutMode: mode }),
-  mapMode: MapMode.ColourCode,
+  mapMode: MapMode.D3,
 
   setMapMode: (mode) => set({ mapMode: mode }),
   selectedUses: [],

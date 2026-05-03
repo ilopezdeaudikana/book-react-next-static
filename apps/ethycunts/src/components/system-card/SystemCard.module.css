@@ -57,8 +57,9 @@
 
 .drawerToggle {
   border: none;
-  background: var(--color-teal-200);
-  color: var(--color-teal-900);
+  background: var(--color-stone-300);
+  opacity: 90%;
+  color: var(--color-gray-700);
   border-radius: 1rem;
   padding: 0.5rem 0.75rem;
   font-weight: 600;
