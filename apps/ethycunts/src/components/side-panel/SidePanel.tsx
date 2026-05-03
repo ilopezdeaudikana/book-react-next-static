@@ -53,7 +53,8 @@ export const SidePanel = ({ graphData }: SidePanelProps) => {
         {/* Full scrollable list */}
         {!isDetailOpen && (
           <div>
-            <h3 className="text-sm font-semibold text-foreground/80 flex items-center justify-between">
+            <Input value={search} onChange={(e) => setSearch(e.target.value)}/>
+            <h3 className="mt-4 text-sm font-semibold text-foreground/80 flex items-center justify-between">
               <span>{activeSystem ? 'All Systems' : 'System Inventory'}</span>
               <span className="text-[10px]">{filteredNodes.length}</span>
             </h3>
