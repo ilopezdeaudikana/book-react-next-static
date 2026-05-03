@@ -21,8 +21,6 @@ function App() {
 
   const layoutMode = useFiltersStore((state) => state.layoutMode)
 
-  const [selectedNodeId, setSelectedNodeId] = useState<string | null>(null)
-
   const { systems } = useSystemsData()
 
   const graphData = useMemo(() => {
@@ -74,7 +72,6 @@ function App() {
 
               <div className="w-[35%] overflow-hidden flex flex-col bg-gray-300">
                 <SidePanel
-                  systems={systems}
                   graphData={graphData}
                 />
               </div>
