@@ -186,7 +186,7 @@ export const D3Map = ({
     })
 
     svg.on('click', () => {
-      onSelectNode(null)
+      selectSystem(null)
     })
 
     return () => {
