@@ -59,6 +59,5 @@ export function systemsByUseToGraph(systems: SystemDefinition[]): InternalGraphD
       if (target) edges.push({ source: s.id, target, weight: 1 })
     }
   }
-  console.log(nodes)
   return { nodes, edges }
 }

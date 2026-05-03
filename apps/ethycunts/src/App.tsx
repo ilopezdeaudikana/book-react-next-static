@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import styles from './App.module.css'
-import { MapSection } from './components/map-section/MapSection'
+import { MapSection } from './components/colour-map/MapSection'
 import { TopBar } from './components/top-bar/TopBar'
 import { ErrorBoundary } from 'react-error-boundary'
 import { Flex, Header, InfoPanel, Typography } from '@repo/ui'
@@ -69,8 +69,6 @@ function App() {
               <div className="w-[65%] relative bg-gray-200">
                 <D3Map
                   graphData={graphData}
-                  selectedNodeId={selectedNodeId}
-                  onSelectNode={setSelectedNodeId}
                 />
               </div>
 
@@ -78,8 +76,6 @@ function App() {
                 <SidePanel
                   systems={systems}
                   graphData={graphData}
-                  selectedNodeId={selectedNodeId}
-                  onSelectNode={setSelectedNodeId}
                 />
               </div>
             </div>

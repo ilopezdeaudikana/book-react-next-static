@@ -11,3 +11,7 @@ export const GROUP_COLORS: Record<string, string> = {
 }
 
 export const DEFAULT_COLOR = '#64748b'
+
+export const colorForGroup = (group: string): string => {
+  return GROUP_COLORS[group.toLowerCase()] ?? DEFAULT_COLOR
+}

@@ -20,11 +20,10 @@ type MapStore = {
   connectedKeys: Set<string>
   filteredFidesKeys: Set<string>
   registerCardRef: (key: string, ref: HTMLElement | null) => void
-  setSystemsMap: (systems: SystemWithMeta[]) => void
   setHighlightedKeys: (keys: Set<string>) => void,
   setConnectedKeys: (keys: Set<string>) => void,
   setFilteredFidesKeys: (keys: Set<string>) => void
-  selectSystem: (key: string) => void
+  selectSystem: (key: string | null) => void
 }
 
 export const useMapStore = create<MapStore & SelectionSlice>((set, get) => ({
@@ -35,7 +34,7 @@ export const useMapStore = create<MapStore & SelectionSlice>((set, get) => ({
   highlightedKeys: new Set<string>(),
   connectedKeys: new Set<string>(),
   filteredFidesKeys: new Set<string>(),
-  selectSystem: (key: string) => {
+  selectSystem: (key: string | null) => {
     const current = get().activeSystem
     set({
       activeSystem: current === key ? null : key,
@@ -45,16 +44,6 @@ export const useMapStore = create<MapStore & SelectionSlice>((set, get) => ({
   setHighlightedKeys: (keys: Set<string>) => set({ highlightedKeys: keys }),
   setConnectedKeys: (keys: Set<string>) => set({ connectedKeys: keys }),
   setFilteredFidesKeys: (keys: Set<string>) => set({ filteredFidesKeys: keys }),
-  setSystemsMap: (systems: SystemWithMeta[]) => {
-    set((state) => {
-      const next = new Map(state.systemsMap)
-      const entries: [string, SystemWithMeta][] = systems.map(system => [system.fidesKey, system])
-      entries.forEach(([key, value]) => {
-        next.set(key, value)
-      })
-      return { systemsMap: next }
-    })
-  },
   registerCardRef: (key: string, ref: HTMLElement | null) => {
     set((state) => ({
       cardRefs: new Map(state.cardRefs).set(key, ref)

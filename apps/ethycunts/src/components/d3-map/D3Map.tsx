@@ -2,16 +2,11 @@ import { useEffect, useRef, useState } from 'react'
 import * as d3 from 'd3'
 import type { InternalGraphData } from '../../types/d3-types'
 import { Button } from '@repo/ui'
-import { GROUP_COLORS, DEFAULT_COLOR } from '../../utils/colors'
+import { colorForGroup } from '../../utils/colors'
+import { useMapStore } from '../../store/useMapStore'
 
 interface D3MapProps {
   graphData: InternalGraphData
-  selectedNodeId: string | null
-  onSelectNode: (id: string | null) => void
-}
-
-function colorForGroup(group: string): string {
-  return GROUP_COLORS[group.toLowerCase()] ?? DEFAULT_COLOR
 }
 
 interface D3Node extends d3.SimulationNodeDatum {
@@ -28,10 +23,9 @@ interface D3Link extends d3.SimulationLinkDatum<D3Node> {
 }
 
 export const D3Map = ({
-  graphData,
-  selectedNodeId,
-  onSelectNode,
+  graphData
 }: D3MapProps) => {
+
   const containerRef = useRef<HTMLDivElement>(null)
   const svgRef = useRef<SVGSVGElement>(null)
 
@@ -46,6 +40,8 @@ export const D3Map = ({
     y: 0,
     text: '',
   })
+  const activeSystem = useMapStore(state => state.activeSystem)
+  const selectSystem = useMapStore(state => state.selectSystem)
 
   const zoomRef = useRef<d3.ZoomBehavior<SVGSVGElement, unknown> | null>(null)
   const nodesRef = useRef<d3.Selection<
@@ -127,7 +123,7 @@ export const D3Map = ({
       .style('cursor', 'pointer')
       .on('click', (event, d) => {
         event.stopPropagation()
-        onSelectNode(d.id === selectedNodeId ? null : d.id)
+        selectSystem(d.id === activeSystem ? null : d.id)
       })
       .on('mouseenter', (event, d) => {
         setTooltip({
@@ -201,17 +197,17 @@ export const D3Map = ({
   useEffect(() => {
     if (!nodesRef.current || !linksRef.current) return
 
-    if (!selectedNodeId) {
+    if (!activeSystem) {
       nodesRef.current.style('opacity', 1)
       linksRef.current.style('opacity', 0.6)
       nodesRef.current.select('.node-glow').style('opacity', 0)
       return
     }
 
-    const connectedIds = new Set<string>([selectedNodeId])
+    const connectedIds = new Set<string>([activeSystem])
     graphData.edges.forEach((e) => {
-      if (e.source === selectedNodeId) connectedIds.add(e.target)
-      if (e.target === selectedNodeId) connectedIds.add(e.source)
+      if (e.source === activeSystem) connectedIds.add(e.target)
+      if (e.target === activeSystem) connectedIds.add(e.source)
     })
 
     nodesRef.current.style('opacity', (d) =>
@@ -219,16 +215,16 @@ export const D3Map = ({
     )
     nodesRef.current
       .select('.node-glow')
-      .style('opacity', (d) => (d.id === selectedNodeId ? 1 : 0))
+      .style('opacity', (d) => (d.id === activeSystem ? 1 : 0))
       .style('animation', (d) =>
-        d.id === selectedNodeId ? 'pulse 2s infinite' : 'none',
+        d.id === activeSystem ? 'pulse 2s infinite' : 'none',
       )
     linksRef.current.style('opacity', (d) => {
       const src = typeof d.source === 'object' ? d.source.id : d.source
       const tgt = typeof d.target === 'object' ? d.target.id : d.target
-      return src === selectedNodeId || tgt === selectedNodeId ? 0.85 : 0.08
+      return src === activeSystem || tgt === activeSystem ? 0.85 : 0.08
     })
-  }, [selectedNodeId, graphData])
+  }, [activeSystem, graphData])
 
   const handleReset = () => {
     if (!svgRef.current || !zoomRef.current) return
