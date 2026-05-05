@@ -18,13 +18,20 @@ A prototype that renders an interactive systems map from a JSON dataset, with fi
     * Expandable drawers for system descriptions.
 
 **Summary**
-- Filters are multi-select and the layout grouping stays stable.
-- Selecting a system highlights its direct dependencies.
-- Dependency panel provides scroll-to navigation.
-- UI uses React + TypeScript + Vite, CSS Modules, and Antd components.
-- On smaller screens the top bar collapses into toggle buttons.
-- Hello world like `e2e` tests
-- Added some unit tests
+- UI uses React + TypeScript + Vite, D3, CSS Modules, Tailwind and Antd components.
+- There are two versions of the map. D3 chart (default) and Colour code
+- D3 chat
+    * Only layout grouping enabled.
+    * Selecting a system highlights its direct dependencies and shows details on side panel.
+    * Side panel provides scroll-to navigation and selects the node in the chart.
+ 
+- Colour code
+    * Filters are multi-select and the layout grouping stays stable.
+    * Selecting a system highlights its direct dependencies.
+    * Dependency panel provides scroll-to navigation.
+    * On smaller screens the top bar collapses into toggle buttons.
+    * Hello world like `e2e` tests
+    * Added some unit tests
 
 **Scripts**
 1. `npm run dev` – Start the dev server
@@ -44,6 +51,7 @@ A prototype that renders an interactive systems map from a JSON dataset, with fi
 - CSS Modules
 - Vitest + Testing Library
 - Playwright
+- D3
 
 **Design Choices**
 - `useSystemsData` fetches `sample_data.json`; tests mock fetch or import directly from the data folder.
@@ -53,12 +61,10 @@ A prototype that renders an interactive systems map from a JSON dataset, with fi
 - Zustand centralizes selection/dependency state across components.
 
 **Possible Improvements**
-1. Loading/error UI for data fetch
-2. Add search
-3. Accessibility
-4. Virtualization for large datasets
-5. Persist filters in the URL
-6. Theming
-7. Chagne folder structure as the app grows. Distribute files per route or feature
-8. Add another scroll-navigation panel for filtered items
-9. Use scss
+- Accessibility
+- Virtualization for large datasets
+- Persist filters in the URL
+- Theming
+- Change folder structure as the app grows. Distribute files per route or feature
+- Add another scroll-navigation panel for filtered items
+- Consolidate styles and use just Tailwind
