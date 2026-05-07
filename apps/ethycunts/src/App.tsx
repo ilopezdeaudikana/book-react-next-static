@@ -1,5 +1,4 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
-import styles from './App.module.css'
 import { MapSection } from './components/colour-map/MapSection'
 import { TopBar } from './components/top-bar/TopBar'
 import { ErrorBoundary } from 'react-error-boundary'
@@ -55,8 +54,8 @@ function App() {
     >
       <Header onNavigate={handleNavigation} />
 
-      <div className={styles.page}>
-        <div className={styles.layout}>
+      <div className="flex flex-col gap-4">
+        <div className="flex flex-1 flex-col items-stretch">
           <TopBar isMobile={isMobile}/>
 
           {mapMode === MapMode.ColourCode && (
@@ -82,7 +81,7 @@ function App() {
       <InfoPanel title="Systems map">
         <Flex vertical gap="18">
           <Typography variant="text">
-            Stack: React, TypeScript, D3, Zustand, Zod, Antd, CSS Modules,
+            Stack: React, TypeScript, D3, Zustand, Zod, Antd, Tailwind,
             Testing Library, Playwright
           </Typography>
           <Typography

@@ -1,6 +1,5 @@
 import type { RefObject } from 'react'
 import { useEffect, useMemo } from 'react'
-import styles from './MapSection.module.css'
 import { GroupColumn } from './GroupColumn'
 import { useFilters } from '../../hooks/useFilters'
 import { useSystemsData } from '../../hooks/useSystemsData'
@@ -57,16 +56,22 @@ export const MapSection = ({
     setConnectedKeys(connectedKeys)
     setFilteredFidesKeys(filteredFidesKeys)
     setHighlightedKeys(activeSystem ? selectionKeys : filteredFidesKeys)
-  }, [connectedKeys, activeSystem])
-
-  const getSystems = (groupKey: string) => groups.get(groupKey) ?? []
+  }, [
+    activeSystem,
+    connectedKeys,
+    filteredFidesKeys,
+    selectionKeys,
+    setConnectedKeys,
+    setFilteredFidesKeys,
+    setHighlightedKeys,
+  ])
 
   const groupedSystems = useMemo(() => {
     return groupOrder.reduce<Record<string, SystemWithMeta[]>>((acc, key) => {
-      acc[key] = getSystems(key)
+      acc[key] = groups.get(key) ?? []
       return acc
     }, {})
-  }, [groupOrder])
+  }, [groupOrder, groups])
 
 
   return (
@@ -74,7 +79,10 @@ export const MapSection = ({
       {status === DataStatus.Loading && <div>Loading...</div>}
       {status === DataStatus.Error && <ErrorMessage />}
       {status !== DataStatus.Error && status !== DataStatus.Loading &&
-        <section className={styles.mapSection} ref={containerRef}>
+        <section
+          className="relative flex flex-1 flex-row justify-evenly gap-6 px-4 pb-4 pt-6"
+          ref={containerRef}
+        >
           {groupOrder.map((groupKey) => {
             return <GroupColumn key={groupKey} groupKey={groupKey} systems={groupedSystems[groupKey]} />
           })}

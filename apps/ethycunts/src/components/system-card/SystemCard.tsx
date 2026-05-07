@@ -1,6 +1,5 @@
 import { useMemo, useState } from 'react'
 import type { SystemWithMeta } from '../../types/types'
-import styles from './SystemCard.module.css'
 import { SystemCardDetails } from './SystemCardDetails'
 import { useMapStore } from '../../store/useMapStore'
 import { useFiltersStore } from '../../store/useFiltersStore'
@@ -43,13 +42,15 @@ export const SystemCard = ({ system}: SystemCardProps) => {
   }
 
   const cardClassName = useMemo(() => {
-    const classes = [styles.systemCard]
+    const classes = [
+      'flex h-48 w-72 max-w-full flex-col gap-4 overflow-hidden rounded-[1.125rem] border bg-stone-50 p-[1.125rem] shadow-md transition-[opacity,filter,transform,box-shadow] duration-200 ease-in-out hover:-translate-y-[0.2rem] hover:shadow-md',
+    ]
 
-    if (expanded) classes.push(styles.expanded)
-    if (dimmed) classes.push(styles.dimmed)
-    if (isFiltered) classes.push(styles.filtered)
-    if (isConnected) classes.push(styles.connected)
-    if (isActive) classes.push(styles.active)
+    if (expanded) classes.push('h-auto overflow-visible')
+    if (dimmed) classes.push('opacity-35 grayscale-[0.1]')
+    if (isFiltered) classes.push('border-blue-600')
+    if (isConnected) classes.push('-translate-y-1 border-amber-500')
+    if (isActive) classes.push('border-teal-700')
 
     return classes.filter(Boolean).join(' ').trim()
   }, [expanded, dimmed, isFiltered, isConnected, isActive])
@@ -61,20 +62,23 @@ export const SystemCard = ({ system}: SystemCardProps) => {
       ref={(node) => registerRefs(fidesKey, node)}
       onClick={() => selectSystem(fidesKey)}
     >
-      <header className={styles.header}>
+      <header className="flex flex-col gap-2.5">
         <div>
-          <h3 className={styles.name}>{name}</h3>
-          <p className={styles.systemKey}>{fidesKey}</p>
+          <h3 className="mb-0 mt-1 text-base text-stone-950">{name}</h3>
+          <p className="mb-0 mt-1.5 text-xs text-stone-400">{fidesKey}</p>
         </div>
       </header>
-      <p className={styles.description} title={!expanded ? description : undefined}>
+      <p
+        className="m-0 line-clamp-2 overflow-hidden text-ellipsis text-xs text-stone-600"
+        title={!expanded ? description : undefined}
+      >
         {description}
       </p>
 
-      <div className={styles.drawer}>
+      <div className="mt-auto flex flex-col gap-2.5">
         <button
           type="button"
-          className={styles.drawerToggle}
+          className="cursor-pointer rounded-2xl border-0 bg-stone-300 px-3 py-2 text-xs font-semibold text-gray-700 opacity-90"
           onClick={(event) => {
             event.stopPropagation()
             if (!isActive) {

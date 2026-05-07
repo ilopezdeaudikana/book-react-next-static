@@ -1,5 +1,4 @@
 import type { SystemWithMeta } from '../../types/types'
-import styles from './DependencyPanel.module.css'
 import { DownOutlined } from '@ant-design/icons'
 import { Dropdown, Space } from '@repo/ui'
 
@@ -24,7 +23,7 @@ export const DependencyPanel = ({
 
   return (
     <nav>
-      <div className={styles.panelList}>
+      <div className="flex flex-wrap gap-3">
         <Dropdown items={items}>
           <a onClick={(e) => e.preventDefault()}>
             <Space>

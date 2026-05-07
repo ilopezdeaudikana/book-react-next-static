@@ -18,7 +18,7 @@ A prototype that renders an interactive systems map from a JSON dataset, with fi
     * Expandable drawers for system descriptions.
 
 **Summary**
-- UI uses React + TypeScript + Vite, D3, CSS Modules, Tailwind and Antd components.
+- UI uses React + TypeScript + Vite, D3, Tailwind and Antd components.
 - There are two versions of the map. D3 chart (default) and Colour code
 - D3 chat
     * Only layout grouping enabled.
@@ -48,7 +48,7 @@ A prototype that renders an interactive systems map from a JSON dataset, with fi
 - Zustand
 - Zod
 - Antd
-- CSS Modules
+- Tailwind
 - Vitest + Testing Library
 - Playwright
 - D3
@@ -57,7 +57,7 @@ A prototype that renders an interactive systems map from a JSON dataset, with fi
 - `useSystemsData` fetches `sample_data.json`; tests mock fetch or import directly from the data folder.
 - Layout groups are derived from the full dataset, so filtering doesn’t reorder columns.
 - Dependency navigation links scroll to specific cards; if the page doesn’t overflow, those links have no effect.
-- CSS Modules keep styles scoped and easier to manage.
+- Tailwind utilities keep component styling close to the markup.
 - Zustand centralizes selection/dependency state across components.
 
 **Possible Improvements**
@@ -67,4 +67,4 @@ A prototype that renders an interactive systems map from a JSON dataset, with fi
 - Theming
 - Change folder structure as the app grows. Distribute files per route or feature
 - Add another scroll-navigation panel for filtered items
-- Consolidate styles and use just Tailwind
+- Improve shared Tailwind patterns as the app grows

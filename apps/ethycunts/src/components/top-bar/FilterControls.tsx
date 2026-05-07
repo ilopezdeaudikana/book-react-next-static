@@ -1,6 +1,5 @@
 import { Select, Radio, Flex } from '@repo/ui'
 import { useEffect } from 'react'
-import styles from './FilterControls.module.css'
 import { DataStatus, LayoutMode, MapMode } from '../../types/types'
 import { titleCase } from '../../utils/strings'
 import { useSystemsData } from '../../hooks/useSystemsData'
@@ -30,6 +29,9 @@ export const FilterControls = () => {
   const dependencies = useMapStore((state) => state.dependencies)
 
   const cardRefs = useMapStore((state) => state.cardRefs)
+  const sectionClassName =
+    'mt-4 flex h-18 min-w-56 flex-col justify-between gap-2 max-[65rem]:h-auto max-[65rem]:w-full [&_h2]:overflow-hidden [&_h2]:text-ellipsis [&_h2]:whitespace-nowrap'
+  const selectClassName = 'max-w-64 max-[65rem]:max-w-full'
 
   const handleDependencyClick = (key: string) => {
     const node = cardRefs.get(key)
@@ -73,11 +75,11 @@ export const FilterControls = () => {
     value: cat,
   }))
 
-  useEffect(() => setHasFilters(), [])
+  useEffect(() => setHasFilters(), [setHasFilters])
 
   return (
     <Flex vertical style={{ width: '100%' }}>
-      <div className={styles.mapMode}>
+      <div className="w-80 [&_h2]:mb-4">
         <h2>Mode</h2>
         <Radio
           onChange={(e) => setMapMode(e.target.value as MapMode)}
@@ -87,7 +89,7 @@ export const FilterControls = () => {
         />
       </div>
       <Flex gap="2rem">
-        <div className={styles.topBarSection}>
+        <div className={sectionClassName}>
           <h2>Layout</h2>
           <Radio
             onChange={(e) => setLayoutMode(e.target.value as LayoutMode)}
@@ -98,10 +100,10 @@ export const FilterControls = () => {
         </div>
         {mapMode === MapMode.ColourCode && (
           <>
-            <div className={styles.topBarSection}>
+            <div className={sectionClassName}>
               <h2 id="data-use-label">Data use</h2>
               <Select
-                className={styles.selectControl}
+                className={selectClassName}
                 value={selectedUses}
                 disabled={status === DataStatus.Error}
                 onChange={(event) => {
@@ -113,11 +115,11 @@ export const FilterControls = () => {
               />
             </div>
 
-            <div className={styles.topBarSection}>
+            <div className={sectionClassName}>
               <h2 id="data-category-label">Data category</h2>
               <Select
                 value={selectedCategories}
-                className={styles.selectControl}
+                className={selectClassName}
                 disabled={status === DataStatus.Error}
                 onChange={(event) => {
                   clearSelection()
@@ -131,7 +133,7 @@ export const FilterControls = () => {
           </>
         )}
         {activeSystem && (
-          <div className={styles.resetSection}>
+          <div className="self-end justify-items-end">
             <DependencyPanel
               dependencies={dependencies}
               onDependencyClick={handleDependencyClick}
