@@ -32,7 +32,7 @@ export const getGithubAgentData = async (query: string): Promise<RepoApiData> =>
     const response = await fetch(`${MASTRA_API_URL}summarize`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ topic: query }),
+      body: JSON.stringify({ topic: query })
     })
 
     const payload = await response.json()
