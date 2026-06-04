@@ -16,6 +16,7 @@ import {
   useTransition,
 } from 'react'
 import { searchGithubRepos } from '../actions'
+import { Repo } from '@repo/utils'
 
 export const Repos = ({
   data,
@@ -43,6 +44,11 @@ export const Repos = ({
     return parse(cleanHtml)
   }
 
+
+  const handleSelectedRepos = (repos: Repo[]) => {
+
+  }
+  
   const collapsableItems = [
     {
       key: '1',
@@ -117,7 +123,7 @@ export const Repos = ({
         <>
           <Collapse defaultActiveKey={['1']} items={collapsableItems} />
 
-          <ReposTable data={result.repos} />
+          <ReposTable data={result.repos} onSelectedRepos={handleSelectedRepos}/>
         </>
       )}
     </Flex>

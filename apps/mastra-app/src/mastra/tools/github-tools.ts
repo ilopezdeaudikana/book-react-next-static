@@ -1,4 +1,5 @@
 import { createTool } from '@mastra/core/tools'
+import { ApiRepo, Repo } from '@repo/utils'
 import { z } from 'zod'
 
 const EXCLUDED_FILES = ['package-lock.json', 'yarn.lock', 'pnpm-lock.yaml', '.ds_store']
@@ -6,15 +7,6 @@ const README_CHAR_LIMIT = 12000
 const DISPLAY_RESULT_LIMIT = 20
 const SEARCH_RESULT_PAGE_SIZE = 30
 
-type RepoSearchItem = {
-  id: number
-  name: string
-  full_name: string
-  html_url: string
-  description: string | null
-  forks_count: number
-  stargazers_count: number
-}
 
 type RepoContentItem = {
   name: string
@@ -26,17 +18,6 @@ type RepoReadmeResponse = {
   content?: string
   encoding?: string
   path?: string
-}
-
-type RankedRepo = {
-  id: string
-  key: number
-  name: string
-  fullName: string
-  url: string
-  description?: string | null
-  forkCount: number
-  stargazerCount: number
 }
 
 const getGitHubHeaders = (): HeadersInit => {
@@ -110,18 +91,31 @@ const buildSearchQueries = (topic: string) => {
   return Array.from(queries).slice(0, 8)
 }
 
-const toRepoResult = (repo: RepoSearchItem, key: number): RankedRepo => ({
-  id: String(repo.id),
-  key,
-  name: repo.name,
-  fullName: repo.full_name,
-  url: repo.html_url,
-  description: repo.description,
-  forkCount: repo.forks_count,
-  stargazerCount: repo.stargazers_count,
-})
+const toRepoResult = (repo: ApiRepo, key: number): Repo => {
+  const { id, name, description, archived, disabled } = repo
 
-const getCoverage = (repo: RankedRepo, terms: string[]) => {
+  return {
+    id: String(id),
+    key,
+    name,
+    fullName: repo.full_name,
+    url: repo.html_url,
+    description,
+    forkCount: repo.forks_count,
+    stargazerCount: repo.stargazers_count,
+    watchersCount: repo.watchers_count,
+    openIssues: repo.open_issues_count,
+    updatedAt: repo.updated_at,
+    pushedAt: repo.pushed_at,
+    archived,
+    disabled,
+    hasIssues: repo.has_issues,
+    hasWiki: repo.has_wiki,
+    hasPages: repo.has_pages
+  }
+}
+
+const getCoverage = (repo: Repo, terms: string[]) => {
   const haystacks = [
     normalizeSearchText(repo.name),
     normalizeSearchText(repo.fullName),
@@ -134,7 +128,7 @@ const getCoverage = (repo: RankedRepo, terms: string[]) => {
   }).length
 }
 
-const getFieldScore = (repo: RankedRepo, term: string) => {
+const getFieldScore = (repo: Repo, term: string) => {
   const normalizedTerm = normalizeSearchText(term)
   const name = normalizeSearchText(repo.name)
   const fullName = normalizeSearchText(repo.fullName)
@@ -152,10 +146,10 @@ const getFieldScore = (repo: RankedRepo, term: string) => {
   return score
 }
 
-const getAuthorityScore = (repo: RankedRepo) =>
+const getAuthorityScore = (repo: Repo) =>
   Math.log10(repo.stargazerCount + 1) * 10 + Math.log10(repo.forkCount + 1) * 6
 
-const getLexicalScore = (topic: string, repo: RankedRepo) => {
+const getLexicalScore = (topic: string, repo: Repo) => {
   const terms = sanitizeSearchTerms(topic)
   const coverage = getCoverage(repo, terms)
   const phrase = normalizeSearchText(topic)
@@ -172,7 +166,7 @@ const getLexicalScore = (topic: string, repo: RankedRepo) => {
   return coverage * 25 + termScore + phraseScore
 }
 
-const getRankingSignals = (topic: string, repo: RankedRepo) => {
+const getRankingSignals = (topic: string, repo: Repo) => {
   const coverage = getCoverage(repo, sanitizeSearchTerms(topic))
   const lexicalScore = getLexicalScore(topic, repo)
   const authorityScore = getAuthorityScore(repo)
@@ -184,7 +178,7 @@ const getRankingSignals = (topic: string, repo: RankedRepo) => {
   }
 }
 
-export const rankRepositories = (topic: string, repos: RankedRepo[]) =>
+export const rankRepositories = (topic: string, repos: Repo[]) =>
   [...repos]
     .sort((a, b) => {
       const aSignals = getRankingSignals(topic, a)
@@ -218,10 +212,11 @@ export const rankRepositories = (topic: string, repos: RankedRepo[]) =>
 
 export const searchRepositories = async (topic: string) => {
   const queries = buildSearchQueries(topic)
+
   const searchResults = await Promise.all(
     queries.map(async (query) => {
       try {
-        return await githubRequest<{ items: RepoSearchItem[] }>(
+        return await githubRequest<{ items: ApiRepo[] }>(
           `/search/repositories?q=${encodeURIComponent(query)}&sort=stars&order=desc&per_page=${SEARCH_RESULT_PAGE_SIZE}`
         )
       } catch (error) {
@@ -234,7 +229,7 @@ export const searchRepositories = async (topic: string) => {
     })
   )
 
-  const uniqueRepos = new Map<string, RankedRepo>()
+  const uniqueRepos = new Map<string, Repo>()
 
   searchResults
     .flatMap((result) => result.items)
@@ -318,7 +313,7 @@ export const searchTool = createTool({
 // TOOL 2: Filtered Crawler
 export const crawlerTool = createTool({
   id: 'crawl-repo',
-  description: 'Lists top-level repository files, excluding noisy lock files.',
+  description: 'Lists top-level repository files, excluding lock files.',
   inputSchema: z.object({ fullName: z.string() }),
   execute: async ({ fullName }) => listRepoFiles(fullName),
 })

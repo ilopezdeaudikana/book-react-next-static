@@ -2,6 +2,7 @@
 import { Table, Typography } from '@repo/ui'
 import { Column } from '../../types'
 import { ForkOutlined, StarOutlined } from '@ant-design/icons'
+import type { TableProps } from 'antd'
 import { Repo } from '@repo/utils'
 
 const columns: Column[] = [
@@ -10,7 +11,7 @@ const columns: Column[] = [
     dataIndex: 'linkedName',
     key: 'linkedName',
     render: (_: string, record: Repo) => (
-      <Typography variant="link" target='_blank' href={record.url}>
+      <Typography variant="link" target="_blank" href={record.url}>
         {record.fullName}
       </Typography>
     ),
@@ -40,11 +41,27 @@ const columns: Column[] = [
   },
 ]
 
+export const ReposTable = ({
+  data,
+  onSelectedRepos,
+}: {
+  data: Repo[]
+  onSelectedRepos: (repos: Repo[]) => void
+}) => {
+  const rowSelection: TableProps<Repo>['rowSelection'] = {
+    onChange: (_: React.Key[], selectedRows: Repo[]) => {
+      onSelectedRepos(selectedRows)
+    },
+  }
 
-export const ReposTable = ({ data }: { data: Repo[]}) => {
   return (
     <>
-      <Table testId='repos' columns={columns} data={data} />
+      <Table
+        testId="repos"
+        columns={columns}
+        data={data}
+        rowSelection={{ type: 'checkbox', ...rowSelection }}
+      />
     </>
   )
 }

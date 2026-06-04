@@ -1,6 +1,6 @@
 import { createWorkflow, createStep } from '@mastra/core/workflows'
 import { z } from 'zod'
-import { RepoObject } from '@repo/utils'
+import { Repo, RichRepoObject, RepoObject } from '@repo/utils'
 import { fetchReadme, listRepoFiles, rankRepositories, searchRepositories } from '../tools/github-tools'
 
 const RepoFileSchema = z.object({
@@ -49,8 +49,8 @@ const buildSelectionSummary = ({
   readme,
 }: {
   topic: string
-  repos: Array<z.infer<typeof RepoObject>>
-  selectedRepo: z.infer<typeof RepoObject>
+  repos: Repo[]
+  selectedRepo: Repo
   files: Array<z.infer<typeof RepoFileSchema>>
   readme: z.infer<typeof ReadmeSchema>
 }) => {
@@ -168,7 +168,7 @@ export const githubWorkflow = createWorkflow({
   id: 'github-crawler-flow',
   inputSchema: z.object({ topic: z.string() }),
   outputSchema: z.object({
-    repos: z.array(RepoObject),
+    repos: z.array(RichRepoObject),
     selected: z.string(),
     readme: ReadmeSchema,
   }),
