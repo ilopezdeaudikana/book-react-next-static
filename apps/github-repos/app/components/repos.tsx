@@ -96,7 +96,7 @@ export const Repos = ({
   }, [])
 
   return (
-    <Flex gap="1rem" vertical style={{ width: '90%' }}>
+    <Flex gap="1rem" vertical>
       <Flex vertical style={{ marginTop: '1rem' }}>
         <label htmlFor="searchInput">
           <Typography variant="text">Search for a package</Typography>

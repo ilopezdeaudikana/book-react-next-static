@@ -1,14 +1,8 @@
-import Head from 'next/head';
-import { AntdRegistry } from '@ant-design/nextjs-registry';
-import { Menu } from './components/menu';
-import { InfoPanel, Flex, Typography } from '@repo/ui';
-import '../styles/globals.css';
-
-const contentStyle = {
-  overflow: 'auto',
-  maxWidth: '100%',
-  height: 'calc(100vh - 46px)',
-};
+import Head from 'next/head'
+import { AntdRegistry } from '@ant-design/nextjs-registry'
+import { Menu } from './components/menu'
+import { InfoPanel, Flex, Typography } from '@repo/ui'
+import '../styles/globals.css'
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -24,9 +18,11 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         </Head>
         <AntdRegistry>
           <Menu />
-          <Flex justify="center" wrap style={contentStyle}>
-            {children}
-          </Flex>
+          <div className="flex flex-col items-center h-[calc(100vh-46px)]">
+            <div className="w-[90%] flex flex-col">
+              {children}
+            </div>
+          </div>
           <InfoPanel title="Github repository fetcher agent">
             <Flex vertical gap="18">
               <Typography variant="text">
@@ -44,5 +40,5 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         </AntdRegistry>
       </body>
     </html>
-  );
+  )
 }

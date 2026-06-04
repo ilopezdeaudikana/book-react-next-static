@@ -1,10 +1,9 @@
-import { Flex, TableSkeleton } from '@repo/ui'
+import { TableSkeleton } from '@repo/ui'
 
 export default async function Loading() {
-
   return (
-    <Flex gap="2rem" vertical>
+    <div className='flex flex-1 m-4'>
       <TableSkeleton />
-    </Flex>
+    </div>
   )
 }
