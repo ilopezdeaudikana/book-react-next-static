@@ -3,28 +3,9 @@ import { githubWorkflow } from './workflows/github-workflow'
 import { LibSQLStore } from '@mastra/libsql'
 import { registerApiRoute } from '@mastra/core/server'
 import { VercelDeployer } from '@mastra/deployer-vercel'
-
-const getSafeErrorMessage = (message?: string) => {
-  const normalized = message?.toLowerCase() ?? ''
-
-  if (
-    normalized.includes('tokens per minute') ||
-    normalized.includes('rate limit') ||
-    normalized.includes('limit 12000')
-  ) {
-    return 'The AI summary is temporarily unavailable because the model rate limit was reached.'
-  }
-
-  if (normalized.includes('empty request body')) {
-    return 'Please enter a search topic.'
-  }
-
-  if (normalized.includes('no repositories found')) {
-    return 'No matching repositories were found for that search.'
-  }
-
-  return 'We could not generate recommendations right now.'
-}
+// @repo shortcut doesn't work
+import { getUserFacingError } from '../../../../packages/utils/get-error-message'
+import { githubAgent } from './agents/github-agent'
 
 export const mastra = new Mastra({
   logger: false,
@@ -33,6 +14,7 @@ export const mastra = new Mastra({
     // This tells LibSQL to run entirely in RAM
     url: ':memory:',
   }),
+  agents: { githubAgent },
   workflows: { githubWorkflow },
   server: {
     apiRoutes: [
@@ -51,11 +33,12 @@ export const mastra = new Mastra({
 
             if (result.status !== 'success') {
               console.error(`Workflow ended with status: ${result.status}`)
-              return c.json({ error: 'We could not generate recommendations right now.' }, 500)
+              const message = result.status === 'failed' ? result.error.message : 'We could not generate recommendations right now.'
+              return c.json({ error: message }, 500)
             }
 
 
-            // console.log('RESULT', result.result.repos)
+            console.log('RESULT', result)
             return c.json(result)
 
           } catch (error) {
@@ -64,7 +47,7 @@ export const mastra = new Mastra({
 
             return c.json(
               {
-                error: getSafeErrorMessage(message),
+                error: getUserFacingError(message),
               },
               500
             )

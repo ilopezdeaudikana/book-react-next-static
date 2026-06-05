@@ -4,6 +4,7 @@
   "exports": {
     ".": "./index.ts"
   },
+  "type": "module",
   "license": "MIT",
   "scripts": {
     "lint": "eslint \"**/*.ts\""

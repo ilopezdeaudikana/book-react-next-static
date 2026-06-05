@@ -30,6 +30,7 @@ export const Repos = ({
   const deferredQuery = useDeferredValue(query)
   const [result, setResult] = useState(data)
   const [readme, setReadme] = useState<ReactNode>()
+  const [verdict, setVerdict] = useState<ReactNode>()
   const [, startTransition] = useTransition()
   const latestRequestId = useRef(0)
   const timeout = useRef(null)
@@ -38,7 +39,8 @@ export const Repos = ({
     setQuery(event.target.value.trim())
   }
 
-  const parseReadme = async (content: string) => {
+  const parseMD = async (content?: string) => {
+    if (!content) return ''
     const htmlString = await marked.parse(content)
     const cleanHtml = DOMPurify.sanitize(htmlString)
     return parse(cleanHtml)
@@ -48,12 +50,12 @@ export const Repos = ({
   const handleSelectedRepos = (repos: Repo[]) => {
 
   }
-  
+
   const collapsableItems = [
     {
       key: '1',
       label: 'Recomended package',
-      children: <Typography variant="text">{result.selected}</Typography>,
+      children: <div className='verdict'>{verdict}</div>,
     },
     readme
       ? {
@@ -69,7 +71,7 @@ export const Repos = ({
   useEffect(() => {
     if (deferredQuery.length < 4) return
     if (!deferredQuery) {
-      setResult({ repos: [], error: 'Please enter a search topic.' })
+      setResult({ repos: [], error: 'Please enter a search topic.', verdict: '' })
       return
     }
 
@@ -82,7 +84,7 @@ export const Repos = ({
 
         if (latestRequestId.current === requestId) {
           setResult(nextResult)
-          parseReadme(nextResult.readme?.content).then((result) => {
+          parseMD(nextResult.readme?.content).then((result) => {
             setReadme(result)
           })
         }
@@ -92,8 +94,13 @@ export const Repos = ({
 
   useEffect(() => {
     if (data.readme?.content) {
-      parseReadme(data.readme?.content).then((result) => {
+      parseMD(data.readme?.content).then((result) => {
         setReadme(result)
+      })
+    }
+    if (data.verdict) {
+      parseMD(data.verdict).then((result) => {
+        setVerdict(result)
       })
     }
     return () => {

@@ -9,7 +9,8 @@ export interface RepoApiData {
     found: boolean,
     content: string,
     path: string
-  }
+  }, 
+  verdict: string
 }
 
 export interface Column {

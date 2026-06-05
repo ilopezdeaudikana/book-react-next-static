@@ -153,15 +153,49 @@ const summaryStep = createStep({
   outputSchema: z.object({
     repos: z.array(RepoObject),
     selected: z.string(),
-    readme: ReadmeSchema
+    readme: ReadmeSchema,
+    topic: z.string()
   }),
   execute: async ({ inputData }) => {
     return {
       repos: inputData.repos,
       selected: buildSelectionSummary(inputData),
-      readme: inputData.readme
+      readme: inputData.readme,
+      topic: inputData.topic,
     }
   },
+})
+
+const evaluateStep = createStep({
+  id: 'evaluate-step',
+  inputSchema: z.object({
+    repos: z.array(RepoObject),
+    selected: z.string(),
+    readme: ReadmeSchema,
+    topic: z.string()
+  }),
+  outputSchema: z.object({
+    verdict: z.string(),
+    selected: z.string(),
+    readme: ReadmeSchema,
+    repos: z.array(RepoObject)
+  }),
+  execute: async ({ inputData, mastra }) => {
+    const agent = mastra.getAgentById('github-scout')
+
+    const reposJson = JSON.stringify(inputData.repos)
+
+    const response = await agent.generate(
+      `Topic: "${inputData.topic}"\nData: ${reposJson}`
+    )
+
+    return {
+      verdict: response.text,
+      repos: inputData.repos,
+      selected: inputData.selected,
+      readme: inputData.readme
+    }
+  }
 })
 
 export const githubWorkflow = createWorkflow({
@@ -195,4 +229,5 @@ export const githubWorkflow = createWorkflow({
   })
   .then(inspectStep)
   .then(summaryStep)
+  .then(evaluateStep)
   .commit()
