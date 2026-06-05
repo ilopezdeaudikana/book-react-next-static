@@ -37,6 +37,7 @@ export const getGithubAgentData = async (query: string): Promise<RepoApiData> =>
     return {
       repos: [],
       error: 'We could not reach the recommendation service. Please try again.',
+      verdict: ''
     }
   }
 }
