@@ -1,23 +1,19 @@
-import { createTool } from '@mastra/core/tools'
 import { ApiRepo, Repo } from '@repo/utils'
-import { z } from 'zod'
+import { headers } from 'next/headers'
 
-const EXCLUDED_FILES = ['package-lock.json', 'yarn.lock', 'pnpm-lock.yaml', '.ds_store']
 const README_CHAR_LIMIT = 12000
-const DISPLAY_RESULT_LIMIT = 20
-const SEARCH_RESULT_PAGE_SIZE = 30
+const DISPLAY_RESULT_LIMIT = 15
+const SEARCH_RESULT_PAGE_SIZE = 20
 
-
-type RepoContentItem = {
-  name: string
-  path: string
-  type: string
-}
-
-type RepoReadmeResponse = {
+interface RepoReadmeResponse {
   content?: string
   encoding?: string
   path?: string
+}
+
+interface NamedReadme extends RepoReadmeResponse {
+  name: string
+  found: boolean
 }
 
 const getGitHubHeaders = (): HeadersInit => {
@@ -92,6 +88,10 @@ const buildSearchQueries = (topic: string) => {
 }
 
 const toRepoResult = (repo: ApiRepo, key: number): Repo => {
+  
+  // TODO: get locale dynamically
+  const acceptLanguage = 'en-IE'
+
   const { id, name, description, archived, disabled } = repo
 
   return {
@@ -100,13 +100,17 @@ const toRepoResult = (repo: ApiRepo, key: number): Repo => {
     name,
     fullName: repo.full_name,
     url: repo.html_url,
-    description,
+    description: description ?? '',
     forkCount: repo.forks_count,
     stargazerCount: repo.stargazers_count,
     watchersCount: repo.watchers_count,
     openIssues: repo.open_issues_count,
-    updatedAt: repo.updated_at,
-    pushedAt: repo.pushed_at,
+    updatedAt: new Date(repo.updated_at).toLocaleString(acceptLanguage, {
+      dateStyle: "short"
+    }),
+    pushedAt: new Date(repo.pushed_at).toLocaleString(acceptLanguage, {
+      dateStyle: "short"
+    }),
     archived,
     disabled,
     hasIssues: repo.has_issues,
@@ -249,33 +253,7 @@ export const searchRepositories = async (topic: string) => {
   return (filtered.length > 0 ? filtered : ranked).slice(0, DISPLAY_RESULT_LIMIT)
 }
 
-export const listRepoFiles = async (fullName: string) => {
-  try {
-    const files = await githubRequest<RepoContentItem[] | RepoContentItem>(
-      `/repos/${fullName}/contents/`
-    )
-
-    if (!Array.isArray(files)) {
-      return []
-    }
-
-    return files
-      .filter((file) => !EXCLUDED_FILES.includes(file.name.toLowerCase()))
-      .map((file) => ({
-        name: file.name,
-        path: file.path,
-        type: file.type,
-      }))
-  } catch (error) {
-    if (isGitHub404(error)) {
-      return []
-    }
-
-    throw error
-  }
-}
-
-export const fetchReadme = async (fullName: string) => {
+export const fetchReadme = async (fullName: string): Promise<[string, NamedReadme]> => {
   try {
     const readme = await githubRequest<RepoReadmeResponse>(`/repos/${fullName}/readme`)
     const encodedContent = readme.content ?? ''
@@ -284,43 +262,23 @@ export const fetchReadme = async (fullName: string) => {
         ? Buffer.from(encodedContent.replace(/\n/g, ''), 'base64').toString('utf8')
         : encodedContent
 
-    return {
+    return [fullName, {
+      name: fullName,
       found: Boolean(content.trim()),
       path: readme.path ?? 'README.md',
       content: content.slice(0, README_CHAR_LIMIT),
-    }
+    }]
   } catch (error) {
     if (isGitHub404(error)) {
-      return {
+      return [fullName, {
         found: false,
         path: 'README.md',
         content: '',
-      }
+        name: fullName
+      }]
     }
 
     throw error
   }
 }
 
-// TOOL 1: Search by Topic
-export const searchTool = createTool({
-  id: 'search-repos',
-  description: 'Finds repositories for a topic and returns the top candidates with stats.',
-  inputSchema: z.object({ topic: z.string() }),
-  execute: async ({ topic }) => searchRepositories(topic),
-})
-
-// TOOL 2: Filtered Crawler
-export const crawlerTool = createTool({
-  id: 'crawl-repo',
-  description: 'Lists top-level repository files, excluding lock files.',
-  inputSchema: z.object({ fullName: z.string() }),
-  execute: async ({ fullName }) => listRepoFiles(fullName),
-})
-
-export const readmeTool = createTool({
-  id: 'fetch-readme',
-  description: 'Fetches the repository README so it can be summarized or compared.',
-  inputSchema: z.object({ fullName: z.string() }),
-  execute: async ({ fullName }) => fetchReadme(fullName),
-})

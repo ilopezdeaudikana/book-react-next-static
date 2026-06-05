@@ -1,77 +1,14 @@
 import { createWorkflow, createStep } from '@mastra/core/workflows'
 import { z } from 'zod'
-import { Repo, RichRepoObject, RepoObject } from '@repo/utils'
-import { fetchReadme, listRepoFiles, rankRepositories, searchRepositories } from '../tools/github-tools'
-
-const RepoFileSchema = z.object({
-  name: z.string(),
-  path: z.string(),
-  type: z.string(),
-})
+import { RichRepoObject, RepoObject } from '@repo/utils'
+import { fetchReadme, rankRepositories, searchRepositories } from '../tools/github-tools'
 
 const ReadmeSchema = z.object({
   found: z.boolean(),
-  path: z.string(),
-  content: z.string(),
+  path: z.string().optional(),
+  content: z.string().optional(),
+  name: z.string()
 })
-
-const getInterestingFiles = (files: Array<z.infer<typeof RepoFileSchema>>) =>
-  files
-    .filter((file) =>
-      /^(readme|package\.json|tsconfig|src|docs|examples|lib|bin|app)/i.test(file.name) ||
-      /\/(src|docs|examples|lib|app)$/.test(file.path)
-    )
-    .slice(0, 3)
-    .map((file) => file.path)
-
-const getReadmeSignal = (readme: z.infer<typeof ReadmeSchema>) => {
-  if (!readme.found || !readme.content.trim()) {
-    return 'README details were not available'
-  }
-
-  const firstMeaningfulLine = readme.content
-    .split('\n')
-    .map((line) => line.trim())
-    .find((line) => line.length > 0 && !line.startsWith('!['))
-
-  if (!firstMeaningfulLine) {
-    return `README found at ${readme.path}`
-  }
-
-  return `README starts with "${firstMeaningfulLine.slice(0, 120)}"`
-}
-
-const buildSelectionSummary = ({
-  topic,
-  repos,
-  selectedRepo,
-  files,
-  readme,
-}: {
-  topic: string
-  repos: Repo[]
-  selectedRepo: Repo
-  files: Array<z.infer<typeof RepoFileSchema>>
-  readme: z.infer<typeof ReadmeSchema>
-}) => {
-  const runnerUp = repos.find((repo) => repo.fullName !== selectedRepo.fullName)
-  const fileSignals = getInterestingFiles(files)
-  const parts = [
-    `${selectedRepo.fullName} looks like the best match for "${topic}" based on its strong adoption signals (${selectedRepo.stargazerCount} stars, ${selectedRepo.forkCount} forks) and its focused repository name/description.`,
-  ]
-
-  if (runnerUp) {
-    parts.push(`It ranks ahead of alternatives like ${runnerUp.fullName} for this query.`)
-  }
-
-  if (fileSignals.length > 0) {
-    parts.push(`The repository structure includes ${fileSignals.join(', ')}.`)
-  } else {
-    parts.push(`${getReadmeSignal(readme)}.`)
-  }
-
-  return parts.join(' ')
-}
 
 // Define Step 1
 const fetchStep = createStep({
@@ -80,7 +17,7 @@ const fetchStep = createStep({
   outputSchema: z.object({
     repos: z.array(RepoObject)
   }),
-  execute: async ({ inputData }) => {
+  execute: async ({ inputData, requestContext }) => {
     return {
       repos: await searchRepositories(inputData.topic),
     }
@@ -95,20 +32,11 @@ const selectionStep = createStep({
     repos: z.array(RepoObject),
   }),
   outputSchema: z.object({
-    repos: z.array(RepoObject),
-    selectedRepo: RepoObject,
+    repos: z.array(RepoObject)
   }),
   execute: async ({ inputData }) => {
-    const rankedRepos = rankRepositories(inputData.topic, inputData.repos)
-    const selectedRepo = rankedRepos[0]
-
-    if (!selectedRepo) {
-      throw new Error(`No repositories found for topic "${inputData.topic}".`)
-    }
-
     return {
-      repos: rankedRepos,
-      selectedRepo,
+      repos: rankRepositories(inputData.topic, inputData.repos)
     }
   },
 })
@@ -117,51 +45,19 @@ const inspectStep = createStep({
   id: 'inspect-repo',
   inputSchema: z.object({
     topic: z.string(),
-    repos: z.array(RepoObject),
-    selectedRepo: RepoObject,
+    repos: z.array(RepoObject)
   }),
   outputSchema: z.object({
     topic: z.string(),
     repos: z.array(RepoObject),
-    selectedRepo: RepoObject,
-    files: z.array(RepoFileSchema),
-    readme: ReadmeSchema,
+    readmes: z.record(z.string(), ReadmeSchema),
   }),
   execute: async ({ inputData }) => {
-    const [files, readme] = await Promise.all([
-      listRepoFiles(inputData.selectedRepo.fullName),
-      fetchReadme(inputData.selectedRepo.fullName),
-    ])
+    const readmes = await Promise.all(inputData.repos.map(repo => fetchReadme(repo.fullName)))
 
     return {
       ...inputData,
-      files,
-      readme,
-    }
-  },
-})
-
-const summaryStep = createStep({
-  id: 'summarize-choice',
-  inputSchema: z.object({
-    topic: z.string(),
-    repos: z.array(RepoObject),
-    selectedRepo: RepoObject,
-    files: z.array(RepoFileSchema),
-    readme: ReadmeSchema,
-  }),
-  outputSchema: z.object({
-    repos: z.array(RepoObject),
-    selected: z.string(),
-    readme: ReadmeSchema,
-    topic: z.string()
-  }),
-  execute: async ({ inputData }) => {
-    return {
-      repos: inputData.repos,
-      selected: buildSelectionSummary(inputData),
-      readme: inputData.readme,
-      topic: inputData.topic,
+      readmes: Object.fromEntries(readmes)
     }
   },
 })
@@ -170,19 +66,18 @@ const evaluateStep = createStep({
   id: 'evaluate-step',
   inputSchema: z.object({
     repos: z.array(RepoObject),
-    selected: z.string(),
-    readme: ReadmeSchema,
+    readmes: z.record(z.string(), ReadmeSchema),
     topic: z.string()
   }),
   outputSchema: z.object({
     verdict: z.string(),
-    selected: z.string(),
-    readme: ReadmeSchema,
+    readme: z.string().optional(), //ReadmeSchema,
     repos: z.array(RepoObject)
   }),
   execute: async ({ inputData, mastra }) => {
     const agent = mastra.getAgentById('github-scout')
 
+    const withReadme = inputData.repos.map(repo => ({...repo, readme: inputData.readmes[repo.fullName].content }))
     const reposJson = JSON.stringify(inputData.repos)
 
     const response = await agent.generate(
@@ -192,8 +87,7 @@ const evaluateStep = createStep({
     return {
       verdict: response.text,
       repos: inputData.repos,
-      selected: inputData.selected,
-      readme: inputData.readme
+      readme: withReadme[0].readme
     }
   }
 })
@@ -223,11 +117,9 @@ export const githubWorkflow = createWorkflow({
 
     return {
       topic: initialData.topic,
-      repos: selectionData.repos,
-      selectedRepo: selectionData.selectedRepo,
+      repos: selectionData.repos
     }
   })
   .then(inspectStep)
-  .then(summaryStep)
   .then(evaluateStep)
   .commit()

@@ -1,7 +1,7 @@
 import { Collapse as AntCollapse, type CollapseProps as AntCollapseProps } from 'antd'
 
 export interface CollapseProps {
-  defaultActiveKey: string[]
+  defaultActiveKey?: string[]
   onChange?: () => void
   items: AntCollapseProps['items']
 }
@@ -9,12 +9,14 @@ export interface CollapseProps {
 export const Collapse = ({
   defaultActiveKey,
   onChange,
-  items 
-}: CollapseProps) => {
+  items,
+  ...restProps
+}: CollapseProps & AntCollapseProps) => {
   return <AntCollapse
     defaultActiveKey={defaultActiveKey}
     onChange={onChange}
     items={items}
+    {...restProps}
   />
 }
 

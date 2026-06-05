@@ -5,11 +5,7 @@ export interface RepoApiData {
   error: string | null,
   repos: Repo[],
   selected?: string
-  readme?: {
-    found: boolean,
-    content: string,
-    path: string
-  }, 
+  readme?: string,
   verdict: string
 }
 
