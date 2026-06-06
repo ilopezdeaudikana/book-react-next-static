@@ -3,8 +3,6 @@ import { z } from 'zod'
 import { RichRepoObject, RepoObject } from '@repo/utils'
 import { fetchReadme, searchRepositories } from '../tools/github-tools'
 
-import { repos } from '../mock-repos'
-
 const ReadmeSchema = z.object({
   found: z.boolean(),
   path: z.string().optional(),
