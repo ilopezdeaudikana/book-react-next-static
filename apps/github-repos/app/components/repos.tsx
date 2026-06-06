@@ -3,9 +3,6 @@ import { ReposTable } from './repos-table'
 import { SearchInput } from './search-input'
 import { RepoApiData } from '../../types'
 import { Flex, Typography, Collapse, Table } from '@repo/ui'
-import { marked } from 'marked'
-import DOMPurify from 'dompurify'
-import parse from 'html-react-parser'
 import {
   ChangeEvent,
   ReactNode,
@@ -15,7 +12,7 @@ import {
   useState,
   useTransition,
 } from 'react'
-import { Repo } from '@repo/utils'
+import { parseMD, RepoVm } from '@repo/utils'
 import { searchGithubRepos } from '../actions'
 import { useRouter } from 'next/navigation'
 
@@ -27,33 +24,26 @@ export const Repos = ({
   queryParam?: string
 }) => {
   const initialQuery = queryParam ?? ''
-  
+
   const [searchTerm, setSearchterm] = useState(initialQuery)
   const deferredSearch = useDeferredValue(searchTerm)
   const [result, setResult] = useState(data)
-  const [readme, setReadme] = useState<ReactNode>()
   const [verdict, setVerdict] = useState<ReactNode>()
   const [comparison, setComparison] = useState<ReactNode>()
   const [activeKey, openCollapsible] = useState<string[]>(['1'])
+
   const [, startTransition] = useTransition()
 
   const latestRequestId = useRef(0)
   const timeout = useRef(null)
 
   const router = useRouter()
-  
+
   const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
     setSearchterm(event.target.value)
   }
 
-  const parseMD = async (content?: string) => {
-    if (!content) return ''
-    const htmlString = await marked.parse(content)
-    const cleanHtml = DOMPurify.sanitize(htmlString)
-    return parse(cleanHtml)
-  }
-
-  const rotateRepos = (repos: Repo[]) => {
+  const rotateRepos = (repos: RepoVm[]) => {
     const stats = [
       { key: 'forkCount', label: 'Forks' },
       { key: 'stargazerCount', label: 'Stars' },
@@ -88,7 +78,7 @@ export const Repos = ({
     return { dataSource, columns }
   }
 
-  const handleSelectedRepos = (repos: Repo[]) => {
+  const handleSelectedRepos = (repos: RepoVm[]) => {
     if (repos.length > 1) {
       const { columns, dataSource } = rotateRepos(repos)
       setComparison(
@@ -99,7 +89,7 @@ export const Repos = ({
           pagination={false}
         />,
       )
-      openCollapsible(['3'])
+      openCollapsible(['2'])
     } else {
       openCollapsible(['1'])
       setComparison(undefined)
@@ -112,17 +102,6 @@ export const Repos = ({
       label: 'Recomended package',
       children: <div className="verdict">{verdict}</div>,
     },
-    readme
-      ? {
-          key: '2',
-          label: 'Readme file',
-          children: (
-            <div style={{ maxHeight: '600px', overflowY: 'auto' }}>
-              {readme}
-            </div>
-          ),
-        }
-      : undefined,
     comparison
       ? {
           key: '3',
@@ -153,25 +132,16 @@ export const Repos = ({
     startTransition(() => {
       timeout.current = setTimeout(async () => {
         const nextResult = await searchGithubRepos(deferredSearch)
-      
+
         if (latestRequestId.current === requestId) {
           router.push(`?${deferredSearch}`, { scroll: false })
           setResult(nextResult)
-          parseMD(nextResult.readme).then((result) => {
-            console.log('Setting readme', result)
-            setReadme(result)
-          })
         }
       }, 300)
     })
   }, [deferredSearch])
 
   useEffect(() => {
-    if (data.readme) {
-      parseMD(data.readme).then((result) => {
-        setReadme(result)
-      })
-    }
     if (data.verdict) {
       parseMD(data.verdict).then((result) => {
         setVerdict(result)
@@ -201,9 +171,14 @@ export const Repos = ({
         </Typography>
       ) : (
         <>
-          <Collapse key={activeKey[0]} defaultActiveKey={activeKey} items={collapsableItems} />
+          <Collapse
+            key={activeKey[0]}
+            defaultActiveKey={activeKey}
+            items={collapsableItems}
+          />
 
           <ReposTable
+            key={deferredSearch}
             data={result.repos}
             onSelectedRepos={handleSelectedRepos}
           />

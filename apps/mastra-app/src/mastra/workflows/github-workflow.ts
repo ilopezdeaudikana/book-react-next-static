@@ -58,24 +58,22 @@ const evaluateStep = createStep({
   }),
   outputSchema: z.object({
     verdict: z.string(),
-    readme: z.string().optional(), //ReadmeSchema,
     repos: z.array(RepoObject)
   }),
   execute: async ({ inputData, mastra }) => {
-    const agent = mastra.getAgentById('github-scout')
+    // const agent = mastra.getAgentById('github-scout')
 
     console.log('Evaluate Step')
     const withReadme = inputData.repos.map(repo => ({...repo, readme: inputData.readmes[repo.fullName].content }))
-    const reposJson = JSON.stringify(inputData.repos)
+    // const reposJson = JSON.stringify(inputData.repos)
 
-    const response = await agent.generate(
-      `Topic: "${inputData.topic}"\nData: ${reposJson}`
-    )
+    // const response = await agent.generate(
+    //   `Topic: "${inputData.topic}"\nData: ${reposJson}`
+    // )
 
     return {
-      verdict: response.text,
-      repos: withReadme,
-      readme: withReadme[0].readme
+      verdict: 'Foo', // response.text,
+      repos: withReadme
     }
   }
 })
@@ -85,8 +83,7 @@ export const githubWorkflow = createWorkflow({
   inputSchema: z.object({ topic: z.string() }),
   outputSchema: z.object({
     repos: z.array(RichRepoObject),
-    selected: z.string(),
-    readme: ReadmeSchema,
+    verdict: z.string(),
   }),
 })
   .then(fetchStep)

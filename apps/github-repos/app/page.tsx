@@ -4,11 +4,15 @@ import { getGithubAgentData } from './lib/getGithubData'
 import { RepoApiData } from '../types'
 import { Flex, Typography } from '@repo/ui'
 
+// Tells Next not to prerender this page when building the app
+export const dynamic = 'force-dynamic'
+
 export default async function ReposPage({
   searchParams,
 }: {
   searchParams: Promise<{ query?: string }>
 }) {
+  
   try {
     const fetchedParams = await searchParams;
     const query = fetchedParams?.query || 'typescript'

@@ -1,3 +1,4 @@
+import { JSX } from 'react'
 import { z } from 'zod'
 
 export const RichRepoObject = z.object({
@@ -41,7 +42,7 @@ export const RichRepoObject = z.object({
   owner: z.object({
     login: z.string(),            // Username or Org name
     id: z.number(),
-    avatar_url: z.string().url(),
+    avatar_url: z.url(),
     type: z.enum(['User', 'Organization']),
   }),
 })
@@ -64,8 +65,10 @@ export const RepoObject = z.object({
   disabled: z.boolean(),
   hasIssues: z.boolean(),
   hasWiki: z.boolean(),
-  hasPages: z.boolean()
+  hasPages: z.boolean(),
+  readme: z.string().optional()
 })
 
 export type Repo = z.infer<typeof RepoObject>
 export type ApiRepo = z.infer<typeof RichRepoObject>
+export type RepoVm = Omit<Repo, 'readme'> & { readme: string | JSX.Element | JSX.Element[] }
