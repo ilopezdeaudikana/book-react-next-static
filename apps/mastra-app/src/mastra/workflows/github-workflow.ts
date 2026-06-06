@@ -61,18 +61,18 @@ const evaluateStep = createStep({
     repos: z.array(RepoObject)
   }),
   execute: async ({ inputData, mastra }) => {
-    // const agent = mastra.getAgentById('github-scout')
+    const agent = mastra.getAgentById('github-scout')
 
     console.log('Evaluate Step')
     const withReadme = inputData.repos.map(repo => ({...repo, readme: inputData.readmes[repo.fullName].content }))
-    // const reposJson = JSON.stringify(inputData.repos)
+    const reposJson = JSON.stringify(inputData.repos)
 
-    // const response = await agent.generate(
-    //   `Topic: "${inputData.topic}"\nData: ${reposJson}`
-    // )
+    const response = await agent.generate(
+      `Topic: "${inputData.topic}"\nData: ${reposJson}`
+    )
 
     return {
-      verdict: 'Foo', // response.text,
+      verdict: response.text,
       repos: withReadme
     }
   }
