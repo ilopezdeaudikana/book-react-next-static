@@ -5,13 +5,11 @@
    The table currently only shows name/forks/stars. Add sorting by stars/forks and filters for language, minimum stars, recently updated, license, archived status. This would likely need richer `Repo` fields exposed through [types/index.ts](/home/iker/dev/book-react-next-static/apps/github-repos/types/index.ts:4).
 
 3. **Search History And Saved Recommendations**
-   Store recent searches and saved repos in local storage. The app already syncs `query` into the URL in [search-input.tsx](/home/iker/dev/book-react-next-static/apps/github-repos/app/components/search-input.tsx:17), so this would pair nicely with shareable searches.
+   Store recent searches and saved repos in local storage. Change `query` client-side only, so this would pair nicely with shareable searches.
 
 4. **Loading And Pending States**
    [repos.tsx](/home/iker/dev/book-react-next-static/apps/github-repos/app/components/repos.tsx:63) fires debounced searches, but the UI does not visibly show when a new result is pending. Add a spinner/skeleton, disable stale table interactions, and show “Searching…” while the request is in flight.
 
-5. **Better Recommendation Explanation**
-   The current collapse says “Recomended package” and displays `result.selected` in [repos.tsx](/home/iker/dev/book-react-next-static/apps/github-repos/app/components/repos.tsx:46). A stronger feature would return structured reasoning: “best overall,” “best for beginners,” “best maintained,” “best lightweight option.”
 
 6. **README Insights Panel**
    The app already parses and sanitizes README markdown in [repos.tsx](/home/iker/dev/book-react-next-static/apps/github-repos/app/components/repos.tsx:40). Add extracted sections like install command, usage snippet, docs link, license, badges, and warning signs.

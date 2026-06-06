@@ -15,8 +15,9 @@ import {
   useState,
   useTransition,
 } from 'react'
-import { searchGithubRepos } from '../actions'
 import { Repo } from '@repo/utils'
+import { searchGithubRepos } from '../actions'
+import { useRouter } from 'next/navigation'
 
 export const Repos = ({
   data,
@@ -26,19 +27,23 @@ export const Repos = ({
   queryParam?: string
 }) => {
   const initialQuery = queryParam ?? ''
-  const [query, setQuery] = useState(initialQuery)
-  const deferredQuery = useDeferredValue(query)
+  
+  const [searchTerm, setSearchterm] = useState(initialQuery)
+  const deferredSearch = useDeferredValue(searchTerm)
   const [result, setResult] = useState(data)
   const [readme, setReadme] = useState<ReactNode>()
   const [verdict, setVerdict] = useState<ReactNode>()
   const [comparison, setComparison] = useState<ReactNode>()
   const [activeKey, openCollapsible] = useState<string[]>(['1'])
   const [, startTransition] = useTransition()
+
   const latestRequestId = useRef(0)
   const timeout = useRef(null)
 
+  const router = useRouter()
+  
   const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setQuery(event.target.value.trim())
+    setSearchterm(event.target.value)
   }
 
   const parseMD = async (content?: string) => {
@@ -72,24 +77,32 @@ export const Repos = ({
         title: 'Features',
         dataIndex: 'propertyLabel',
         key: 'propertyLabel',
-        width: 80
+        width: 120,
       },
       ...repos.map((item) => ({
         title: item.name,
         dataIndex: item.id,
-        key: item.id
+        key: item.id,
       })),
     ]
-    return { dataSource, columns}
+    return { dataSource, columns }
   }
 
   const handleSelectedRepos = (repos: Repo[]) => {
     if (repos.length > 1) {
       const { columns, dataSource } = rotateRepos(repos)
       setComparison(
-        <Table testId="repos-compare" columns={columns} data={dataSource} pagination={false}/>,
+        <Table
+          testId="repos-compare"
+          columns={columns}
+          data={dataSource}
+          pagination={false}
+        />,
       )
       openCollapsible(['3'])
+    } else {
+      openCollapsible(['1'])
+      setComparison(undefined)
     }
   }
 
@@ -124,8 +137,8 @@ export const Repos = ({
   ].filter(Boolean)
 
   useEffect(() => {
-    if (deferredQuery.length < 4) return
-    if (!deferredQuery) {
+    if (deferredSearch.trim().length < 4) return
+    if (!deferredSearch) {
       setResult({
         repos: [],
         error: 'Please enter a search topic.',
@@ -139,17 +152,19 @@ export const Repos = ({
     if (timeout.current) clearTimeout(timeout.current)
     startTransition(() => {
       timeout.current = setTimeout(async () => {
-        const nextResult = await searchGithubRepos(deferredQuery)
-
+        const nextResult = await searchGithubRepos(deferredSearch)
+      
         if (latestRequestId.current === requestId) {
+          router.push(`?${deferredSearch}`, { scroll: false })
           setResult(nextResult)
           parseMD(nextResult.readme).then((result) => {
+            console.log('Setting readme', result)
             setReadme(result)
           })
         }
       }, 300)
     })
-  }, [deferredQuery])
+  }, [deferredSearch])
 
   useEffect(() => {
     if (data.readme) {
@@ -175,9 +190,8 @@ export const Repos = ({
         </label>
         <SearchInput
           id="searchInput"
-          value={query}
+          value={searchTerm}
           onChange={handleSearchChange}
-          onSearch={() => undefined}
         />
       </Flex>
 
@@ -187,7 +201,7 @@ export const Repos = ({
         </Typography>
       ) : (
         <>
-          <Collapse activeKey={activeKey} items={collapsableItems} />
+          <Collapse key={activeKey[0]} defaultActiveKey={activeKey} items={collapsableItems} />
 
           <ReposTable
             data={result.repos}

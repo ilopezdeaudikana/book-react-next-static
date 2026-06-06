@@ -4,8 +4,6 @@ import { getGithubAgentData } from './lib/getGithubData'
 import { RepoApiData } from '../types'
 import { Flex, Typography } from '@repo/ui'
 
-export const dynamic = 'force-dynamic'
-
 export default async function ReposPage({
   searchParams,
 }: {
@@ -13,7 +11,7 @@ export default async function ReposPage({
 }) {
   try {
     const fetchedParams = await searchParams;
-    const query = fetchedParams.query || 'typescript'
+    const query = fetchedParams?.query || 'typescript'
 
     const result: RepoApiData = await getGithubAgentData(query)
 

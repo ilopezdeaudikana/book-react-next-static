@@ -1,5 +1,4 @@
 import { ApiRepo, Repo } from '@repo/utils'
-import { headers } from 'next/headers'
 
 const README_CHAR_LIMIT = 12000
 const DISPLAY_RESULT_LIMIT = 15
@@ -224,6 +223,7 @@ export const searchRepositories = async (topic: string) => {
           `/search/repositories?q=${encodeURIComponent(query)}&sort=stars&order=desc&per_page=${SEARCH_RESULT_PAGE_SIZE}`
         )
       } catch (error) {
+        console.log('Error searching repos', JSON.stringify(error))
         if (error instanceof Error && error.message.includes('(422)')) {
           return { items: [] }
         }
@@ -243,6 +243,7 @@ export const searchRepositories = async (topic: string) => {
       }
     })
 
+  console.log('SearchResults?', !!searchResults.length, uniqueRepos.size)
   const ranked = rankRepositories(topic, Array.from(uniqueRepos.values()))
   const terms = sanitizeSearchTerms(topic)
   const filtered =
@@ -250,6 +251,7 @@ export const searchRepositories = async (topic: string) => {
       ? ranked.filter((repo) => getCoverage(repo, terms) >= Math.min(2, terms.length))
       : ranked
 
+  console.log('Filtered', filtered.length)
   return (filtered.length > 0 ? filtered : ranked).slice(0, DISPLAY_RESULT_LIMIT)
 }
 

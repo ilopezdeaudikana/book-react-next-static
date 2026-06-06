@@ -1,7 +1,9 @@
 import { createWorkflow, createStep } from '@mastra/core/workflows'
 import { z } from 'zod'
 import { RichRepoObject, RepoObject } from '@repo/utils'
-import { fetchReadme, rankRepositories, searchRepositories } from '../tools/github-tools'
+import { fetchReadme, searchRepositories } from '../tools/github-tools'
+
+import { repos } from '../mock-repos'
 
 const ReadmeSchema = z.object({
   found: z.boolean(),
@@ -10,37 +12,22 @@ const ReadmeSchema = z.object({
   name: z.string()
 })
 
-// Define Step 1
+// Step 1
 const fetchStep = createStep({
   id: 'fetch-list',
   inputSchema: z.object({ topic: z.string() }),
   outputSchema: z.object({
     repos: z.array(RepoObject)
   }),
-  execute: async ({ inputData, requestContext }) => {
+  execute: async ({ inputData }) => {
+    console.log('Fetch Step')
     return {
       repos: await searchRepositories(inputData.topic),
     }
   },
 })
 
-// Define Step 2
-const selectionStep = createStep({
-  id: 'select-repo',
-  inputSchema: z.object({
-    topic: z.string(),
-    repos: z.array(RepoObject),
-  }),
-  outputSchema: z.object({
-    repos: z.array(RepoObject)
-  }),
-  execute: async ({ inputData }) => {
-    return {
-      repos: rankRepositories(inputData.topic, inputData.repos)
-    }
-  },
-})
-
+// Step 2
 const inspectStep = createStep({
   id: 'inspect-repo',
   inputSchema: z.object({
@@ -53,6 +40,7 @@ const inspectStep = createStep({
     readmes: z.record(z.string(), ReadmeSchema),
   }),
   execute: async ({ inputData }) => {
+    console.log('Inspect Step')
     const readmes = await Promise.all(inputData.repos.map(repo => fetchReadme(repo.fullName)))
 
     return {
@@ -62,6 +50,7 @@ const inspectStep = createStep({
   },
 })
 
+// Step 3
 const evaluateStep = createStep({
   id: 'evaluate-step',
   inputSchema: z.object({
@@ -77,6 +66,7 @@ const evaluateStep = createStep({
   execute: async ({ inputData, mastra }) => {
     const agent = mastra.getAgentById('github-scout')
 
+    console.log('Evaluate Step')
     const withReadme = inputData.repos.map(repo => ({...repo, readme: inputData.readmes[repo.fullName].content }))
     const reposJson = JSON.stringify(inputData.repos)
 
@@ -86,7 +76,7 @@ const evaluateStep = createStep({
 
     return {
       verdict: response.text,
-      repos: inputData.repos,
+      repos: withReadme,
       readme: withReadme[0].readme
     }
   }
@@ -105,19 +95,10 @@ export const githubWorkflow = createWorkflow({
   .map(async ({ getStepResult, getInitData }) => {
     const reposData = getStepResult(fetchStep)
     const initialData = getInitData<{ topic: string }>()
+    console.log('Between steps', reposData.repos.length, initialData.topic)
     return {
       repos: reposData.repos,
       topic: initialData.topic,
-    }
-  })
-  .then(selectionStep)
-  .map(async ({ getStepResult, getInitData }) => {
-    const selectionData = getStepResult(selectionStep)
-    const initialData = getInitData<{ topic: string }>()
-
-    return {
-      topic: initialData.topic,
-      repos: selectionData.repos
     }
   })
   .then(inspectStep)

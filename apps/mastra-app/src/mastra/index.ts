@@ -31,14 +31,14 @@ export const mastra = new Mastra({
             const run = await workflow.createRun()
             const result = await run.start({ inputData: parsedBody })
 
+            // console.log('RESULT', result)
+
             if (result.status !== 'success') {
               console.error(`Workflow ended with status: ${result.status}`)
               const message = result.status === 'failed' ? result.error.message : 'We could not generate recommendations right now.'
               return c.json({ error: message }, 500)
             }
 
-
-            console.log('RESULT', result)
             return c.json(result)
 
           } catch (error) {

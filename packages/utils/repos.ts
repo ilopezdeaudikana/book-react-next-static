@@ -19,9 +19,9 @@ export const RichRepoObject = z.object({
   has_pages: z.boolean(), // Has a GitHub Pages site attached
 
   // Timestamps (Crucial for verifying updates)
-  created_at: z.iso.datetime(),
-  updated_at: z.iso.datetime(), // Metadata updates
-  pushed_at: z.iso.datetime(),  // Last actual code commit (the pulse check)
+  created_at: z.string(),
+  updated_at: z.string(), // Metadata updates
+  pushed_at: z.string(),  // Last actual code commit (the pulse check)
 
   // Granular Popularity & Engagement Metrics
   stargazers_count: z.number(),
@@ -58,8 +58,8 @@ export const RepoObject = z.object({
   stargazerCount: z.number(),
   watchersCount: z.number(),
   openIssues: z.number(),
-  updatedAt: z.iso.datetime(),
-  pushedAt: z.iso.datetime(),
+  updatedAt: z.string(),
+  pushedAt: z.string(),
   archived: z.boolean(),
   disabled: z.boolean(),
   hasIssues: z.boolean(),
