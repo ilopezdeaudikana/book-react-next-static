@@ -1,5 +1,5 @@
-import { Drawer as AntDrawer, DrawerProps } from 'antd'
-import { ReactNode } from 'react'
+import { Drawer as AntDrawer, type DrawerProps } from 'antd'
+import type { ReactNode } from 'react'
 
 export const Drawer = ({
   testId,
