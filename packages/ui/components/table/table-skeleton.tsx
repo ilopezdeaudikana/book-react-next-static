@@ -1,16 +1,9 @@
-'use client'
 import { Skeleton } from 'antd'
 
-export const TableSkeleton = () => {
-  
-  const rows = 12
+export const TableSkeleton = ({ rows }: { rows: number }) => {
 
   return (
     <div className="flex-1">
-      <div style={{ display: 'flex', gap: '10px', marginBottom: '16px' }}>
-        <Skeleton.Input active size="large" style={{ width: 200 }} />
-        <Skeleton.Button active size="large" style={{ width: 100 }} />
-      </div>
 
       <div style={{ border: '1px solid #f0f0f0', borderRadius: '8px' }}>
       

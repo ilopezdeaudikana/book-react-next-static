@@ -1,8 +1,10 @@
 import { getUserFacingError } from '@repo/utils'
-import { RepoApiData } from '../../types'
+import type { RepoApiData } from '../../types'
+import { useQuery } from '@tanstack/react-query'
 
-export const getGithubAgentData = async (query: string): Promise<RepoApiData> => {
-  const MASTRA_API_URL = process.env.MASTRA_API_URL
+const MASTRA_API_URL = import.meta.env.VITE_PUBLIC_MASTRA_API_URL
+
+const summarizeByTopic = async (query: string): Promise<RepoApiData> => {
   try {
     const response = await fetch(`${MASTRA_API_URL}summarize`, {
       method: 'POST',
@@ -40,4 +42,13 @@ export const getGithubAgentData = async (query: string): Promise<RepoApiData> =>
       verdict: ''
     }
   }
+}
+export const useGithubAgentData = (query: string): { data: RepoApiData, isPending: boolean, error: Error } => {
+
+  const { data, isPending, error } = useQuery({
+    queryKey: ['query', query],
+    queryFn: () => summarizeByTopic(query)
+  })
+
+  return { data, isPending, error }
 }

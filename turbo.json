@@ -12,7 +12,7 @@
     },
     "github-repos#build": {
       "dependsOn": ["^build"],
-      "outputs": [".next/**", "!.next/cache/**"]
+      "outputs": ["dist/**"]
     },
     "mastra-app#build": {
       "dependsOn": ["^build"],

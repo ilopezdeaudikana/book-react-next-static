@@ -1,46 +1,54 @@
-'use client'
 import { ReposTable } from './repos-table'
 import { SearchInput } from './search-input'
-import { RepoApiData } from '../../types'
+import type { RepoApiData } from '../../types'
 import { Flex, Typography, Collapse, Table } from '@repo/ui'
 import {
-  ChangeEvent,
-  ReactNode,
+  type ChangeEvent,
+  type ReactNode,
   useDeferredValue,
   useEffect,
   useRef,
   useState,
   useTransition,
 } from 'react'
-import { parseMD, RepoVm } from '@repo/utils'
-import { searchGithubRepos } from '../actions'
-import { useRouter } from 'next/navigation'
+import { parseMD, type RepoVm } from '@repo/utils'
+import { useLocation, useNavigate } from 'react-router'
 
 export const Repos = ({
   data,
-  queryParam,
+  onQueryChange,
+  query,
+  isPending
 }: {
   data: RepoApiData
-  queryParam?: string
+  onQueryChange: (query: string) => void
+  query: string
+  isPending: boolean
 }) => {
-  const initialQuery = queryParam ?? ''
 
-  const [searchTerm, setSearchterm] = useState(initialQuery)
-  const deferredSearch = useDeferredValue(searchTerm)
+  const [searchTerm, setSearchterm] = useState(query)
   const [result, setResult] = useState(data)
   const [verdict, setVerdict] = useState<ReactNode>()
   const [comparison, setComparison] = useState<ReactNode>()
-  const [activeKey, openCollapsible] = useState<string[]>(['1'])
+  const [activeKey, openCollapsible] = useState<string[]>(isPending ? undefined : ['1'])
 
   const [, startTransition] = useTransition()
 
-  const latestRequestId = useRef(0)
+  const [debouncedSearchTerm, setDebouncedSearchTerm] = useState<string>(query)
+  const deferredSearch = useDeferredValue(debouncedSearchTerm)
+
   const timeout = useRef(null)
 
-  const router = useRouter()
+  const navigate = useNavigate()
+  const location = useLocation()
 
   const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
     setSearchterm(event.target.value)
+    timeout.current = setTimeout(() => {
+      startTransition(() => {
+        setDebouncedSearchTerm(event.target.value)
+      })
+    }, 300)
   }
 
   const rotateRepos = (repos: RepoVm[]) => {
@@ -104,7 +112,7 @@ export const Repos = ({
     },
     comparison
       ? {
-          key: '3',
+          key: '2',
           label: 'Comparison',
           children: (
             <div style={{ maxHeight: '600px', overflowY: 'auto' }}>
@@ -116,7 +124,6 @@ export const Repos = ({
   ].filter(Boolean)
 
   useEffect(() => {
-    if (deferredSearch.trim().length < 4) return
     if (!deferredSearch) {
       setResult({
         repos: [],
@@ -125,26 +132,16 @@ export const Repos = ({
       })
       return
     }
+    if (deferredSearch.trim().length < 4) return
+    onQueryChange(deferredSearch)
+    navigate(`${location.pathname}?${deferredSearch}`)
 
-    const requestId = latestRequestId.current + 1
-    latestRequestId.current = requestId
-    if (timeout.current) clearTimeout(timeout.current)
-    startTransition(() => {
-      timeout.current = setTimeout(async () => {
-        const nextResult = await searchGithubRepos(deferredSearch)
-
-        if (latestRequestId.current === requestId) {
-          router.push(`?${deferredSearch}`, { scroll: false })
-          setResult(nextResult)
-        }
-      }, 300)
-    })
   }, [deferredSearch])
 
   useEffect(() => {
-    if (data.verdict) {
-      parseMD(data.verdict).then((result) => {
-        setVerdict(result)
+    if (result?.verdict) {
+      parseMD(result?.verdict).then((verdict) => {
+        setVerdict(verdict)
       })
     }
     return () => {
@@ -165,22 +162,23 @@ export const Repos = ({
         />
       </Flex>
 
-      {result.error ? (
+      {result?.error ? (
         <Typography data-testid="error" variant="text" type="danger">
-          Error! {result.error}
+          Error! {result?.error}
         </Typography>
       ) : (
         <>
           <Collapse
-            key={activeKey[0]}
+            key={activeKey?.[0]}
             defaultActiveKey={activeKey}
             items={collapsableItems}
           />
 
           <ReposTable
             key={deferredSearch}
-            data={result.repos}
+            data={result?.repos}
             onSelectedRepos={handleSelectedRepos}
+            isPending={isPending}
           />
         </>
       )}

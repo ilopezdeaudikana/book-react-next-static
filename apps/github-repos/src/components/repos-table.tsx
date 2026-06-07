@@ -1,10 +1,10 @@
-'use client'
 import { Table, Typography } from '@repo/ui'
 import { Table as AntTable } from 'antd'
 import { ForkOutlined, StarOutlined } from '@ant-design/icons'
 import type { TableColumnsType, TableProps } from 'antd'
-import { parseMD, Repo, RepoVm } from '@repo/utils'
+import { parseMD, type Repo, type RepoVm } from '@repo/utils'
 import { useEffect, useState } from 'react'
+import Loading from '../loading'
 
 const columns: TableColumnsType<RepoVm> = [
   {
@@ -46,37 +46,48 @@ const columns: TableColumnsType<RepoVm> = [
 export const ReposTable = ({
   data,
   onSelectedRepos,
+  isPending,
 }: {
   data: Repo[]
   onSelectedRepos: (repos: RepoVm[]) => void
+  isPending: boolean
 }) => {
-
-  const [dataSource, setDataSource] = useState<RepoVm[]>() 
+  const [dataSource, setDataSource] = useState<RepoVm[]>()
   const rowSelection: TableProps<RepoVm>['rowSelection'] = {
     onChange: (_: React.Key[], selectedRows: RepoVm[]) => {
       onSelectedRepos(selectedRows)
     },
   }
 
-  useEffect(()=> {
+  useEffect(() => {
+    if (!data) return 
     const transformDataSource = async () => {
-      return await Promise.all(data.map(async (repo) => ({ ...repo, readme: await parseMD(repo.readme)})))
+      return await Promise.all(
+        data?.map(async (repo) => ({
+          ...repo,
+          readme: await parseMD(repo.readme),
+        })),
+      )
     }
-    transformDataSource().then(result => setDataSource(result))
-  }, [])
-  
+    transformDataSource().then((result) => setDataSource(result))
+  }, [data])
 
   return (
-    <>  
-      <Table
-        testId="repos"
-        columns={columns}
-        data={dataSource}
-        rowSelection={{ type: 'checkbox', ...rowSelection }}
-        expandable={{
-          expandedRowRender: (record) => <div>{record.readme}</div>
-        }}
-      />
+    <>
+      {' '}
+      {isPending && <Loading />}
+      {!isPending && (
+        <Table
+          testId="repos"
+          columns={columns}
+          data={dataSource}
+          pagination={{ defaultPageSize: 5 }}
+          rowSelection={{ type: 'checkbox', ...rowSelection }}
+          expandable={{
+            expandedRowRender: (record) => <div>{record.readme}</div>,
+          }}
+        />
+      )}
     </>
   )
 }

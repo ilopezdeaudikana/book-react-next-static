@@ -1,16 +1,11 @@
 # Repos from github graphql
 
-This app requests repositories from Github using their graphql api. It was created using `Next`,`Typescript`, `Antd` and fetches data from Githug `graphql` API.
+This application recommends the best GitHub repositories for a given topic using an AI agent. Built with React, TypeScript, and Ant Design, the frontend communicates with a backend API that fetches repository data from GitHub and processes it via a Mastra agent to deliver tailored recommendations.
+
+**Scripts**
+1. `npm run dev` – Start the dev server
+2. `npm run build` – Type-check and build
+3. `npm run preview` – Preview the production build
+4. `npm run lint` – Lint
 
 
-## Getting Started
-
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-```
-
-Open [http://localhost:3002](http://localhost:3002) with your browser to see the result.

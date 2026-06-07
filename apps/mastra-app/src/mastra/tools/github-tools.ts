@@ -1,8 +1,8 @@
 import { ApiRepo, Repo } from '@repo/utils'
 
 const README_CHAR_LIMIT = 12000
-const DISPLAY_RESULT_LIMIT = 15
-const SEARCH_RESULT_PAGE_SIZE = 20
+const DISPLAY_RESULT_LIMIT = 10
+const SEARCH_RESULT_PAGE_SIZE = 10
 
 interface RepoReadmeResponse {
   content?: string
