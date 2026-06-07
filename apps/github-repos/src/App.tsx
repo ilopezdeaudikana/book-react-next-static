@@ -1,6 +1,5 @@
 import { Menu } from './components/menu'
 import { InfoPanel, Flex, Typography } from '@repo/ui'
-import '../styles/globals.css'
 import ReposView from './repos.view'
 import { BrowserRouter } from 'react-router-dom'
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query'
