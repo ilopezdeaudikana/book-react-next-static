@@ -28,7 +28,7 @@ export const Repos = ({
 }) => {
 
   const [searchTerm, setSearchterm] = useState(query)
-  const [result, setResult] = useState(data)
+  const [result, setResult] = useState<RepoApiData>()
   const [verdict, setVerdict] = useState<ReactNode>()
   const [comparison, setComparison] = useState<ReactNode>()
   const [activeKey, openCollapsible] = useState<string[] | undefined>(isPending ? undefined : ['1'])
@@ -135,20 +135,25 @@ export const Repos = ({
     }
     if (deferredSearch.trim().length < 4) return
     onQueryChange(deferredSearch)
+    openCollapsible(undefined)
     navigate(`${location.pathname}?${deferredSearch}`)
 
   }, [deferredSearch])
 
   useEffect(() => {
-    if (result?.verdict) {
-      parseMD(result?.verdict).then((verdict) => {
+    if (!data) return
+    setResult(data)
+    if (data?.verdict) {
+      parseMD(data.verdict).then((verdict) => {
         setVerdict(verdict)
       })
+
+      openCollapsible(['1'])
     }
     return () => {
       if (timeout.current) clearTimeout(timeout.current)
     }
-  }, [])
+  }, [data])
 
   return (
     <Flex gap="1rem" vertical>

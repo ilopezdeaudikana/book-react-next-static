@@ -25,7 +25,7 @@ export default defineConfig(({ mode }) => {
     base: '/memory',
     server: {
       // Ensure the port matches what turbo get-mfe-port provides
-      port: process.env.PORT ? parseInt(process.env.PORT) : 5173,
+      port: process.env.PORT ? parseInt(process.env.PORT) : 5174,
     },
     resolve: {
       alias: {

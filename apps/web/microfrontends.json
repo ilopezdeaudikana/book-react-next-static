@@ -26,7 +26,7 @@
         }
       ],
       "development": {
-        "local": 5173,
+        "local": 5175,
         "fallback": ""
       }
     },
@@ -40,7 +40,7 @@
         }
       ],
       "development": {
-        "local": 5174,
+        "local": 5173,
         "fallback": "https://book-react-next-static-ethycunts.vercel.app/"
       }
     },

@@ -65,14 +65,14 @@ const evaluateStep = createStep({
 
     console.log('Evaluate Step')
     const withReadme = inputData.repos.map(repo => ({...repo, readme: inputData.readmes[repo.fullName].content }))
-    // const reposJson = JSON.stringify(inputData.repos)
+    const reposJson = JSON.stringify(inputData.repos)
 
-    // const response = await agent.generate(
-    //   `Topic: "${inputData.topic}"\nData: ${reposJson}`
-    // )
+    const response = await agent.generate(
+      `Topic: "${inputData.topic}"\nData: ${reposJson}`
+    )
 
     return {
-      verdict: 'Foo',//response.text,
+      verdict: response.text,
       repos: withReadme
     }
   }
