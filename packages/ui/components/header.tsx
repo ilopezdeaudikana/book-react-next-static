@@ -23,10 +23,6 @@ export const Header = ({ onNavigate }: HeaderProps) => {
     {
       key: 'playground',
       label: 'Playground',
-    },
-    {
-      key: 'contact',
-      label: 'Contact'
     }
   ]
 

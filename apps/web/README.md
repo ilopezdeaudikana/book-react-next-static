@@ -8,7 +8,6 @@ The web app is designed to:
 
 - display featured projects and project detail pages
 - show companies and work history
-- provide a contact page for inbound messages
 - serve as the public-facing front end of the repository
 
 ## Tech used
@@ -31,8 +30,6 @@ The application currently uses:
 
 - `app/projects`: project listing and project detail routes
 - `app/companies`: company and experience listing
-- `app/contact`: contact form UI
-- `app/api/contact`: email submission endpoint
 - `components/*`: shared UI components used across routes
 - `data.js`: portfolio and company data source
 

@@ -8,7 +8,6 @@ The project is focused on:
 
 - showcasing projects with images and technology details
 - listing companies and professional experience
-- providing a contact page with email delivery
 - keeping the app structure simple enough to iterate on quickly
 
 ## Tech used
@@ -28,7 +27,6 @@ The main application in [`apps/web`](/home/iker/dev/book-react-next-static/apps/
 - Ant Design for UI components
 - Redux Toolkit and React Redux for client-side state
 - Sass for styling
-- SendGrid for contact form email delivery
 - Vercel Analytics and Speed Insights for observability
 
 ## Workspace structure
