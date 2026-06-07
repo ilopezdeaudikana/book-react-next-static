@@ -13,6 +13,7 @@ import {
 } from 'react'
 import { parseMD, type RepoVm } from '@repo/utils'
 import { useLocation, useNavigate } from 'react-router'
+import type { CollapseProps } from 'antd'
 
 export const Repos = ({
   data,
@@ -20,7 +21,7 @@ export const Repos = ({
   query,
   isPending
 }: {
-  data: RepoApiData
+  data?: RepoApiData
   onQueryChange: (query: string) => void
   query: string
   isPending: boolean
@@ -30,14 +31,14 @@ export const Repos = ({
   const [result, setResult] = useState(data)
   const [verdict, setVerdict] = useState<ReactNode>()
   const [comparison, setComparison] = useState<ReactNode>()
-  const [activeKey, openCollapsible] = useState<string[]>(isPending ? undefined : ['1'])
+  const [activeKey, openCollapsible] = useState<string[] | undefined>(isPending ? undefined : ['1'])
 
   const [, startTransition] = useTransition()
 
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState<string>(query)
   const deferredSearch = useDeferredValue(debouncedSearchTerm)
 
-  const timeout = useRef(null)
+  const timeout = useRef<ReturnType<typeof setTimeout>>(null)
 
   const navigate = useNavigate()
   const location = useLocation()
@@ -61,10 +62,10 @@ export const Repos = ({
     ]
 
     const dataSource = stats.map((prop) => {
-      const row = { key: prop.key, propertyLabel: prop.label }
+      const row: Record<string, any> = { key: prop.key, propertyLabel: prop.label }
 
       repos.forEach((item) => {
-        row[item.id] = item[prop.key]
+        row[item.id] = item[prop.key as keyof RepoVm]
       })
 
       return row
@@ -121,7 +122,7 @@ export const Repos = ({
           ),
         }
       : undefined,
-  ].filter(Boolean)
+  ].filter(Boolean) as CollapseProps['items'] 
 
   useEffect(() => {
     if (!deferredSearch) {
@@ -168,15 +169,15 @@ export const Repos = ({
         </Typography>
       ) : (
         <>
-          <Collapse
+          {collapsableItems && <Collapse
             key={activeKey?.[0]}
             defaultActiveKey={activeKey}
             items={collapsableItems}
-          />
+          />}
 
           <ReposTable
             key={deferredSearch}
-            data={result?.repos}
+            data={result?.repos ?? []}
             onSelectedRepos={handleSelectedRepos}
             isPending={isPending}
           />

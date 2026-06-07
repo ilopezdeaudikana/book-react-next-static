@@ -1,4 +1,4 @@
-import { JSX } from 'react'
+import type { JSX } from 'react'
 import { z } from 'zod'
 
 export const RichRepoObject = z.object({

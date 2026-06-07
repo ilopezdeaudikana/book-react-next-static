@@ -80,7 +80,7 @@ export const ReposTable = ({
         <Table
           testId="repos"
           columns={columns}
-          data={dataSource}
+          data={dataSource ?? []}
           pagination={{ defaultPageSize: 5 }}
           rowSelection={{ type: 'checkbox', ...rowSelection }}
           expandable={{

@@ -1,6 +1,6 @@
 'use client'
 import { Input } from '@repo/ui'
-import React, { ComponentProps } from 'react'
+import React, { type ComponentProps } from 'react'
 
 interface SearchInputProps extends ComponentProps<typeof Input> {
   style?: React.CSSProperties

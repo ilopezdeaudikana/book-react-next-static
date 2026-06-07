@@ -43,7 +43,7 @@ const summarizeByTopic = async (query: string): Promise<RepoApiData> => {
     }
   }
 }
-export const useGithubAgentData = (query: string): { data: RepoApiData, isPending: boolean, error: Error } => {
+export const useGithubAgentData = (query: string) => {
 
   const { data, isPending, error } = useQuery({
     queryKey: ['query', query],

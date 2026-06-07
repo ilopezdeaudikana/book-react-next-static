@@ -1,4 +1,4 @@
-import { Repo } from '@repo/utils'
+import type { Repo } from '@repo/utils'
 
 export interface RepoApiData {
   error: string | null,
