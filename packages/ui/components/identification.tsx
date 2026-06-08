@@ -1,9 +1,23 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Modal, Input, Flex, Typography } from 'antd'
 
-export const Identification = ({ submitUser, children }: { submitUser: (username: string) => Promise<{ id: string }>, children?: React.ReactNode}) => {
-  const [open, setOpen] = useState(true)
+interface IdentificationProps {
+  submitUser: (username: string) => Promise<{ id: string }>
+  open?: boolean
+  closable?: boolean
+  children?: React.ReactNode
+  onCancel?: () => void
+}
+
+export const Identification = ({
+  submitUser,
+  closable,
+  children,
+  open,
+  onCancel,
+}: IdentificationProps) => {
+  const [openLocal, setOpen] = useState<boolean>()
   const [localUser, setLocalUser] = useState('')
   const [error, setError] = useState('')
   const [confirmLoading, setConfirmLoading] = useState(false)
@@ -29,28 +43,34 @@ export const Identification = ({ submitUser, children }: { submitUser: (username
 
   const handleCancel = () => {
     setOpen(false)
+    onCancel?.()
   }
+
+  useEffect(() => {
+    console.log('MECAGOEN DIOS')
+    setOpen(open ?? true)
+  }, [open])
 
   return (
     <>
       <Modal
         title="Set your user"
-        open={open}
+        open={openLocal}
         onOk={handleOk}
         onCancel={handleCancel}
         confirmLoading={confirmLoading}
-        closable={false}
+        closable={closable}
         cancelButtonProps={{ style: { display: 'none' } }}
-        okButtonProps={{ disabled:  !localUser }}
-        mask={{ closable: false }}
+        okButtonProps={{ disabled: !localUser }}
+        mask={{ closable: closable }}
       >
-      <Flex vertical gap={8}>
-        <label htmlFor="username">Your user name:</label>
-        <Input id="username" onChange={(e) => setLocalUser(e.target.value)} />
-        { children }
-        {error && <Typography.Paragraph>{error}</Typography.Paragraph>}
-      </Flex>
-    </Modal >
+        <Flex vertical gap={8}>
+          <label htmlFor="username">Your user name:</label>
+          <Input id="username" onChange={(e) => setLocalUser(e.target.value)} />
+          {children}
+          {error && <Typography.Paragraph>{error}</Typography.Paragraph>}
+        </Flex>
+      </Modal>
     </>
   )
 }
