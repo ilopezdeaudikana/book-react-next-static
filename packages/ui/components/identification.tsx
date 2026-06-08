@@ -47,7 +47,6 @@ export const Identification = ({
   }
 
   useEffect(() => {
-    console.log('MECAGOEN DIOS')
     setOpen(open ?? true)
   }, [open])
 

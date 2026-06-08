@@ -39,7 +39,7 @@ export const mastra = new Mastra({
               return c.json({ error: message }, 500)
             }
 
-            return c.json(result)
+            return c.json(result.result)
 
           } catch (error) {
             const message = error instanceof Error ? error.message : 'Unknown error'

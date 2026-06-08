@@ -1,14 +1,21 @@
 import { Repos } from './components/repos'
-
 import { useGithubAgentData } from './hooks/useGithubData'
-
 import { Flex, Typography } from '@repo/ui'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { useSearchParams } from 'react-router-dom'
 
 export default function ReposView() {
-  const [query, setQuery] = useState<string>('typescript')
+  const [query, setQuery] = useState<string>()
 
   const { data, error, isPending } = useGithubAgentData(query)
+
+  const [searchParams, _] = useSearchParams()
+
+  useEffect(() => {
+    const topic = searchParams.get('query')
+    if (topic) setQuery(topic)
+    else setQuery('typescript')
+  }, [searchParams])
 
   return (
     <>

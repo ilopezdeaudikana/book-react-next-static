@@ -27,7 +27,7 @@ export const Repos = ({
   isPending: boolean
 }) => {
 
-  const [searchTerm, setSearchterm] = useState<string>()
+  const [searchTerm, setSearchterm] = useState(query)
   const [result, setResult] = useState<RepoApiData>()
   const [verdict, setVerdict] = useState<ReactNode>()
   const [comparison, setComparison] = useState<ReactNode>()
@@ -141,7 +141,6 @@ export const Repos = ({
   }, [deferredSearch])
 
   useEffect(() => {
-    if (query) setSearchterm(query)
     if (!data) return
     setResult(data)
     if (data?.verdict) {
