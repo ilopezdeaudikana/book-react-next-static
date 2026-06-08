@@ -1,4 +1,4 @@
-export * from './header'
+export * from './header/header'
 export * from './info-panel'
 export * from './table/index'
 export * from './space'

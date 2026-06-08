@@ -1,0 +1,21 @@
+.header {
+  display: flex;
+  width: 100%;
+}
+
+.nav {
+  flex: 1;
+}
+.avatar {
+  position: absolute;
+  display: flex;
+  place-content: center;
+  right: 0.5rem;
+  top: 0.5rem;
+}
+
+.contextMenu {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
