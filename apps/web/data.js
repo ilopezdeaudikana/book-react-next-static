@@ -226,7 +226,7 @@ module.exports = {
   projects: [
     {
       id: '6',
-      title: 'C\u00edrculo Creativo CMS ',
+      title: 'C\u00edrculo creativo CMS ',
       teaser: 'circulo_gestor.png',
     },
     { id: '12', title: 'Lur CMS', teaser: 'lur1.jpg' },
@@ -243,16 +243,16 @@ module.exports = {
     { id: '10', title: 'Balclis CMS ', teaser: 'balclis_proyecto.png' },
     { id: '2', title: 'Lluis Vila website', teaser: 'lluis_proyecto.png' },
     { id: '1', title: 'Other projects', teaser: 'paulandjoe_proyecto.png' },
-    { id: '9', title: 'Lur terapia naturalak', teaser: 'lurII_proyecto.png' },
-    { id: '8', title: 'Gafieira Miuda', teaser: 'gafieira_proyecto.png' },
+    { id: '9', title: 'Lur website', teaser: 'lurII_proyecto.png' },
+    { id: '8', title: 'Gafieira Miuda website', teaser: 'gafieira_proyecto.png' },
     {
       id: '5',
-      title: 'Configurador Puertas Infinity',
+      title: 'Infinity website',
       teaser: 'puertas_proyecto.png',
     },
     {
       id: '7',
-      title: 'C\u00edrculo Creativo website',
+      title: 'C\u00edrculo creativo website',
       teaser: 'circulo_proyecto.png',
     },
     { id: '11', title: 'hp mobility event', teaser: 'hp_proyecto.jpg' },
