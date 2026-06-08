@@ -1,4 +1,4 @@
-import { Button as AntButton, ButtonProps as AntButtonProps } from 'antd'
+import { Button as AntButton, type ButtonProps as AntButtonProps } from 'antd'
 import type { ReactNode } from 'react'
 
 export interface ButtonProps {

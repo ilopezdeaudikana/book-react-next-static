@@ -4,7 +4,7 @@ import React, { type ComponentProps } from 'react'
 
 interface SearchInputProps extends ComponentProps<typeof Input> {
   style?: React.CSSProperties
-  value: string
+  value?: string
 }
 export const SearchInput = ({ style, value, ...props }: SearchInputProps) => {
   return (

@@ -1,56 +1,18 @@
-import { ReposTable } from './repos-table'
-import { SearchInput } from './search-input'
-import type { RepoApiData } from '../../types'
-import { Flex, Typography, Collapse, Table } from '@repo/ui'
-import {
-  type ChangeEvent,
-  type ReactNode,
-  useDeferredValue,
-  useEffect,
-  useRef,
-  useState,
-  useTransition,
-} from 'react'
+import { Collapse, Table } from '@repo/ui'
+import { type ReactNode, useEffect, useState } from 'react'
 import { parseMD, type RepoVm } from '@repo/utils'
-import { useLocation, useNavigate } from 'react-router'
 import type { CollapseProps } from 'antd'
 
-export const Repos = ({
-  data,
-  onQueryChange,
-  query,
-  isPending
+export const Suggestions = ({
+  repos,
+  verdict,
 }: {
-  data?: RepoApiData
-  onQueryChange: (query: string) => void
-  query: string
-  isPending: boolean
+  repos?: RepoVm[]
+  verdict?: string
 }) => {
-
-  const [searchTerm, setSearchterm] = useState(query)
-  const [result, setResult] = useState<RepoApiData>()
-  const [verdict, setVerdict] = useState<ReactNode>()
+  const [parsedVerdict, setParsedVerdict] = useState<ReactNode>()
   const [comparison, setComparison] = useState<ReactNode>()
-  const [activeKey, openCollapsible] = useState<string[] | undefined>(isPending ? undefined : ['1'])
-
-  const [, startTransition] = useTransition()
-
-  const [debouncedSearchTerm, setDebouncedSearchTerm] = useState<string>(query)
-  const deferredSearch = useDeferredValue(debouncedSearchTerm)
-
-  const timeout = useRef<ReturnType<typeof setTimeout>>(null)
-
-  const navigate = useNavigate()
-  const location = useLocation()
-
-  const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setSearchterm(event.target.value)
-    timeout.current = setTimeout(() => {
-      startTransition(() => {
-        setDebouncedSearchTerm(event.target.value)
-      })
-    }, 300)
-  }
+  const [activeKey, setActiveKey] = useState<string[] | undefined>()
 
   const rotateRepos = (repos: RepoVm[]) => {
     const stats = [
@@ -62,7 +24,10 @@ export const Repos = ({
     ]
 
     const dataSource = stats.map((prop) => {
-      const row: Record<string, any> = { key: prop.key, propertyLabel: prop.label }
+      const row: Record<string, any> = {
+        key: prop.key,
+        propertyLabel: prop.label,
+      }
 
       repos.forEach((item) => {
         row[item.id] = item[prop.key as keyof RepoVm]
@@ -87,29 +52,11 @@ export const Repos = ({
     return { dataSource, columns }
   }
 
-  const handleSelectedRepos = (repos: RepoVm[]) => {
-    if (repos.length > 1) {
-      const { columns, dataSource } = rotateRepos(repos)
-      setComparison(
-        <Table
-          testId="repos-compare"
-          columns={columns}
-          data={dataSource}
-          pagination={false}
-        />,
-      )
-      openCollapsible(['2'])
-    } else {
-      openCollapsible(['1'])
-      setComparison(undefined)
-    }
-  }
-
   const collapsableItems = [
     {
       key: '1',
       label: 'Recomended package',
-      children: <div className="verdict">{verdict}</div>,
+      children: <div className="verdict">{parsedVerdict}</div>,
     },
     comparison
       ? {
@@ -122,72 +69,41 @@ export const Repos = ({
           ),
         }
       : undefined,
-  ].filter(Boolean) as CollapseProps['items'] 
+  ].filter(Boolean) as CollapseProps['items']
 
   useEffect(() => {
-    if (!deferredSearch) {
-      setResult({
-        repos: [],
-        error: 'Please enter a search topic.',
-        verdict: '',
+    if (verdict) {
+      parseMD(verdict).then((parsed) => {
+        setParsedVerdict(parsed)
       })
-      return
+      setActiveKey(['1'])
     }
-    if (deferredSearch.trim().length < 4) return
-    onQueryChange(deferredSearch)
-    openCollapsible(undefined)
-    navigate(`${location.pathname}?query=${deferredSearch}`)
-
-  }, [deferredSearch])
-
-  useEffect(() => {
-    if (!data) return
-    setResult(data)
-    if (data?.verdict) {
-      parseMD(data.verdict).then((verdict) => {
-        setVerdict(verdict)
-      })
-
-      openCollapsible(['1'])
+    if (repos && repos?.length > 1) {
+      const { columns, dataSource } = rotateRepos(repos)
+      setComparison(
+        <Table
+          testId="repos-compare"
+          columns={columns}
+          data={dataSource}
+          pagination={false}
+        />,
+      )
+      setActiveKey(['2'])
+    } else {
+      setComparison(undefined)
     }
-    return () => {
-      if (timeout.current) clearTimeout(timeout.current)
-    }
-  }, [data])
+    if(!repos && !verdict) setActiveKey(undefined)
+  }, [repos, verdict])
 
   return (
-    <Flex gap="1rem" vertical>
-      <Flex vertical style={{ marginTop: '1rem' }}>
-        <label htmlFor="searchInput">
-          <Typography variant="text">Search for a package</Typography>
-        </label>
-        <SearchInput
-          id="searchInput"
-          value={searchTerm}
-          onChange={handleSearchChange}
+    <>
+      {collapsableItems && (
+        <Collapse
+          key={activeKey?.[0]}
+          defaultActiveKey={activeKey}
+          items={collapsableItems}
         />
-      </Flex>
-
-      {result?.error ? (
-        <Typography data-testid="error" variant="text" type="danger">
-          Error! {result?.error}
-        </Typography>
-      ) : (
-        <>
-          {collapsableItems && <Collapse
-            key={activeKey?.[0]}
-            defaultActiveKey={activeKey}
-            items={collapsableItems}
-          />}
-
-          <ReposTable
-            key={deferredSearch}
-            data={result?.repos ?? []}
-            onSelectedRepos={handleSelectedRepos}
-            isPending={isPending}
-          />
-        </>
       )}
-    </Flex>
+    </>
   )
 }

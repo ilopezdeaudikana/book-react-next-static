@@ -1,41 +1,37 @@
 import { ReposTable } from './repos-table'
 import { SearchInput } from './search-input'
 import type { RepoApiData } from '../../types'
-import { Flex, Typography, Collapse, Table } from '@repo/ui'
+import { Flex, Typography } from '@repo/ui'
 import {
   type ChangeEvent,
-  type ReactNode,
   useDeferredValue,
   useEffect,
   useRef,
   useState,
   useTransition,
 } from 'react'
-import { parseMD, type RepoVm } from '@repo/utils'
+import { type RepoVm } from '@repo/utils'
 import { useLocation, useNavigate } from 'react-router'
-import type { CollapseProps } from 'antd'
+import { Suggestions } from './suggestions'
 
 export const Repos = ({
   data,
   onQueryChange,
   query,
-  isPending
+  isPending,
 }: {
   data?: RepoApiData
   onQueryChange: (query: string) => void
-  query: string
+  query?: string
   isPending: boolean
 }) => {
-
   const [searchTerm, setSearchterm] = useState<string>()
   const [result, setResult] = useState<RepoApiData>()
-  const [verdict, setVerdict] = useState<ReactNode>()
-  const [comparison, setComparison] = useState<ReactNode>()
-  const [activeKey, openCollapsible] = useState<string[] | undefined>(isPending ? undefined : ['1'])
+  const [selectedRepos, setSelectedRepos] = useState<RepoVm[]>()
 
   const [, startTransition] = useTransition()
 
-  const [debouncedSearchTerm, setDebouncedSearchTerm] = useState<string>(query)
+  const [debouncedSearchTerm, setDebouncedSearchTerm] = useState<string | undefined>(query)
   const deferredSearch = useDeferredValue(debouncedSearchTerm)
 
   const timeout = useRef<ReturnType<typeof setTimeout>>(null)
@@ -52,77 +48,9 @@ export const Repos = ({
     }, 300)
   }
 
-  const rotateRepos = (repos: RepoVm[]) => {
-    const stats = [
-      { key: 'forkCount', label: 'Forks' },
-      { key: 'stargazerCount', label: 'Stars' },
-      { key: 'watchersCount', label: 'Watchers' },
-      { key: 'openIssues', label: 'Issues' },
-      { key: 'updatedAt', label: 'Last updated' },
-    ]
-
-    const dataSource = stats.map((prop) => {
-      const row: Record<string, any> = { key: prop.key, propertyLabel: prop.label }
-
-      repos.forEach((item) => {
-        row[item.id] = item[prop.key as keyof RepoVm]
-      })
-
-      return row
-    })
-
-    const columns = [
-      {
-        title: 'Features',
-        dataIndex: 'propertyLabel',
-        key: 'propertyLabel',
-        width: 120,
-      },
-      ...repos.map((item) => ({
-        title: item.name,
-        dataIndex: item.id,
-        key: item.id,
-      })),
-    ]
-    return { dataSource, columns }
-  }
-
   const handleSelectedRepos = (repos: RepoVm[]) => {
-    if (repos.length > 1) {
-      const { columns, dataSource } = rotateRepos(repos)
-      setComparison(
-        <Table
-          testId="repos-compare"
-          columns={columns}
-          data={dataSource}
-          pagination={false}
-        />,
-      )
-      openCollapsible(['2'])
-    } else {
-      openCollapsible(['1'])
-      setComparison(undefined)
-    }
+    setSelectedRepos(repos)
   }
-
-  const collapsableItems = [
-    {
-      key: '1',
-      label: 'Recomended package',
-      children: <div className="verdict">{verdict}</div>,
-    },
-    comparison
-      ? {
-          key: '2',
-          label: 'Comparison',
-          children: (
-            <div style={{ maxHeight: '600px', overflowY: 'auto' }}>
-              {comparison}
-            </div>
-          ),
-        }
-      : undefined,
-  ].filter(Boolean) as CollapseProps['items'] 
 
   useEffect(() => {
     if (!deferredSearch) {
@@ -135,22 +63,20 @@ export const Repos = ({
     }
     if (deferredSearch.trim().length < 4) return
     onQueryChange(deferredSearch)
-    openCollapsible(undefined)
+    setSelectedRepos(undefined)
+    setResult({
+      repos: [],
+      error: '',
+      verdict: '',
+    })
     navigate(`${location.pathname}?query=${deferredSearch}`)
-
   }, [deferredSearch])
 
   useEffect(() => {
     if (query) setSearchterm(query)
     if (!data) return
     setResult(data)
-    if (data?.verdict) {
-      parseMD(data.verdict).then((verdict) => {
-        setVerdict(verdict)
-      })
 
-      openCollapsible(['1'])
-    }
     return () => {
       if (timeout.current) clearTimeout(timeout.current)
     }
@@ -175,11 +101,7 @@ export const Repos = ({
         </Typography>
       ) : (
         <>
-          {collapsableItems && <Collapse
-            key={activeKey?.[0]}
-            defaultActiveKey={activeKey}
-            items={collapsableItems}
-          />}
+          <Suggestions repos={selectedRepos} verdict={result?.verdict} />
 
           <ReposTable
             key={deferredSearch}

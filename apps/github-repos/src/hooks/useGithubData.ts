@@ -64,11 +64,11 @@ const summarizeByTopic = async (query: string): Promise<RepoApiData> => {
     }
   }
 }
-export const useGithubAgentData = (query: string) => {
+export const useGithubAgentData = (query?: string) => {
 
   const { data, isPending, error } = useQuery({
     queryKey: ['query', query],
-    queryFn: () => summarizeByTopic(query),
+    queryFn: () => summarizeByTopic(query ?? ''),
     enabled: !!query
   })
 
