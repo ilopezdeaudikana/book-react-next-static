@@ -2,8 +2,8 @@ import { Button } from '@repo/ui'
 import { colorForGroup } from '../../utils/colors'
 import type { InternalGraphData } from '../../types/d3-types'
 import { useMapStore } from '../../store/useMapStore'
-import { useDataStore } from '../../store/useDataStore'
 import { useState, useEffect } from 'react'
+import { useSystemsData } from '../../hooks/useSystemsData'
 
 interface DetailsPanelProps {
   nodes: InternalGraphData['nodes']
@@ -13,7 +13,7 @@ interface DetailsPanelProps {
 export const DetailsPanel = ({ nodes, onClosePanel }: DetailsPanelProps) => {
   const activeSystem = useMapStore((state) => state.activeSystem)
   const selectSystem = useMapStore((state) => state.selectSystem)
-  const systemsMap = useDataStore((state) => state.systemsMap)
+  const {systemsMap, usedByMap } = useSystemsData()
 
   const [isOpen, setIsOpen] = useState(true)
 
@@ -22,6 +22,8 @@ export const DetailsPanel = ({ nodes, onClosePanel }: DetailsPanelProps) => {
   const normalizedKey = mapKeys.find((key) => activeSystem?.includes(key))
 
   const selectedSystem = systemsMap.get(normalizedKey ?? '')
+
+  const usedBy = usedByMap.get(normalizedKey ?? '')
 
   const closePanel = () => {
     setIsOpen(false)
@@ -128,6 +130,36 @@ export const DetailsPanel = ({ nodes, onClosePanel }: DetailsPanelProps) => {
               </h4>
               <div className="flex flex-wrap gap-2">
                 {selectedSystem.systemDependencies.map((depKey) => {
+                  const depNode = nodes.find((n) => n.id === depKey)
+                  if (!depNode) return null
+                  return (
+                    <button
+                      key={depKey}
+                      onClick={() => selectSystem(depKey)}
+                      className="text-xs bg-gray-50 hover:bg-secondary transition-colors px-2.5 py-1 rounded-full flex items-center gap-1.5"
+                    >
+                      <div
+                        className="w-1.5 h-1.5 rounded-full flex-shrink-0"
+                        style={{
+                          backgroundColor: colorForGroup(depNode.group),
+                        }}
+                      />
+                      {depNode.label}
+                    </button>
+                  )
+                })}
+              </div>
+            </div>
+          )}
+
+          {/* Used by */}
+            {usedBy && usedBy.length > 0 && (
+            <div className="mt-5">
+              <h4 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-3">
+                Used By ({usedBy.length})
+              </h4>
+              <div className="flex flex-wrap gap-2">
+                {usedBy.map((depKey) => {
                   const depNode = nodes.find((n) => n.id === depKey)
                   if (!depNode) return null
                   return (

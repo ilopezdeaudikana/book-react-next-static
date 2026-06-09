@@ -2,10 +2,12 @@ import { create } from 'zustand'
 import { ApiResponseSchema, type SystemDefinition, type SystemWithMeta, DataStatus } from '../types/types'
 import { dedupeSystems } from '../utils/dedupeSystems'
 import { addCategoriesAndUses } from '../utils/addCategoriesAndUses'
+import { createUsedByMap } from '../utils/createUsedByMap'
 
 type DataState = {
   systems: SystemDefinition[]
   systemsMap: Map<string, SystemWithMeta>
+  usedByMap: Map<string, string[]>
   allUses: string[]
   allCategories: string[]
   status: DataStatus
@@ -16,6 +18,7 @@ type DataState = {
 export const useDataStore = create<DataState>((set, get) => ({
   systems: [],
   systemsMap: new Map(),
+  usedByMap: new Map(),
   allUses: [],
   allCategories: [],
   status: DataStatus.Idle,
@@ -46,8 +49,8 @@ export const useDataStore = create<DataState>((set, get) => ({
         allUses,
         allCategories } = addCategoriesAndUses(systems)
       const systemsMap = new Map(systemsWithMeta.map((system) => [system.fidesKey, system]))
-      
-      set({ systems, systemsMap, allCategories, allUses, status: DataStatus.Ready })
+      const usedByMap = createUsedByMap(systems)
+      set({ systems, systemsMap, allCategories, usedByMap, allUses, status: DataStatus.Ready })
     } catch (e) {
       set({ status: DataStatus.Error })
     }

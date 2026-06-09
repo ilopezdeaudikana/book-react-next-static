@@ -5,6 +5,7 @@ import { DataStatus } from '../types/types'
 export const useSystemsData = () => {
   const systems = useDataStore((state) => state.systems)
   const systemsMap= useDataStore((state) => state.systemsMap)
+  const usedByMap= useDataStore((state) => state.usedByMap)
   const allUses = useDataStore((state) => state.allUses)
   const allCategories = useDataStore((state) => state.allCategories)
   const status = useDataStore((state) => state.status)
@@ -16,5 +17,5 @@ export const useSystemsData = () => {
     }
   }, [status, load])
 
-  return { systems, systemsMap, allUses, allCategories, status }
+  return { systems, systemsMap, allUses, allCategories, status, usedByMap }
 }

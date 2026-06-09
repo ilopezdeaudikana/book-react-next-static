@@ -132,7 +132,7 @@ export const FilterControls = () => {
 
           </>
         )}
-        {activeSystem && (
+        {activeSystem && !mapMode &&(
           <div className="self-end justify-items-end">
             <DependencyPanel
               dependencies={dependencies}

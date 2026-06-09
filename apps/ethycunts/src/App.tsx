@@ -9,7 +9,7 @@ import { LayoutMode, MapMode } from './types/types'
 import { D3Map } from './components/d3-map/D3Map'
 import { SidePanel } from './components/side-panel/SidePanel'
 import { useSystemsData } from './hooks/useSystemsData'
-import { systemsByUseToGraph, systemsToGraph } from './utils/systemsToD3Grapgh'
+import { systemsByUseToGraph, systemsToGraph } from './utils/systemsToD3Graph'
 
 function App() {
   const containerRef = useRef<HTMLDivElement | null>(null)
