@@ -1,8 +1,3 @@
-1. **Dependency Path Explorer**
-   The D3 map already highlights directly connected nodes in [D3Map.tsx]. Extend this to show full upstream/downstream paths: “What depends on this?” and “What does this depend on?” That would make the map much more useful for impact analysis.
-
-2. **System Detail Drawer**
-   The side panel has inventory search and a `DetailsPanel` entry point in [SidePanel.tsx]. A richer drawer could show description, system type, data uses, data categories, data subjects, dependencies, dependents, and related systems.
 
 3. **Search Across All System Metadata**
    Current D3 side-panel search only checks node label and group in [SidePanel.tsx]. Expand it to search Fides key, description, data use, data category, data subject, and dependencies.
