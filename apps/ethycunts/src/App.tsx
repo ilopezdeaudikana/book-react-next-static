@@ -36,7 +36,9 @@ function App() {
 
   const mapClass = () => {
     const base = 'flex w-full overflow-hidden bg-background text-foreground'
-    const height = isMobile ? 'h-[calc(100vh_-_6.5rem)]' : 'h-[calc(100vh_-_15rem)]'
+    const height = isMobile
+      ? 'h-[calc(100vh_-_6.5rem)]'
+      : 'h-[calc(100vh_-_15rem)]'
     return `${base} ${height}`.trim()
   }
 
@@ -52,47 +54,45 @@ function App() {
     <ErrorBoundary
       fallback={<Typography variant="text">Unexpected error</Typography>}
     >
-      <Header onNavigate={handleNavigation} />
+      <div className="grid">
+        <Header onNavigate={handleNavigation} />
 
-      <div className="flex flex-col gap-4">
-        <div className="flex flex-1 flex-col items-stretch">
-          <TopBar isMobile={isMobile}/>
+        <div className="flex flex-col flex-1 gap-4">
+          <div className="flex flex-1 flex-col items-stretch">
+            <TopBar isMobile={isMobile} />
 
-          {mapMode === MapMode.ColourCode && (
-            <MapSection containerRef={containerRef} />
-          )}
-          {mapMode === MapMode.D3 && (
-            <div className={mapClass()}>
-              <div className="w-[65%] relative bg-gray-200">
-                <D3Map
-                  graphData={graphData}
-                />
+            {mapMode === MapMode.ColourCode && (
+              <MapSection containerRef={containerRef} />
+            )}
+            {mapMode === MapMode.D3 && (
+              <div className={mapClass()}>
+                <div className="w-[65%] relative bg-gray-200">
+                  <D3Map graphData={graphData} />
+                </div>
+
+                <div className="w-[35%] overflow-hidden flex flex-col bg-gray-300">
+                  <SidePanel graphData={graphData} />
+                </div>
               </div>
-
-              <div className="w-[35%] overflow-hidden flex flex-col bg-gray-300">
-                <SidePanel
-                  graphData={graphData}
-                />
-              </div>
-            </div>
-          )}
+            )}
+          </div>
         </div>
+        <InfoPanel title="Systems map">
+          <Flex vertical gap="18">
+            <Typography variant="text">
+              Stack: React, TypeScript, D3, Zustand, Zod, Antd, Tailwind,
+              Testing Library, Playwright
+            </Typography>
+            <Typography
+              variant="link"
+              href="https://github.com/ilopezdeaudikana/book-react-next-static/tree/main/apps/ethycunts"
+              target="_blank"
+            >
+              See on Github
+            </Typography>
+          </Flex>
+        </InfoPanel>
       </div>
-      <InfoPanel title="Systems map">
-        <Flex vertical gap="18">
-          <Typography variant="text">
-            Stack: React, TypeScript, D3, Zustand, Zod, Antd, Tailwind,
-            Testing Library, Playwright
-          </Typography>
-          <Typography
-            variant="link"
-            href="https://github.com/ilopezdeaudikana/book-react-next-static/tree/main/apps/ethycunts"
-            target="_blank"
-          >
-            See on Github
-          </Typography>
-        </Flex>
-      </InfoPanel>
     </ErrorBoundary>
   )
 }

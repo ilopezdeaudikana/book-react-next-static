@@ -1,6 +1,5 @@
 
-3. **Search Across All System Metadata**
-   Current D3 side-panel search only checks node label and group in [SidePanel.tsx]. Expand it to search Fides key, description, data use, data category, data subject, and dependencies.
+
 
 4. **Filters In D3 Mode**
    Data use/category filters are only shown in ColourCode mode in [FilterControls.tsx]. Applying those same filters to D3 mode would make the graph mode feel like a first-class exploration tool.

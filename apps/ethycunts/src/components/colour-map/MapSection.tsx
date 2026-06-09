@@ -80,7 +80,7 @@ export const MapSection = ({
       {status === DataStatus.Error && <ErrorMessage />}
       {status !== DataStatus.Error && status !== DataStatus.Loading &&
         <section
-          className="relative flex flex-1 flex-row justify-evenly gap-6 px-4 pb-4 pt-6"
+          className="relative flex flex-1 flex-row justify-evenly gap-6 px-4 pb-4 pt-6 overflow-auto"
           ref={containerRef}
         >
           {groupOrder.map((groupKey) => {
