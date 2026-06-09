@@ -4,6 +4,8 @@ import type { InternalGraphData } from '../../types/d3-types'
 import { useMapStore } from '../../store/useMapStore'
 import { useState, useEffect } from 'react'
 import { useSystemsData } from '../../hooks/useSystemsData'
+import { useFiltersStore } from '../../store/useFiltersStore'
+import { LayoutMode } from '../../types/types'
 
 interface DetailsPanelProps {
   nodes: InternalGraphData['nodes']
@@ -13,7 +15,9 @@ interface DetailsPanelProps {
 export const DetailsPanel = ({ nodes, onClosePanel }: DetailsPanelProps) => {
   const activeSystem = useMapStore((state) => state.activeSystem)
   const selectSystem = useMapStore((state) => state.selectSystem)
-  const {systemsMap, usedByMap } = useSystemsData()
+  const layoutMode = useFiltersStore((state) => state.layoutMode)
+  
+  const { systemsMap, usedByMap } = useSystemsData()
 
   const [isOpen, setIsOpen] = useState(true)
 
@@ -28,6 +32,14 @@ export const DetailsPanel = ({ nodes, onClosePanel }: DetailsPanelProps) => {
   const closePanel = () => {
     setIsOpen(false)
     onClosePanel(false)
+  }
+
+  const getDependencyNode = (nodes: InternalGraphData['nodes'], key: string) => {
+    if (layoutMode === LayoutMode.DataUse) {
+      return nodes.find((n) => n.id.includes(key))
+    } else {
+      return nodes.find((n) => n.id === key)
+    }
   }
 
   useEffect(() => {
@@ -130,12 +142,12 @@ export const DetailsPanel = ({ nodes, onClosePanel }: DetailsPanelProps) => {
               </h4>
               <div className="flex flex-wrap gap-2">
                 {selectedSystem.systemDependencies.map((depKey) => {
-                  const depNode = nodes.find((n) => n.id === depKey)
+                  const depNode = getDependencyNode(nodes, depKey)
                   if (!depNode) return null
                   return (
                     <button
                       key={depKey}
-                      onClick={() => selectSystem(depKey)}
+                      onClick={() => selectSystem(depNode.id)}
                       className="text-xs bg-gray-50 hover:bg-secondary transition-colors px-2.5 py-1 rounded-full flex items-center gap-1.5"
                     >
                       <div
@@ -160,12 +172,12 @@ export const DetailsPanel = ({ nodes, onClosePanel }: DetailsPanelProps) => {
               </h4>
               <div className="flex flex-wrap gap-2">
                 {usedBy.map((depKey) => {
-                  const depNode = nodes.find((n) => n.id === depKey)
+                  const depNode = getDependencyNode(nodes, depKey)
                   if (!depNode) return null
                   return (
                     <button
                       key={depKey}
-                      onClick={() => selectSystem(depKey)}
+                      onClick={() => selectSystem(depNode.id)}
                       className="text-xs bg-gray-50 hover:bg-secondary transition-colors px-2.5 py-1 rounded-full flex items-center gap-1.5"
                     >
                       <div

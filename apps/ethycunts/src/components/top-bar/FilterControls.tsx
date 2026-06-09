@@ -130,15 +130,15 @@ export const FilterControls = () => {
               />
             </div>
 
+            {activeSystem && mapMode && (
+              <div className="self-end justify-items-end">
+                <DependencyPanel
+                  dependencies={dependencies}
+                  onDependencyClick={handleDependencyClick}
+                />
+              </div>
+            )}
           </>
-        )}
-        {activeSystem && !mapMode &&(
-          <div className="self-end justify-items-end">
-            <DependencyPanel
-              dependencies={dependencies}
-              onDependencyClick={handleDependencyClick}
-            />
-          </div>
         )}
       </Flex>
     </Flex>
