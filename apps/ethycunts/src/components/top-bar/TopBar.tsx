@@ -7,10 +7,10 @@ export const TopBar = ({ isMobile }: { isMobile: boolean }) => {
   const showFilters = !isMobile || filtersOpen
 
   return (
-    <header className="sticky top-0 z-[3] flex w-full items-start border-b border-stone-200 bg-stone-50 p-4 shadow-md max-[65rem]:static max-[65rem]:items-stretch">
-      <MobileToggles
+    <header className="sticky top-0 z-[3] flex flex-col w-full items-start border-b border-stone-200 bg-stone-50 p-4 shadow-md max-[65rem]:static max-[65rem]:items-stretch">
+      {isMobile && <MobileToggles
         onToggleFilters={() => setFiltersOpen((prev) => !prev)}
-      />
+      />}
 
       <div
         className={showFilters ? 'flex flex-1' : 'hidden'}

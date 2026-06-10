@@ -54,7 +54,7 @@ function App() {
     <ErrorBoundary
       fallback={<Typography variant="text">Unexpected error</Typography>}
     >
-      <div className="grid">
+      <div className="flex flex-col min-h-screen flex-1">
         <Header onNavigate={handleNavigation} />
 
         <div className="flex flex-col flex-1 gap-4">

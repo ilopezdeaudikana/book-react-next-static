@@ -8,7 +8,7 @@ type MobileTogglesProps = {
 export const MobileToggles = ({
   onToggleFilters
 }: MobileTogglesProps) => (
-  <div className="hidden items-center gap-2 max-[65rem]:flex">
+  <div className="items-center gap-2 max-[65rem]:flex mb-4">
     <Button aria-label="Toggle filters" onClick={onToggleFilters}>
       <MenuOutlined />
     </Button>
