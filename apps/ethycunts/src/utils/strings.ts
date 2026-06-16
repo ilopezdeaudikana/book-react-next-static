@@ -11,6 +11,6 @@ export const titleCase = (value: string) =>
 
 export const toCamel = (str: string) => str.toLowerCase().replace(/[-_][a-z]/g, (group) => group.slice(-1).toUpperCase())
 
-export const refineTitles = (input: string) => {
+export const refineTitle = (input: string) => {
   return input.replace(/_/g, ' ').replace(/\.(?!com)/g, ' ')
 }

@@ -10,9 +10,6 @@
 6. **Impact Summary Panel**
    When a system is selected, show a compact summary: number of dependencies, number of dependents, data uses involved, categories touched, and whether it bridges multiple system types. This would build on existing selection state in [useMapStore.ts].
 
-7. **Graph Controls**
-   Add controls for zoom in/out, fit to screen, center selected node, freeze layout, and toggle labels. The D3 map already supports zoom and reset in [D3Map.tsx] and [D3Map.tsx].
-
 8. **Data Quality Report**
    Since the app already validates with Zod in [types.ts], add a report for missing descriptions, unknown dependency keys, duplicate systems, systems with no privacy declarations, and unused categories.
 

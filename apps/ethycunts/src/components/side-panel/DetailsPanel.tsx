@@ -6,6 +6,7 @@ import { useState, useEffect } from 'react'
 import { useSystemsData } from '../../hooks/useSystemsData'
 import { useFiltersStore } from '../../store/useFiltersStore'
 import { LayoutMode } from '../../types/types'
+import { leafCategory, refineTitle, titleCase } from '../../utils/strings'
 
 interface DetailsPanelProps {
   nodes: InternalGraphData['nodes']
@@ -97,7 +98,7 @@ export const DetailsPanel = ({ nodes, onClosePanel }: DetailsPanelProps) => {
                         Data Use
                       </span>
                       <span className="font-mono text-foreground break-all">
-                        {decl.dataUse}
+                        { titleCase(refineTitle(decl.dataUse)) }
                       </span>
 
                       <span className="text-muted-foreground font-medium">
@@ -107,9 +108,9 @@ export const DetailsPanel = ({ nodes, onClosePanel }: DetailsPanelProps) => {
                         {decl.dataCategories.map((cat) => (
                           <span
                             key={cat}
-                            className="bg-secondary/60 text-foreground/80 px-1.5 py-0.5 rounded text-[10px] font-mono truncate"
+                            className="bg-secondary/60 text-foreground/80 px-1.5 py-0.5 rounded font-mono truncate"
                           >
-                            {cat}
+                            { leafCategory(cat) }
                           </span>
                         ))}
                       </div>
@@ -121,7 +122,7 @@ export const DetailsPanel = ({ nodes, onClosePanel }: DetailsPanelProps) => {
                         {decl.dataSubjects.map((sub) => (
                           <span
                             key={sub}
-                            className="bg-secondary/60 text-foreground/80 px-1.5 py-0.5 rounded text-[10px] capitalize"
+                            className="bg-secondary/60 text-foreground/80 px-1.5 py-0.5 rounded font-mono capitalize"
                           >
                             {sub}
                           </span>

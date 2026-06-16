@@ -5,7 +5,7 @@ import { colorForGroup } from '../../utils/colors'
 import { DetailsPanel } from './DetailsPanel'
 import { useMapStore } from '../../store/useMapStore'
 import { useSystemsData } from '../../hooks/useSystemsData'
-import { refineTitles } from '../../utils/strings'
+import { refineTitle } from '../../utils/strings'
 
 interface SidePanelProps {
   graphData: InternalGraphData
@@ -78,7 +78,7 @@ export const SidePanel = ({ graphData }: SidePanelProps) => {
                       className="w-2 h-2 rounded-full"
                       style={{ backgroundColor: colorForGroup(group) }}
                     />
-                    { refineTitles(group)}
+                    { refineTitle(group)}
                   </h4>
                   <div className="space-y-1">
                     {nodes.map((node) => (

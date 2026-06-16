@@ -4,7 +4,7 @@ import type { InternalGraphData } from '../../types/d3-types'
 import { Button } from '@repo/ui'
 import { colorForGroup } from '../../utils/colors'
 import { useMapStore } from '../../store/useMapStore'
-import { refineTitles } from '../../utils/strings'
+import { refineTitle } from '../../utils/strings'
 
 interface D3MapProps {
   graphData: InternalGraphData
@@ -247,7 +247,7 @@ export const D3Map = ({
           className="fixed z-50 pointer-events-none bg-gray-800/40 text-white px-2 py-1 rounded text-xs font-medium border border-border backdrop-blur-sm"
           style={{ left: tooltip.x + 15, top: tooltip.y + 15 }}
         >
-          {refineTitles(tooltip.text)}
+          {refineTitle(tooltip.text)}
         </div>
       )}
 
@@ -271,7 +271,7 @@ export const D3Map = ({
                 style={{ backgroundColor: colorForGroup(group) }}
               />
               <span className="text-gray-800 capitalize">
-                {refineTitles(group)}
+                {refineTitle(group)}
               </span>
             </div>
           ))}
