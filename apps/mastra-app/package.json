@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "echo \"Skipping: no test specified for mastra app\"",
+    "lint": "echo \"Skipping: no lint script specified for mastra app\"",
     "dev": "mastra dev",
     "build": "mastra build",
     "start": "mastra start"

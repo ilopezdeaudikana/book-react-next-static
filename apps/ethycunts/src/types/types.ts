@@ -63,12 +63,4 @@ export const MapMode = {
 
 export type MapMode = (typeof MapMode)[keyof typeof MapMode]
 
-export const DataStatus = {
-  Idle: 'idle',
-  Loading: 'loading',
-  Error: 'error',
-  Ready: 'ready',
-} as const
-
-export type DataStatus = (typeof DataStatus)[keyof typeof DataStatus]
 

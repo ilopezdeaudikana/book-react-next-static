@@ -2,7 +2,7 @@
 
 
 4. **Filters In D3 Mode**
-   Data use/category filters are only shown in ColourCode mode in [FilterControls.tsx]. Applying those same filters to D3 mode would make the graph mode feel like a first-class exploration tool.
+   Data use/category filters are only shown in Colour Code mode in [FilterControls.tsx]. Applying those same filters to D3 mode would make the graph mode feel like a first-class exploration tool.
 
 5. **Saved Views / Shareable URL State**
    Persist `mapMode`, `layoutMode`, selected uses/categories, active system, and search query into the URL. The Zustand stores already centralize these values in [useFiltersStore.ts] and [useMapStore.ts], so this is a natural addition.

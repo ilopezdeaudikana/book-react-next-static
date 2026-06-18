@@ -7,11 +7,13 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "test": "echo \"Skipping: no test specified for web app\"",
+    "test:e2e": "echo \"Skipping: no e2e tests specified for web app\"",
     "check-types": "tsc --noEmit"
   },
   "dependencies": {
     "@ant-design/icons": "^6.0.0",
-    "@ant-design/nextjs-registry":"^1.3.0",
+    "@ant-design/nextjs-registry": "^1.3.0",
     "@vercel/analytics": "^1.6.1",
     "@vercel/microfrontends": "^2.3.1",
     "@vercel/speed-insights": "^1.3.1",
@@ -23,8 +25,8 @@
   "devDependencies": {
     "@types/node": "^24.1.0",
     "@types/react": "^19.1.9",
-    "commander":"^14.0.3",
-    "fast-uri":"^3.1.0",
+    "commander": "^14.0.3",
+    "fast-uri": "^3.1.0",
     "eslint": "^4.1.1",
     "eslint-config-next": "^0.2.4",
     "sass": "^1.89.2",

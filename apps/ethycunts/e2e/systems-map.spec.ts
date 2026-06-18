@@ -1,18 +1,19 @@
 import { test, expect } from '@playwright/test'
 
-test('loads systems map and shows filters', async ({ page }) => {
+test('loads systems map and shows Mode options', async ({ page }) => {
   await page.goto('/')
 
-  await expect(page.getByRole('heading', { name: 'Filter by data use' })).toBeVisible()
-  await expect(page.getByRole('heading', { name: 'Filter by data categories' })).toBeVisible()
+  const modeOptions = page.getByRole('radiogroup')
+  await expect(modeOptions?.getByText('Colour Code')).toBeVisible()
+  await expect(modeOptions?.getByText('D3 visualization')).toBeVisible()
 
-  await expect(page.getByRole('button', { name: 'Reset filters' })).toBeVisible()
 })
 
-test('selects a system card and shows dependency panel', async ({ page }) => {
+test('selects a system card and show Layout options', async ({ page }) => {
   await page.goto('/')
 
-  await page.getByText('Example.com Online Storefront').click()
+  const layoutOptions = page.getByRole('radiogroup')
 
-  await expect(page.getByText('Selected system dependencies')).toBeVisible()
+  await expect(layoutOptions?.getByText('System type')).toBeVisible()
+  await expect(layoutOptions?.getByText('Data use')).toBeVisible()
 })

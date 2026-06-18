@@ -1,14 +1,19 @@
 import { Select, Radio, Flex } from '@repo/ui'
 import { useEffect } from 'react'
-import { DataStatus, LayoutMode, MapMode } from '../../types/types'
+import { LayoutMode, MapMode } from '../../types/types'
 import { titleCase } from '../../utils/strings'
 import { useSystemsData } from '../../hooks/useSystemsData'
 import { useFiltersStore } from '../../store/useFiltersStore'
 import { useMapStore } from '../../store/useMapStore'
 import { DependencyPanel } from '../dependency-panel/DependencyPanel'
 
-export const FilterControls = () => {
-  const { allUses, allCategories, status } = useSystemsData()
+export const FilterControls = ({
+  isError,
+}: {
+  isPending: boolean
+  isError: boolean
+}) => {
+  const { allUses, allCategories } = useSystemsData()
   const layoutMode = useFiltersStore((state) => state.layoutMode)
   const setLayoutMode = useFiltersStore((state) => state.setLayoutMode)
 
@@ -57,7 +62,7 @@ export const FilterControls = () => {
   const modeItems = [
     {
       value: MapMode.ColourCode,
-      label: 'ColourCode',
+      label: 'Colour Code',
     },
     {
       value: MapMode.D3,
@@ -85,7 +90,7 @@ export const FilterControls = () => {
           onChange={(e) => setMapMode(e.target.value as MapMode)}
           options={modeItems}
           value={mapMode}
-          disabled={status === DataStatus.Error}
+          disabled={isError}
         />
       </div>
       <Flex gap="2rem">
@@ -95,7 +100,7 @@ export const FilterControls = () => {
             onChange={(e) => setLayoutMode(e.target.value as LayoutMode)}
             options={layoutItems}
             value={layoutMode}
-            disabled={status === DataStatus.Error}
+            disabled={isError}
           />
         </div>
         {mapMode === MapMode.ColourCode && (
@@ -105,7 +110,7 @@ export const FilterControls = () => {
               <Select
                 className={selectClassName}
                 value={selectedUses}
-                disabled={status === DataStatus.Error}
+                disabled={isError}
                 onChange={(event) => {
                   clearSelection()
                   setSelectedUses(typeof event === 'string' ? [] : event)
@@ -120,7 +125,7 @@ export const FilterControls = () => {
               <Select
                 value={selectedCategories}
                 className={selectClassName}
-                disabled={status === DataStatus.Error}
+                disabled={isError}
                 onChange={(event) => {
                   clearSelection()
                   setSelectedCategories(typeof event === 'string' ? [] : event)

@@ -14,7 +14,7 @@ describe('DependencyPanel', () => {
     render(
       <DependencyPanel dependencies={dependencies} onDependencyClick={onDependencyClick} />,
     )
-    const menu = screen.getByText('Dependencies (2)')
+    const menu = screen.getByText('System Dependencies (2)')
     await user.click(menu)
     const alpha = screen.getByText('Alpha System')
     await user.click(alpha)

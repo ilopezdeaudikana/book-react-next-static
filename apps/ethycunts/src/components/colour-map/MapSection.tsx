@@ -6,39 +6,49 @@ import { useSystemsData } from '../../hooks/useSystemsData'
 import { useFiltersStore } from '../../store/useFiltersStore'
 import { getDependencies } from '../../utils/getDependencies'
 import { getMapSelectionState } from '../../utils/getMapSelectionState'
-import { DataStatus, type SystemWithMeta } from '../../types/types'
+import { type SystemWithMeta } from '../../types/types'
 import { ErrorMessage } from '../error/error-message'
 import { useMapStore } from '../../store/useMapStore'
 
 type MapSectionProps = {
   containerRef: RefObject<HTMLDivElement | null>
+  isPending: boolean
+  isError: boolean
 }
 
 export const MapSection = ({
-  containerRef
+  containerRef,
+  isPending,
+  isError,
 }: MapSectionProps) => {
+  const layoutMode = useFiltersStore((state) => state.layoutMode)
+  const selectedUses = useFiltersStore((state) => state.selectedUses)
+  const selectedCategories = useFiltersStore(
+    (state) => state.selectedCategories,
+  )
 
-  const layoutMode = useFiltersStore(state => state.layoutMode)
-  const selectedUses = useFiltersStore(state => state.selectedUses)
-  const selectedCategories = useFiltersStore(state => state.selectedCategories)
+  const activeSystem = useMapStore((state) => state.activeSystem)
+  const dependencies = useMapStore((state) => state.dependencies)
+  const setDependencies = useMapStore((state) => state.setDependencies)
+  const setHighlightedKeys = useMapStore((state) => state.setHighlightedKeys)
+  const setConnectedKeys = useMapStore((state) => state.setConnectedKeys)
 
-  const activeSystem = useMapStore(state => state.activeSystem)
-  const dependencies = useMapStore(state => state.dependencies)
-  const setDependencies = useMapStore(state => state.setDependencies)
-  const setHighlightedKeys = useMapStore(state => state.setHighlightedKeys)
-  const setConnectedKeys = useMapStore(state => state.setConnectedKeys)
-
-  const setFilteredFidesKeys = useMapStore(state => state.setFilteredFidesKeys)
-  const { systemsMap, allUses, status } = useSystemsData()
+  const setFilteredFidesKeys = useMapStore(
+    (state) => state.setFilteredFidesKeys,
+  )
+  const { systemsMap, allUses } = useSystemsData()
   const { filteredFidesKeys, groups, groupOrder } = useFilters(
     systemsMap,
     allUses,
     selectedUses,
     selectedCategories,
-    layoutMode
+    layoutMode,
   )
 
-  const { connectedKeys, selectionKeys } = getMapSelectionState(activeSystem, systemsMap)
+  const { connectedKeys, selectionKeys } = getMapSelectionState(
+    activeSystem,
+    systemsMap,
+  )
 
   const activeDependencies = getDependencies(activeSystem, systemsMap)
 
@@ -46,7 +56,9 @@ export const MapSection = ({
     const sameLength = activeDependencies.length === dependencies.length
     const sameKeys =
       sameLength &&
-      activeDependencies.every((dep, index) => dep.fidesKey === dependencies[index]?.fidesKey)
+      activeDependencies.every(
+        (dep, index) => dep.fidesKey === dependencies[index]?.fidesKey,
+      )
     if (!sameKeys) {
       setDependencies(activeDependencies)
     }
@@ -73,21 +85,26 @@ export const MapSection = ({
     }, {})
   }, [groupOrder, groups])
 
-
   return (
     <>
-      {status === DataStatus.Loading && <div>Loading...</div>}
-      {status === DataStatus.Error && <ErrorMessage />}
-      {status !== DataStatus.Error && status !== DataStatus.Loading &&
+      {isPending && <div>Loading...</div>}
+      {isError && <ErrorMessage />}
+      {!isError && !isPending && (
         <section
           className="relative flex flex-1 flex-row justify-evenly gap-6 px-4 pb-4 pt-6 overflow-auto"
           ref={containerRef}
         >
           {groupOrder.map((groupKey) => {
-            return <GroupColumn key={groupKey} groupKey={groupKey} systems={groupedSystems[groupKey]} />
+            return (
+              <GroupColumn
+                key={groupKey}
+                groupKey={groupKey}
+                systems={groupedSystems[groupKey]}
+              />
+            )
           })}
         </section>
-      }
+      )}
     </>
   )
 }

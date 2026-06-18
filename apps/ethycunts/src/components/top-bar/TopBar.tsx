@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { MobileToggles } from './MobileToggles'
 import { FilterControls } from './FilterControls'
 
-export const TopBar = ({ isMobile }: { isMobile: boolean }) => {
+export const TopBar = ({ isMobile, isError }: { isMobile: boolean, isError: boolean  }) => {
   const [filtersOpen, setFiltersOpen] = useState(false)
   const showFilters = !isMobile || filtersOpen
 
@@ -15,7 +15,7 @@ export const TopBar = ({ isMobile }: { isMobile: boolean }) => {
       <div
         className={showFilters ? 'flex flex-1' : 'hidden'}
       >
-        <FilterControls />
+        <FilterControls isError={isError}/>
       </div>
 
     </header>
