@@ -1,6 +1,6 @@
 import { renderHook, waitFor } from '@testing-library/react'
 import { useFilters } from './useFilters'
-import { useSystemsData } from './useSystemsData'
+import { useSystemsDerivedData } from './useSystemsDerivedData'
 import { LayoutMode } from '../types/types'
 import { useDataStore } from '../store/useDataStore'
 
@@ -94,7 +94,7 @@ describe('useFilters', () => {
 
   it('filters systems without changing group layout', async () => {
 
-    const { result: data } = renderHook(() => useSystemsData())
+    const { result: data } = renderHook(() => useSystemsDerivedData())
 
     await waitFor(() => {
       expect(data.current.systemsMap.size).toBeGreaterThan(0)
@@ -119,7 +119,7 @@ describe('useFilters', () => {
   })
 
   it('returns filtered keys for selected categories', async () => {
-    const { result: data } = renderHook(() => useSystemsData())
+    const { result: data } = renderHook(() => useSystemsDerivedData())
     await waitFor(() => {
       expect(data.current.systemsMap.size).toBeGreaterThan(0)
     })

@@ -9,12 +9,10 @@ import { LayoutMode, MapMode } from './types/types'
 import { D3Map } from './components/d3-map/D3Map'
 import { SidePanel } from './components/side-panel/SidePanel'
 import { systemsByUseToGraph, systemsToGraph } from './utils/systemsToD3Graph'
-import { useQuery } from '@tanstack/react-query'
-import { SystemsService } from './services/systems.service'
-import { dedupeSystems } from './utils/dedupeSystems'
+import { useSystems } from './hooks/useSystems'
+import { useDataStore } from './store/useDataStore'
 import { addCategoriesAndUses } from './utils/addCategoriesAndUses'
 import { createUsedByMap } from './utils/createUsedByMap'
-import { useDataStore } from './store/useDataStore'
 
 function App() {
   const containerRef = useRef<HTMLDivElement | null>(null)
@@ -27,27 +25,7 @@ function App() {
 
   const setDerivedState = useDataStore((state) => state.setDerivedState)
 
-  const { data: systems, isPending, isError } = useQuery({
-    queryKey: ['systems'],
-    queryFn: SystemsService.fetchSystems,
-    select: (data) => {
-      const systems = dedupeSystems(data)
-      const { systemsWithMeta, allUses, allCategories } =
-        addCategoriesAndUses(systems)
-      const systemsMap = new Map(
-        systemsWithMeta.map((system) => [system.fidesKey, system]),
-      )
-      const usedByMap = createUsedByMap(systems)
-
-      setDerivedState({
-        systemsMap,
-        allCategories,
-        usedByMap,
-        allUses,
-      })
-      return systems
-    },
-  })
+  const { systems, isPending, isError } = useSystems()
 
   const graphData = useMemo(() => {
     if (!systems) return { nodes: [], edges: [] }
@@ -77,6 +55,24 @@ function App() {
     return () => media.removeEventListener('change', apply)
   }, [])
 
+  useEffect(() => {
+    if (!isPending && !isError && systems?.length) {
+      const { systemsWithMeta, allUses, allCategories } =
+        addCategoriesAndUses(systems)
+      const systemsMap = new Map(
+        systemsWithMeta.map((system) => [system.fidesKey, system]),
+      )
+      const usedByMap = createUsedByMap(systems)
+
+      setDerivedState({
+        systemsMap,
+        allCategories,
+        usedByMap,
+        allUses,
+      })
+    }
+  }, [isPending, isError])
+
   return (
     <ErrorBoundary
       fallback={<Typography variant="text">Unexpected error</Typography>}
@@ -86,10 +82,14 @@ function App() {
 
         <div className="flex flex-col flex-1 gap-4">
           <div className="flex flex-1 flex-col items-stretch">
-            <TopBar isMobile={isMobile} isError={isError}/>
+            <TopBar isMobile={isMobile} isError={isError} />
 
             {mapMode === MapMode.ColourCode && (
-              <MapSection containerRef={containerRef} isPending={isPending} isError={isError} />
+              <MapSection
+                containerRef={containerRef}
+                isPending={isPending}
+                isError={isError}
+              />
             )}
             {mapMode === MapMode.D3 && (
               <div className={mapClass()}>

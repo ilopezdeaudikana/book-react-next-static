@@ -2,7 +2,7 @@ import type { RefObject } from 'react'
 import { useEffect, useMemo } from 'react'
 import { GroupColumn } from './GroupColumn'
 import { useFilters } from '../../hooks/useFilters'
-import { useSystemsData } from '../../hooks/useSystemsData'
+import { useSystemsDerivedData } from '../../hooks/useSystemsDerivedData'
 import { useFiltersStore } from '../../store/useFiltersStore'
 import { getDependencies } from '../../utils/getDependencies'
 import { getMapSelectionState } from '../../utils/getMapSelectionState'
@@ -36,7 +36,7 @@ export const MapSection = ({
   const setFilteredFidesKeys = useMapStore(
     (state) => state.setFilteredFidesKeys,
   )
-  const { systemsMap, allUses } = useSystemsData()
+  const { systemsMap, allUses } = useSystemsDerivedData()
   const { filteredFidesKeys, groups, groupOrder } = useFilters(
     systemsMap,
     allUses,

@@ -3,7 +3,7 @@ import { colorForGroup } from '../../utils/colors'
 import type { InternalGraphData } from '../../types/d3-types'
 import { useMapStore } from '../../store/useMapStore'
 import { useState, useEffect } from 'react'
-import { useSystemsData } from '../../hooks/useSystemsData'
+import { useSystemsDerivedData } from '../../hooks/useSystemsDerivedData'
 import { useFiltersStore } from '../../store/useFiltersStore'
 import { LayoutMode } from '../../types/types'
 import { leafCategory, refineTitle, titleCase } from '../../utils/strings'
@@ -18,7 +18,7 @@ export const DetailsPanel = ({ nodes, onClosePanel }: DetailsPanelProps) => {
   const selectSystem = useMapStore((state) => state.selectSystem)
   const layoutMode = useFiltersStore((state) => state.layoutMode)
   
-  const { systemsMap, usedByMap } = useSystemsData()
+  const { systemsMap, usedByMap } = useSystemsDerivedData()
 
   const [isOpen, setIsOpen] = useState(true)
 

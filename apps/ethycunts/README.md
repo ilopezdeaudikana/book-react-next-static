@@ -54,7 +54,7 @@ A prototype that renders an interactive systems map from a JSON dataset, with fi
 - D3
 
 **Design Choices**
-- `useSystemsData` fetches `sample_data.json`; tests mock fetch or import directly from the data folder.
+- `useSystemsDerivedData` fetches `sample_data.json`; tests mock fetch or import directly from the data folder.
 - Layout groups are derived from the full dataset, so filtering doesn’t reorder columns.
 - Dependency navigation links scroll to specific cards; if the page doesn’t overflow, those links have no effect.
 - Tailwind utilities keep component styling close to the markup.

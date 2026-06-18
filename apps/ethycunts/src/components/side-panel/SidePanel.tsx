@@ -4,8 +4,8 @@ import { Input } from '@repo/ui'
 import { colorForGroup } from '../../utils/colors'
 import { DetailsPanel } from './DetailsPanel'
 import { useMapStore } from '../../store/useMapStore'
-import { useSystemsData } from '../../hooks/useSystemsData'
 import { refineTitle } from '../../utils/strings'
+import { useSystems } from '../../hooks/useSystems'
 
 interface SidePanelProps {
   graphData: InternalGraphData
@@ -20,12 +20,12 @@ export const SidePanel = ({ graphData }: SidePanelProps) => {
   const activeSystem = useMapStore((state) => state.activeSystem)
   const selectSystem = useMapStore((state) => state.selectSystem)
 
-  const { systems } = useSystemsData()
+  const { systems } = useSystems()
 
   const filteredNodes = useMemo(() => {
     if (!search) return graphData.nodes
     const lower = search.toLowerCase()
-    const filteredSystems = systems.filter(
+    const filteredSystems = systems?.filter(
       (n) =>
         n.name.toLowerCase().includes(lower) ||
         n.fidesKey.toLowerCase().includes(lower) ||  
@@ -36,7 +36,7 @@ export const SidePanel = ({ graphData }: SidePanelProps) => {
           p.dataSubjects.find(item => item.includes(lower))
         )
     ).map(n => n.fidesKey)
-    return graphData.nodes.filter(n => filteredSystems.includes(n.id))
+    return graphData.nodes.filter(n => filteredSystems?.includes(n.id))
   }, [graphData.nodes, systems, search])
 
   const groupedNodes = useMemo(() => {

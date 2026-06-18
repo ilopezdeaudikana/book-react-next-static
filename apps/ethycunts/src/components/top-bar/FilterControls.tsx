@@ -2,7 +2,7 @@ import { Select, Radio, Flex } from '@repo/ui'
 import { useEffect } from 'react'
 import { LayoutMode, MapMode } from '../../types/types'
 import { titleCase } from '../../utils/strings'
-import { useSystemsData } from '../../hooks/useSystemsData'
+import { useSystemsDerivedData } from '../../hooks/useSystemsDerivedData'
 import { useFiltersStore } from '../../store/useFiltersStore'
 import { useMapStore } from '../../store/useMapStore'
 import { DependencyPanel } from '../dependency-panel/DependencyPanel'
@@ -10,10 +10,9 @@ import { DependencyPanel } from '../dependency-panel/DependencyPanel'
 export const FilterControls = ({
   isError,
 }: {
-  isPending: boolean
   isError: boolean
 }) => {
-  const { allUses, allCategories } = useSystemsData()
+  const { allUses, allCategories } = useSystemsDerivedData()
   const layoutMode = useFiltersStore((state) => state.layoutMode)
   const setLayoutMode = useFiltersStore((state) => state.setLayoutMode)
 
