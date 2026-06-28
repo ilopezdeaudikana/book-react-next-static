@@ -1,4 +1,4 @@
-import { Score } from '../../types/models'
+import type { Score } from '../../types/models'
 import scoreReducer, {
   setScore,
 } from './score-slice'

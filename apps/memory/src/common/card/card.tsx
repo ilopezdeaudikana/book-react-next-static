@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import type { Card, State } from '../../types/models'
 import { useDispatch, useSelector } from 'react-redux'
 import styles from './card.module.scss'

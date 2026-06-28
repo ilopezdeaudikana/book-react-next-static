@@ -1,8 +1,8 @@
-import type { IntervalRef } from '../types/models'
+import type { DurationRef, IntervalRef } from '../types/models'
 import { useCallback, useEffect, useRef } from 'react'
 
 export const useInterval = (
-  callback: (ref: unknown) => void,
+  callback: (ref: DurationRef) => void,
   delay: number,
 ) => {
 
