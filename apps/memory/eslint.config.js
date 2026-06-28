@@ -10,7 +10,7 @@ export default defineConfig([
 
   js.configs.recommended,
   ...tseslint.configs.recommended,
-
+  { ignores: ["**/vitest.config.ts"] },
   {
     files: ['**/*.{ts,tsx}'],
     plugins: {
@@ -23,10 +23,9 @@ export default defineConfig([
         ...globals.browser,
       },
       parserOptions: {
-        project: true,
         projectService: {
           // Allows loose config files like vitest.config.ts to parse without throwing errors
-          allowDefaultProject: ['vitest.config.ts', 'eslint.config.js'], 
+          allowDefaultProject: ['vitest.config.ts', 'eslint.config.js', 'setupTests.ts'], 
         },
         tsconfigRootDir: import.meta.dirname, 
       }

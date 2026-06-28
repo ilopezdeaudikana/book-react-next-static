@@ -1,22 +1,22 @@
-import { CardsSlice } from '../store/slices/cards-slice';
+import type { CardsSlice } from '../store/slices/cards-slice'
 
 export interface Action {
-  type: string;
-  payload: any;
+  type: string
+  payload: unknown
 }
 
 export interface Card {
-  id: number;
-  value: number;
+  id: number
+  value: number
 }
 
 export interface User {
-  id: number;
-  name: string;
+  id: number
+  name: string
 }
 
 export interface Score {
-  value: number;
+  value: number
 }
 
 
@@ -27,9 +27,9 @@ export interface State {
 }
 
 export interface IntervalRef {
-  current: ReturnType<typeof setInterval> | null;
+  current: ReturnType<typeof setInterval> | null
 }
 
 export interface DurationRef {
-  current: number;
+  current: number
 }

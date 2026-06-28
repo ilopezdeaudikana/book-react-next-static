@@ -1,4 +1,4 @@
-import { Card } from '../types/models'
+import type { Card } from '../types/models'
 
 export const getCards = (): Card[] => {
   const numbers: number[] = [...Array(60)].map(() =>

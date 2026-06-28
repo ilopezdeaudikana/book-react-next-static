@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { State } from '../types/models'
+import type { State } from '../types/models'
 import { resetVisibleCards, toggleAnimation } from '../store/slices/cards-slice'
 
 export const usePairs = () => {

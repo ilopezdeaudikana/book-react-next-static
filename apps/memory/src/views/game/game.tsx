@@ -1,41 +1,45 @@
-import { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { usePairs, useScore } from '../../hooks';
-import { Grid } from '../../common/grid/grid';
-import { State } from '../../types/models';
-import { getCards } from '../../utils/random-cards';
-import { resetCards, setCards } from '../../store/slices/cards-slice';
+import { useState, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import { usePairs, useScore } from '../../hooks'
+import { Grid } from '../../common/grid/grid'
+import type { State } from '../../types/models'
+import { getCards } from '../../utils/random-cards'
+import { resetCards, setCards } from '../../store/slices/cards-slice'
 
 export const Game = () => {
-  const navigate = useNavigate();
-  const [newGame, setNewGame] = useState(false);
-  const dispatch = useDispatch();
-  const { list } = useSelector((state: State) => state.cards);
-  const { name } = useSelector((state: State) => state.user);
-
-  if (!name) {
-    navigate('/');
-  }
+  const navigate = useNavigate()
+  const [newGame, setNewGame] = useState(false)
+  const dispatch = useDispatch()
+  const { list } = useSelector((state: State) => state.cards)
+  const { name } = useSelector((state: State) => state.user)
 
   useEffect(() => {
-    const pairedCards = getCards();
-    dispatch(setCards(pairedCards));
-  }, [dispatch, newGame]);
+    if (!name) {
+      navigate('/')
+    }
+  }, [name, navigate])
 
-  usePairs();
+  useEffect(() => {
+    const pairedCards = getCards()
+    dispatch(setCards(pairedCards))
+  }, [dispatch, newGame])
 
-  useScore();
+  usePairs()
+
+  useScore()
 
   const restart = () => {
-    dispatch(resetCards());
-    setNewGame(!newGame);
-  };
+    dispatch(resetCards())
+    setNewGame(!newGame)
+  }
 
   return (
-    <div  className='page' style={{ paddingTop: '16px'}}>
-      <button className='btn' onClick={restart}>New Game</button>
+    <div className="page" style={{ paddingTop: '16px' }}>
+      <button className="btn" onClick={restart}>
+        New Game
+      </button>
       {list.length === 0 ? <div>...Loading</div> : <Grid list={list} />}
     </div>
-  );
-};
+  )
+}

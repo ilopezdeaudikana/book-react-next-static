@@ -1,29 +1,29 @@
-import { IntervalRef } from '../types/models';
-import { useCallback, useEffect, useRef } from 'react';
+import type { IntervalRef } from '../types/models'
+import { useCallback, useEffect, useRef } from 'react'
 
 export const useInterval = (
-  callback: Function,
+  callback: (ref: unknown) => void,
   delay: number,
 ) => {
- 
-  const durationIntervalRef: IntervalRef = useRef(null);
 
-  const durationRef = useRef(0);
+  const durationIntervalRef: IntervalRef = useRef(null)
+
+  const durationRef = useRef(0)
 
   const handler = useCallback(() => {
-    callback(durationRef);
-  }, [callback, durationRef]);
+    callback(durationRef)
+  }, [callback, durationRef])
 
   useEffect(() => {
     const durationInterval: ReturnType<typeof setInterval> = setInterval(
       handler,
       delay
-    );
-    durationIntervalRef.current = durationInterval;
+    )
+    durationIntervalRef.current = durationInterval
     return () => {
-      clearInterval(durationInterval);
-    };
-  }, [delay, handler]);
+      clearInterval(durationInterval)
+    }
+  }, [delay, handler])
 
-  return [durationIntervalRef, durationRef];
-};
+  return [durationIntervalRef, durationRef]
+}

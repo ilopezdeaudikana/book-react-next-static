@@ -1,6 +1,6 @@
-import { PayloadAction, createSlice } from '@reduxjs/toolkit'
+import { type PayloadAction, createSlice } from '@reduxjs/toolkit'
 
-import { Card } from '../../types/models'
+import type { Card } from '../../types/models'
 interface SelectedCard {
   id: number
   value: number

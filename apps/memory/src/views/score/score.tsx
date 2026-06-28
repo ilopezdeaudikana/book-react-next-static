@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux'
-import { State } from '../../types/models'
+import type { State } from '../../types/models'
 import { useNavigate } from 'react-router-dom'
 import styles from './score.module.scss'
 

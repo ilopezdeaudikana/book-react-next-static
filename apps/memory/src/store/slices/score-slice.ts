@@ -1,5 +1,5 @@
-import { PayloadAction, createSlice } from '@reduxjs/toolkit'
-import { Score } from '../../types/models'
+import { type PayloadAction, createSlice } from '@reduxjs/toolkit'
+import type { Score } from '../../types/models'
 
 export const scoreSlice = createSlice({
   name: 'memory/score',
