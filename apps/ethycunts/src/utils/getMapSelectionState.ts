@@ -13,5 +13,5 @@ export const getMapSelectionState = (
     : new Set<string>()
 
   return { connectedKeys, selectionKeys }
-};
+}
 

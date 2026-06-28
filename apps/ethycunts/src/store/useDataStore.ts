@@ -15,7 +15,7 @@ type DataState = {
   }) => void
 }
 
-export const useDataStore = create<DataState>((set, _) => ({
+export const useDataStore = create<DataState>((set) => ({
   systemsMap: new Map(),
   usedByMap: new Map(),
   allUses: [],

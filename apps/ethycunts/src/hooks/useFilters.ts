@@ -15,7 +15,7 @@ export const useFilters = (
   layoutMode: LayoutModeType,
 ): FiltersState => {
 
-  const filteredSystems = Array.from(systems).filter(([_, system]) => {
+  const filteredSystems = Array.from(systems).filter(([, system]) => {
     const useMatch =
       selectedUses.length === 0 || system.uses.some((use) => selectedUses.includes(use))
     const categoryMatch =
@@ -25,7 +25,7 @@ export const useFilters = (
   })
 
   const filteredFidesKeys = new Set(filteredSystems.reduce<string[]>(
-    (acc, [_,system]) => {
+    (acc, [,system]) => {
     acc.push(system.fidesKey)
     return acc
     }

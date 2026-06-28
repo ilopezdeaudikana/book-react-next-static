@@ -13,30 +13,35 @@ interface SidePanelProps {
 
 export const SidePanel = ({ graphData }: SidePanelProps) => {
   const [search, setSearch] = useState('')
-  const [isDetailOpen, setIsDetailOpen] = useState(false)
 
   const itemRefs = useRef<Map<string, HTMLDivElement>>(new Map())
 
   const activeSystem = useMapStore((state) => state.activeSystem)
   const selectSystem = useMapStore((state) => state.selectSystem)
+  const setIsDetailsPanelOpen = useMapStore((state) => state.setIsDetailsPanelOpen)
+  const isDetailsPanelOpen = useMapStore((state) => state.isDetailsPanelOpen)
 
   const { systems } = useSystems()
 
   const filteredNodes = useMemo(() => {
     if (!search) return graphData.nodes
     const lower = search.toLowerCase()
-    const filteredSystems = systems?.filter(
-      (n) =>
-        n.name.toLowerCase().includes(lower) ||
-        n.fidesKey.toLowerCase().includes(lower) ||  
-        n.description.toLowerCase().includes(lower) ||
-        n.privacyDeclarations.find(p => p.name.toLowerCase().includes(lower) ||
-          p.dataUse.toLowerCase().includes(lower) ||
-          p.dataCategories.find(item => item.includes(lower)) ||
-          p.dataSubjects.find(item => item.includes(lower))
-        )
-    ).map(n => n.fidesKey)
-    return graphData.nodes.filter(n => filteredSystems?.includes(n.id))
+    const filteredSystems = systems
+      ?.filter(
+        (n) =>
+          n.name.toLowerCase().includes(lower) ||
+          n.fidesKey.toLowerCase().includes(lower) ||
+          n.description.toLowerCase().includes(lower) ||
+          n.privacyDeclarations.find(
+            (p) =>
+              p.name.toLowerCase().includes(lower) ||
+              p.dataUse.toLowerCase().includes(lower) ||
+              p.dataCategories.find((item) => item.includes(lower)) ||
+              p.dataSubjects.find((item) => item.includes(lower)),
+          ),
+      )
+      .map((n) => n.fidesKey)
+    return graphData.nodes.filter((n) => filteredSystems?.includes(n.id))
   }, [graphData.nodes, systems, search])
 
   const groupedNodes = useMemo(() => {
@@ -49,6 +54,11 @@ export const SidePanel = ({ graphData }: SidePanelProps) => {
     return groups
   }, [filteredNodes])
 
+  const handleClickNode = (id: string) => {
+    selectSystem(id)
+    setIsDetailsPanelOpen(true)
+  }
+
   useEffect(() => {
     if (activeSystem) {
       const el = itemRefs.current.get(activeSystem)
@@ -56,15 +66,16 @@ export const SidePanel = ({ graphData }: SidePanelProps) => {
     }
   }, [activeSystem])
 
-
   return (
     <div className="flex flex-col h-full w-full overflow-auto">
       <div className="p-4 flex flex-col gap-6">
-        <DetailsPanel nodes={graphData.nodes} onClosePanel={(isOpen: boolean) => setIsDetailOpen(isOpen)}/>
-        {/* Full scrollable list */}
-        {!isDetailOpen && (
+        <DetailsPanel
+          activeSystem={activeSystem}
+          nodes={graphData.nodes}
+        />
+        {!isDetailsPanelOpen && (
           <div>
-            <Input value={search} onChange={(e) => setSearch(e.target.value)}/>
+            <Input value={search} onChange={(e) => setSearch(e.target.value)} />
             <h3 className="mt-4 text-sm font-semibold text-foreground/80 flex items-center justify-between">
               <span>{activeSystem ? 'All Systems' : 'System Inventory'}</span>
               <span className="text-[10px]">{filteredNodes.length}</span>
@@ -78,7 +89,7 @@ export const SidePanel = ({ graphData }: SidePanelProps) => {
                       className="w-2 h-2 rounded-full"
                       style={{ backgroundColor: colorForGroup(group) }}
                     />
-                    { refineTitle(group)}
+                    {refineTitle(group)}
                   </h4>
                   <div className="space-y-1">
                     {nodes.map((node) => (
@@ -88,7 +99,7 @@ export const SidePanel = ({ graphData }: SidePanelProps) => {
                           if (el) itemRefs.current.set(node.id, el)
                           else itemRefs.current.delete(node.id)
                         }}
-                        onClick={() => selectSystem(node.id)}
+                        onClick={() => handleClickNode(node.id)}
                         className={`
                           group flex flex-col p-1 rounded-lg cursor-pointer transition-all duration-150 border
                           ${

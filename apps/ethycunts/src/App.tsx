@@ -71,7 +71,7 @@ function App() {
         allUses,
       })
     }
-  }, [isPending, isError])
+  }, [isPending, isError, setDerivedState, systems])
 
   return (
     <ErrorBoundary

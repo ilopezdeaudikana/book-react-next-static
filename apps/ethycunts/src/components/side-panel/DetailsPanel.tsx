@@ -2,7 +2,6 @@ import { Button } from '@repo/ui'
 import { colorForGroup } from '../../utils/colors'
 import type { InternalGraphData } from '../../types/d3-types'
 import { useMapStore } from '../../store/useMapStore'
-import { useState, useEffect } from 'react'
 import { useSystemsDerivedData } from '../../hooks/useSystemsDerivedData'
 import { useFiltersStore } from '../../store/useFiltersStore'
 import { LayoutMode } from '../../types/types'
@@ -10,17 +9,19 @@ import { leafCategory, refineTitle, titleCase } from '../../utils/strings'
 
 interface DetailsPanelProps {
   nodes: InternalGraphData['nodes']
-  onClosePanel: (isOpen: boolean) => void
+  activeSystem: string | null
 }
 
-export const DetailsPanel = ({ nodes, onClosePanel }: DetailsPanelProps) => {
-  const activeSystem = useMapStore((state) => state.activeSystem)
+export const DetailsPanel = ({ nodes, activeSystem }: DetailsPanelProps) => {
   const selectSystem = useMapStore((state) => state.selectSystem)
   const layoutMode = useFiltersStore((state) => state.layoutMode)
-  
-  const { systemsMap, usedByMap } = useSystemsDerivedData()
 
-  const [isOpen, setIsOpen] = useState(true)
+  const setIsDetailsPanelOpen = useMapStore(
+    (state) => state.setIsDetailsPanelOpen,
+  )
+  const isDetailsPanelOpen = useMapStore((state) => state.isDetailsPanelOpen)
+
+  const { systemsMap, usedByMap } = useSystemsDerivedData()
 
   const mapKeys = Array.from(systemsMap.keys())
 
@@ -31,11 +32,13 @@ export const DetailsPanel = ({ nodes, onClosePanel }: DetailsPanelProps) => {
   const usedBy = usedByMap.get(normalizedKey ?? '')
 
   const closePanel = () => {
-    setIsOpen(false)
-    onClosePanel(false)
+    setIsDetailsPanelOpen(false)
   }
 
-  const getDependencyNode = (nodes: InternalGraphData['nodes'], key: string) => {
+  const getDependencyNode = (
+    nodes: InternalGraphData['nodes'],
+    key: string,
+  ) => {
     if (layoutMode === LayoutMode.DataUse) {
       return nodes.find((n) => n.id.includes(key))
     } else {
@@ -43,16 +46,9 @@ export const DetailsPanel = ({ nodes, onClosePanel }: DetailsPanelProps) => {
     }
   }
 
-  useEffect(() => {
-    if (!isOpen && activeSystem) {
-      setIsOpen(true)
-    }
-    onClosePanel(!!activeSystem)
-  }, [activeSystem])
-
   return (
     <>
-      {selectedSystem && isOpen && (
+      {selectedSystem && isDetailsPanelOpen && (
         <div className="bg-gray-200/50 rounded-xl p-5">
           <div className="flex items-start justify-between mb-3">
             <div className="flex-1 min-w-0 pr-2">
@@ -98,7 +94,7 @@ export const DetailsPanel = ({ nodes, onClosePanel }: DetailsPanelProps) => {
                         Data Use
                       </span>
                       <span className="font-mono text-foreground break-all">
-                        { titleCase(refineTitle(decl.dataUse)) }
+                        {titleCase(refineTitle(decl.dataUse))}
                       </span>
 
                       <span className="text-muted-foreground font-medium">
@@ -110,7 +106,7 @@ export const DetailsPanel = ({ nodes, onClosePanel }: DetailsPanelProps) => {
                             key={cat}
                             className="bg-secondary/60 text-foreground/80 px-1.5 py-0.5 rounded font-mono truncate"
                           >
-                            { leafCategory(cat) }
+                            {leafCategory(cat)}
                           </span>
                         ))}
                       </div>
@@ -166,7 +162,7 @@ export const DetailsPanel = ({ nodes, onClosePanel }: DetailsPanelProps) => {
           )}
 
           {/* Used by */}
-            {usedBy && usedBy.length > 0 && (
+          {usedBy && usedBy.length > 0 && (
             <div className="mt-5">
               <h4 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-3">
                 Used By ({usedBy.length})

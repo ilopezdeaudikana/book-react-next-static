@@ -4,8 +4,8 @@ import type { SystemWithMeta } from '../types/types'
 import sample from '../data/sample_data.json'
 import { toCamel } from './strings'
 
-const transformObject = (obj: Record<string, any>) => {
-  return Object.keys(obj).reduce<Record<string, any>>((result, current) => {
+const transformObject = (obj: Record<string, unknown>) => {
+  return Object.keys(obj).reduce<Record<string, unknown>>((result, current) => {
     result[toCamel(current)] = obj[current as keyof typeof obj]
     return result
   }, {})
@@ -18,7 +18,7 @@ describe('getMapSelectionState', () => {
     ],
     [
       'sys-2',
-      {...transformObject(sample[1]), systemDependencies: [] as any } as SystemWithMeta
+      {...transformObject(sample[1]), systemDependencies: [] as string[] } as SystemWithMeta
     ],
   ])
 

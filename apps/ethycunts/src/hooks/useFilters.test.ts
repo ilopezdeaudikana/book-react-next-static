@@ -111,7 +111,7 @@ describe('useFilters', () => {
 
     expect(countInGroups()).toBe(totalSystems)
 
-    const expectedFiltered = Array.from(systemsMap).filter(([_, system]) =>
+    const expectedFiltered = Array.from(systemsMap).filter(([, system]) =>
       system.uses.includes(allUses[0]),
     )
     expect(result.current.filteredFidesKeys.size).toBe(expectedFiltered.length)
@@ -129,10 +129,10 @@ describe('useFilters', () => {
       useFilters(systemsMap, allUses, [], [allCategories[0]], LayoutMode.SystemType),
     )
     const filteredFidesKeys = result.current.filteredFidesKeys
-    const expectedFiltered = Array.from(systemsMap).filter(([_, system]) =>
+    const expectedFiltered = Array.from(systemsMap).filter(([, system]) =>
       system.categories.includes(allCategories[0]),
     )
-    expectedFiltered.forEach(([_, system]) => {
+    expectedFiltered.forEach(([, system]) => {
       expect(filteredFidesKeys.has(system.fidesKey)).toBe(true)
     })
   })

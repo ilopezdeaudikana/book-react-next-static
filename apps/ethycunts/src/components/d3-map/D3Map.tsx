@@ -193,7 +193,7 @@ export const D3Map = ({
     return () => {
       simulation.stop()
     }
-  }, [graphData])
+  }, [graphData, activeSystem, selectSystem])
 
   useEffect(() => {
     if (!nodesRef.current || !linksRef.current) return
