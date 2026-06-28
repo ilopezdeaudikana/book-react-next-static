@@ -11,7 +11,7 @@ const columns: TableColumnsType<RepoVm> = [
     title: 'Name',
     dataIndex: 'linkedName',
     key: 'linkedName',
-    render: (_: any, record: RepoVm) => (
+    render: (_, record: RepoVm) => (
       <Typography variant="link" target="_blank" href={record.url}>
         {record.fullName}
       </Typography>

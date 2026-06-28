@@ -1,6 +1,6 @@
 import { ReposTable } from './repos-table'
 import { SearchInput } from './search-input'
-import type { RepoApiData } from '../../types'
+import type { RepoApiData } from '../types'
 import { Flex, Typography } from '@repo/ui'
 import {
   type ChangeEvent,
@@ -26,13 +26,22 @@ export const Repos = ({
   isPending: boolean
 }) => {
   const [searchTerm, setSearchterm] = useState<string>()
-  const [result, setResult] = useState<RepoApiData>()
   const [selectedRepos, setSelectedRepos] = useState<RepoVm[]>()
 
   const [, startTransition] = useTransition()
 
-  const [debouncedSearchTerm, setDebouncedSearchTerm] = useState<string | undefined>(query)
+  const [debouncedSearchTerm, setDebouncedSearchTerm] = useState<
+    string | undefined
+  >(query)
   const deferredSearch = useDeferredValue(debouncedSearchTerm)
+
+  const result = data
+    ? data
+    : {
+        repos: [],
+        error: 'Please enter a search topic.',
+        verdict: '',
+      }
 
   const timeout = useRef<ReturnType<typeof setTimeout>>(null)
 
@@ -54,33 +63,18 @@ export const Repos = ({
 
   useEffect(() => {
     if (!deferredSearch) {
-      setResult({
-        repos: [],
-        error: 'Please enter a search topic.',
-        verdict: '',
-      })
       return
     }
     if (deferredSearch.trim().length < 4) return
     onQueryChange(deferredSearch)
-    setSelectedRepos(undefined)
-    setResult({
-      repos: [],
-      error: '',
-      verdict: '',
-    })
     navigate(`${location.pathname}?query=${deferredSearch}`)
-  }, [deferredSearch])
+  }, [deferredSearch, location.pathname, navigate, onQueryChange])
 
   useEffect(() => {
-    if (query) setSearchterm(query)
-    if (!data) return
-    setResult(data)
-
     return () => {
       if (timeout.current) clearTimeout(timeout.current)
     }
-  }, [data])
+  }, [])
 
   return (
     <Flex gap="1rem" vertical>

@@ -1,4 +1,3 @@
-'use client'
 import { Input } from '@repo/ui'
 import React, { type ComponentProps } from 'react'
 
