@@ -112,7 +112,7 @@ export const FilterControls = ({
                 disabled={isError}
                 onChange={(event) => {
                   clearSelection()
-                  setSelectedUses(typeof event === 'string' ? [] : event)
+                  setSelectedUses(event as string[])
                   setHasFilters()
                 }}
                 options={dataUseOptions}
