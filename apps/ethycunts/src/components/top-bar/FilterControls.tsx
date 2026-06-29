@@ -127,7 +127,7 @@ export const FilterControls = ({
                 disabled={isError}
                 onChange={(event) => {
                   clearSelection()
-                  setSelectedCategories(typeof event === 'string' ? [] : event)
+                  setSelectedCategories(event as string[])
                   setHasFilters()
                 }}
                 options={categoryOptions}
