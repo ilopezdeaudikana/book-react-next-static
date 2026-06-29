@@ -7,13 +7,12 @@
   "type": "module",
   "license": "MIT",
   "scripts": {
-    "lint": "eslint \"**/*.ts\""
+    "lint": "eslint ."
   },
   "dependencies": {
     "zod": "^4.3.6"
   },
   "devDependencies": {
-    "eslint": "^8.57.0",
     "typescript": "5.5.4"
   }
 }

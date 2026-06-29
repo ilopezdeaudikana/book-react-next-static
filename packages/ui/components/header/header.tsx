@@ -1,6 +1,6 @@
 'use client'
 import { Avatar, Menu, Popover, type MenuProps } from 'antd'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { usePathname } from 'next/navigation'
 import { UserOutlined } from '@ant-design/icons'
 import { Typography } from '../typography'
@@ -31,7 +31,12 @@ export const Header = ({ onNavigate }: HeaderProps) => {
 
   const pathName = usePathname()
 
-  const [current, setCurrent] = useState('playground')
+  const [current, setCurrent] = useState(() => {
+    const path = pathName?.replace('/', '')
+    if (mainPaths.find((item) => item === path) && path !== 'playground') {
+      return path
+    } else return 'playground'
+  })
   const [open, openMenu] = useState(false)
 
   const handleClicks: MenuProps['onClick'] = (e) => {
@@ -43,12 +48,6 @@ export const Header = ({ onNavigate }: HeaderProps) => {
     openMenu((isOpen) => !isOpen)
   }
 
-  useEffect(() => {
-    const path = pathName?.replace('/', '')
-    if (mainPaths.find((item) => item === path) && path !== 'playground') {
-      setCurrent(path)
-    }
-  }, [pathName])
 
   return (
     <div className={styles.header}>

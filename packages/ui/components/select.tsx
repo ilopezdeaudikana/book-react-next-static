@@ -3,9 +3,9 @@ import type { DefaultOptionType } from 'antd/es/select'
 
 export interface SelectProps {
   testId?: string, 
-  value: any
+  value: number | string | string []
   disabled?: boolean, 
-  onChange: ((value: any, option?: DefaultOptionType | DefaultOptionType[] | undefined) => void) | undefined
+  onChange: ((value: number | string | string [], option?: DefaultOptionType | DefaultOptionType[] | undefined) => void) | undefined
   options: DefaultOptionType[],
   className?: string
 }

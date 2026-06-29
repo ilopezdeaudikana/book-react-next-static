@@ -1,7 +1,7 @@
 import type { ComponentProps, ChangeEvent, KeyboardEvent, MouseEvent } from 'react'
 import { Input as AntInput } from 'antd'
 
-export interface InputProps extends Omit<ComponentProps<typeof AntInput>, 'type'> {
+interface InputProps extends Omit<ComponentProps<typeof AntInput>, 'type'> {
   type?: 'search'
   placeholder?: string
   onSearch?: (value: string, event?: ChangeEvent<HTMLInputElement> | MouseEvent<HTMLElement> | KeyboardEvent<HTMLInputElement>) => void

@@ -1,6 +1,6 @@
 'use client'
 import { notification, type NotificationArgsProps } from 'antd'
-import { type ReactNode, useEffect, useRef } from 'react'
+import { type ReactNode, useCallback, useEffect, useRef } from 'react'
 
 interface InfoPanelProps {
   children: ReactNode,
@@ -14,14 +14,14 @@ export const InfoPanel = ({ children, title, placement }: InfoPanelProps) => {
 
   const ref= useRef(true)
   
-  const openNotification = () => {
+  const openNotification = useCallback(() => {
     api.open({
       title,
       description: children,
       placement: placement ?? 'bottomLeft',
       duration: 0,
     })
-  }
+  },[api, title, children, placement])
 
   useEffect(() => {
     if (ref.current) {
@@ -31,7 +31,7 @@ export const InfoPanel = ({ children, title, placement }: InfoPanelProps) => {
     return () => {
       ref.current = false
     }
-  }, [])
+  }, [openNotification])
 
   return (
     <>

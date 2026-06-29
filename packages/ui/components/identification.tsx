@@ -1,5 +1,5 @@
 'use client'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Modal, Input, Flex, Typography } from 'antd'
 
 interface IdentificationProps {
@@ -17,7 +17,7 @@ export const Identification = ({
   open,
   onCancel,
 }: IdentificationProps) => {
-  const [openLocal, setOpen] = useState<boolean>()
+  const [openLocal, setOpen] = useState<boolean>(open ?? true)
   const [localUser, setLocalUser] = useState('')
   const [error, setError] = useState('')
   const [confirmLoading, setConfirmLoading] = useState(false)
@@ -46,9 +46,6 @@ export const Identification = ({
     onCancel?.()
   }
 
-  useEffect(() => {
-    setOpen(open ?? true)
-  }, [open])
 
   return (
     <>

@@ -1,7 +1,7 @@
-import { defineConfig } from 'vitest/config'
+import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import path from 'path'
-import { loadEnv } from 'vite'
+import { loadEnv, PluginOption } from 'vite'
 
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '')
@@ -9,7 +9,7 @@ export default defineConfig(({ mode }) => {
     define: {
       __API_URL__: JSON.stringify(env.API_URL),
     },
-    plugins: [react()] as any,
+    plugins: [react() as PluginOption] ,
     test: {
       globals: true,
       environment: 'jsdom',

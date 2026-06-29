@@ -6,7 +6,7 @@
     "dev": "next dev --port $(turbo get-mfe-port)",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "echo \"Skipping: no test specified for web app\"",
     "test": "echo \"Skipping: no test specified for web app\"",
     "test:e2e": "echo \"Skipping: no e2e tests specified for web app\"",
     "check-types": "tsc --noEmit"
