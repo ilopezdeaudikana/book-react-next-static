@@ -2,12 +2,15 @@ import { useNavigate } from 'react-router-dom'
 import styles from './score.module.scss'
 import { useUser } from '../../store/user.store'
 import { useScore } from '../../store/score.store'
+import { Restart } from '../../common/restart/restart'
+import { useTimer } from '../../store/timer.store'
 
 export const Score = () => {
   const navigate = useNavigate()
   const name = useUser((state) => state.name)
   const value = useScore((state) => state.value)
   const moves = useScore((state) => state.moves)
+  const seconds = useTimer((state) => state.seconds)
 
   if (!name) {
     navigate('/')
@@ -15,14 +18,7 @@ export const Score = () => {
 
   return (
     <div className="page" style={{ paddingTop: '1rem' }}>
-      <button
-        className="btn"
-        onClick={() => {
-          navigate('/game')
-        }}
-      >
-        New Game
-      </button>
+      <Restart />
 
       <div className="container">
         <section className={styles.score}>
@@ -34,6 +30,9 @@ export const Score = () => {
           </div>
           <div data-testid="moves" className={styles.value}>
             Moves: {moves / 2}
+          </div>
+          <div data-testid="seconds" className={styles.value}>
+            Seconds: {seconds}
           </div>
         </section>
       </div>

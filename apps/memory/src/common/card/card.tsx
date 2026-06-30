@@ -1,5 +1,6 @@
 import { useCards } from '../../store/cards.store'
 import { useScore } from '../../store/score.store'
+import { useTimer } from '../../store/timer.store'
 import type { Card } from '../../types/models'
 import styles from './card.module.scss'
 
@@ -11,6 +12,7 @@ export const MemoryCard: React.FC<Card> = ({ id, value }) => {
 
   const moves = useScore((state) => state.moves)
   const setScore = useScore((state) => state.setScore)
+  const startTimer = useTimer((state) => state.startTimer)
 
   const isVisible = visible.find((card: Card) => card.id === id)
   const isPaired = paired.find((card: Card) => card.id === id)
@@ -27,6 +29,7 @@ export const MemoryCard: React.FC<Card> = ({ id, value }) => {
       : baseClass
 
   const onCardSelected = () => {
+    if (moves === 0) startTimer()
     if (isSelected || isAnimationOn) {
       return
     }

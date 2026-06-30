@@ -22,7 +22,3 @@ export interface Score {
 export interface IntervalRef {
   current: ReturnType<typeof setInterval> | null
 }
-
-export interface DurationRef {
-  current: number
-}
