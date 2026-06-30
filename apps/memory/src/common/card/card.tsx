@@ -1,17 +1,21 @@
-import type { Card, State } from '../../types/models'
-import { useDispatch, useSelector } from 'react-redux'
+import { useCards } from '../../store/cards.store'
+import { useScore } from '../../store/score.store'
+import type { Card } from '../../types/models'
 import styles from './card.module.scss'
-import { selectCard } from '../../store/slices/cards-slice'
 
 export const MemoryCard: React.FC<Card> = ({ id, value }) => {
-  const dispatch = useDispatch()
-  const { visible, paired, isAnimationOn } = useSelector(
-    (state: State) => state.cards,
-  )
+  const visible = useCards((state) => state.visible)
+  const paired = useCards((state) => state.paired)
+  const isAnimationOn = useCards((state) => state.isAnimationOn)
+  const selectCard = useCards((state) => state.selectCard)
+
+  const moves = useScore((state) => state.moves)
+  const setScore = useScore((state) => state.setScore)
+
   const isVisible = visible.find((card: Card) => card.id === id)
   const isPaired = paired.find((card: Card) => card.id === id)
 
-  const isSelected = (!isVisible && !isPaired) ? false : true
+  const isSelected = !isVisible && !isPaired ? false : true
 
   const baseClass = styles.card
   const showClass = ` ${styles.show}`
@@ -26,7 +30,8 @@ export const MemoryCard: React.FC<Card> = ({ id, value }) => {
     if (isSelected || isAnimationOn) {
       return
     }
-    dispatch(selectCard({ id, value }))
+    setScore({ moves: moves + 1 })
+    selectCard({ id, value })
   }
 
   return (

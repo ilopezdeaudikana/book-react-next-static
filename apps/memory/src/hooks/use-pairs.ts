@@ -1,19 +1,18 @@
 import { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import type { State } from '../types/models'
-import { resetVisibleCards, toggleAnimation } from '../store/slices/cards-slice'
+import { useCards } from '../store/cards.store'
 
 export const usePairs = () => {
-  const dispatch = useDispatch()
-  const { visible } = useSelector((state: State) => state.cards)
+  const visible = useCards((state) => state.visible)
+  const resetVisibleCards = useCards((state) => state.resetVisibleCards)
+  const toggleAnimation = useCards((state) => state.toggleAnimation)
 
   useEffect(() => {
     if (visible.length === 2 && visible[0].value !== visible[1].value) {
-      dispatch(toggleAnimation(true))
+      toggleAnimation(true)
       const timeout = setTimeout(() => {
-        dispatch(resetVisibleCards())
+        resetVisibleCards()
       }, 600)
       return () => clearInterval(timeout)
     }
-  }, [visible, dispatch])
+  }, [visible, toggleAnimation, resetVisibleCards])
 }

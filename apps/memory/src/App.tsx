@@ -1,11 +1,9 @@
-import { Provider } from "react-redux"
-import { BrowserRouter, Routes, Route } from "react-router-dom"
-import { Game, Score, Home } from "./views"
-import { store } from "./store/store"
-import { Flex, Header, InfoPanel, Typography } from "@repo/ui"
-import { navigateTo } from "@repo/utils"
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { Game, Score, Home } from './views'
+import { Flex, Header, InfoPanel, Typography } from '@repo/ui'
+import { navigateTo } from '@repo/utils'
 
-import "./App.scss"
+import './App.scss'
 
 function App() {
   const handleNavigation = (path: string) => {
@@ -13,7 +11,7 @@ function App() {
   }
 
   return (
-    <Provider store={store}>
+    <>
       <div data-testid="App" className="page">
         <Header onNavigate={handleNavigation} />
         <BrowserRouter basename="/memory">
@@ -38,7 +36,7 @@ function App() {
           </Typography>
         </Flex>
       </InfoPanel>
-    </Provider>
+    </>
   )
 }
 

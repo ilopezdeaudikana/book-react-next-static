@@ -1,13 +1,12 @@
 import { useState, useEffect } from 'react'
-import { useDispatch } from 'react-redux'
 import type { User } from '../../types/models'
 import { useNavigate } from 'react-router-dom'
-import { setUser } from '../../store/slices/user-slice'
+import { useUser } from '../../store/user.store'
 import { Button, Identification } from '@repo/ui'
 
 export const Home = () => {
   const navigate = useNavigate()
-  const dispatch = useDispatch()
+  const setUser = useUser(state => state.setUser)
   const [name, setName] = useState('')
   const [open, setOpen] = useState<boolean | undefined>()
 
@@ -15,7 +14,7 @@ export const Home = () => {
     return new Promise((resolve) => {
       setName(name)
       const user: User = { name, id: Math.random() }
-      dispatch(setUser(user))
+      setUser(user)
       resolve({ id: user.id.toString() })
     })
   }

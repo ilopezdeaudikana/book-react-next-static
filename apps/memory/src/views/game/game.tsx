@@ -1,18 +1,19 @@
 import { useState, useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { usePairs, useScore } from '../../hooks'
+import { usePairs, useGame } from '../../hooks'
 import { Grid } from '../../common/grid/grid'
-import type { State } from '../../types/models'
 import { getCards } from '../../utils/random-cards'
-import { resetCards, setCards } from '../../store/slices/cards-slice'
+import { useCards } from '../../store/cards.store'
+import { useUser } from '../../store/user.store'
 
 export const Game = () => {
   const navigate = useNavigate()
   const [newGame, setNewGame] = useState(false)
-  const dispatch = useDispatch()
-  const { list } = useSelector((state: State) => state.cards)
-  const { name } = useSelector((state: State) => state.user)
+
+  const list = useCards((state) => state.list)
+  const resetCards = useCards((state) => state.resetCards)
+  const setCards = useCards((state) => state.setCards)
+  const name = useUser((state) => state.name)
 
   useEffect(() => {
     if (!name) {
@@ -22,15 +23,15 @@ export const Game = () => {
 
   useEffect(() => {
     const pairedCards = getCards()
-    dispatch(setCards(pairedCards))
-  }, [dispatch, newGame])
+    setCards(pairedCards)
+  }, [setCards])
 
   usePairs()
 
-  useScore()
+  useGame()
 
   const restart = () => {
-    dispatch(resetCards())
+    resetCards()
     setNewGame(!newGame)
   }
 

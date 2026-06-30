@@ -1,3 +1,3 @@
 export * from './use-interval'
 export * from './use-pairs'
-export * from './use-score'
+export * from './use-game'
