@@ -4,6 +4,8 @@
   "private": true,
   "type": "module",
   "dependencies": {
+    "@repo/ui": "workspace:^",
+    "@repo/utils": "workspace:^",
     "@tailwindcss/vite": "4.2.2",
     "antd": "6.3.5",
     "react": "^19.2.0",

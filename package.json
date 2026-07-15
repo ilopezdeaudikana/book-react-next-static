@@ -1,5 +1,6 @@
 {
   "private": true,
+  "preinstall": "npx only-allow pnpm",
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev",
@@ -10,7 +11,7 @@
     "check-types": "tsc --noEmit"
   },
   "dependencies": {
-      "zod": "4.3.6"
+    "zod": "4.3.6"
   },
   "devDependencies": {
     "@testing-library/user-event": "^14.6.1",
@@ -24,9 +25,11 @@
     "web": "^0.0.2"
   },
   "name": "turbo-all",
-  "packageManager": "npm@10.9.3",
-  "workspaces": [
-    "apps/*",
-    "packages/*"
-  ]
+  "devEngines": {
+    "packageManager": {
+      "name": "pnpm",
+      "version": "9.5.0"
+    }
+  },
+  "packageManager": "pnpm@9.5.0"
 }

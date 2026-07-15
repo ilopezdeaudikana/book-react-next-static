@@ -11,7 +11,7 @@ import {
   useTransition,
 } from 'react'
 import { type RepoVm } from '@repo/utils'
-import { useLocation, useNavigate } from 'react-router'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { Suggestions } from './suggestions'
 
 export const Repos = ({
