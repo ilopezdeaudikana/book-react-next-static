@@ -11,7 +11,6 @@ const MASTRA_API_URL = import.meta.env.VITE_PUBLIC_MASTRA_API_URL
 const summarizeByTopic = async (query: string): Promise<RepoApiData> => {
   const cacheKey = `summary:${query}`
   const cachedRecord = await get(cacheKey)
-  console.log('in service', cachedRecord)
 
   if (cachedRecord) {
     const isExpired = Date.now() - cachedRecord.timestamp > MAX_AGE
@@ -67,7 +66,6 @@ const summarizeByTopic = async (query: string): Promise<RepoApiData> => {
 }
 export const useGithubAgentData = (query?: string) => {
 
-  console.log('in hook', query)
   const { data, isPending, error } = useQuery({
     queryKey: ['query', query],
     queryFn: () => summarizeByTopic(query ?? ''),

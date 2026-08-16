@@ -40,7 +40,7 @@ export const Game = () => {
   return (
     <div className="page" style={{ paddingTop: '16px' }}>
       <Restart />
-      <p>Moves: {moves % 2 === 0 ? moves : moves - 1}</p>
+      <p>Moves: {(moves % 2 === 0 ? moves : moves - 1)/2}</p>
       <p>Time: {seconds}s</p>
       <p>Score: {score}</p>
       {list.length === 0 ? <div>...Loading</div> : <Grid list={list} />}
