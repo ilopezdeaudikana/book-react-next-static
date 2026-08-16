@@ -11,5 +11,5 @@ export const githubAgent = new Agent({
     The table cells and headers should be aligned to the left
     Follow the table with a 2-sentence maximum summary.
   `,
-  model: 'groq/llama-3.3-70b-versatile'
+  model: 'openrouter/dots-studio/dots-3-note-preview:free'
 })
